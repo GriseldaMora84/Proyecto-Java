@@ -1,5 +1,5 @@
 package carForRent;
-
+////Nuevos comentarios
 public class CuentaUsuario {
 	private String nombreUsuario;
 	private String password;
