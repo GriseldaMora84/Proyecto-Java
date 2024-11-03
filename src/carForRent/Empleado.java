@@ -3,17 +3,17 @@ package carForRent;
 import java.util.ArrayList;
 
 public class Empleado extends Persona{
-	private int noEmpleado;
+	private long noEmpleado;
 	private ArrayList<Alquiler> listaAlquileres;
 	
 	
-	public Empleado(int noEmpleado, String nombre, String noCelular, String email) {
+	public Empleado(long noEmpleado, String nombre, String noCelular, String email) {
 		super(nombre, noCelular, email);
 		this.noEmpleado=noEmpleado;
 		listaAlquileres=new ArrayList<Alquiler>();
 	}
 	
-	public int getNoEmpleado() {
+	public long getNoEmpleado() {
 		return noEmpleado;
 	}
 	
