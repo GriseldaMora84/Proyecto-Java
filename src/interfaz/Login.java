@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 public class Login extends JDialog {
@@ -13,10 +15,17 @@ public class Login extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
+
+		try {
+			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+			
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		try {
 			Login dialog = new Login();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -26,9 +35,6 @@ public class Login extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public Login() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
