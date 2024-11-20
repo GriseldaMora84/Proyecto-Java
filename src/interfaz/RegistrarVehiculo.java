@@ -34,10 +34,19 @@ public class RegistrarVehiculo extends JDialog {
 	private JTextField txtPotenica;
 	private JTextField txtTipo;
 	private JTextField txtID;
+	private JTextField txtDimMaletero;
+	private JTextField txtDimMaleteroVan;
+	private JTextField txtTipoAsiento;
+	private JTextField txtCapRemolque;
+	private JTextField txtTipoAcceso;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 	
 	public RegistrarVehiculo() {
 		setTitle("Registrar información del vehículo");
-		setBounds(100, 100, 450, 380);
+		setBounds(100, 100, 450, 592);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(150, 241, 232));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -210,6 +219,143 @@ public class RegistrarVehiculo extends JDialog {
 				txtID.setColumns(10);
 				txtID.setBounds(125, 16, 131, 19);
 				contentPanel.add(txtID);
+			}
+			
+			JPanel panelCompacto = new JPanel();
+			panelCompacto.setBackground(new Color(150, 241, 232));
+			panelCompacto.setBounds(21, 327, 405, 54);
+			contentPanel.add(panelCompacto);
+			panelCompacto.setLayout(null);
+			{
+				JLabel lblDimMaletero = new JLabel("Dimensión del maletero:");
+				lblDimMaletero.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				lblDimMaletero.setBounds(10, 10, 165, 17);
+				panelCompacto.add(lblDimMaletero);
+			}
+			{
+				txtDimMaletero = new JTextField();
+				txtDimMaletero.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				txtDimMaletero.setColumns(10);
+				txtDimMaletero.setBounds(179, 11, 131, 19);
+				panelCompacto.add(txtDimMaletero);
+			}
+			{
+				JPanel panelVan = new JPanel();
+				panelVan.setBounds(0, 0, 384, 114);
+				panelCompacto.add(panelVan);
+				panelVan.setLayout(null);
+				panelVan.setBackground(new Color(150, 241, 232));
+				{
+					JLabel lblDimMaletero = new JLabel("Dimensión del maletero:");
+					lblDimMaletero.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					lblDimMaletero.setBounds(10, 10, 165, 17);
+					panelVan.add(lblDimMaletero);
+				}
+				{
+					txtDimMaleteroVan = new JTextField();
+					txtDimMaleteroVan.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					txtDimMaleteroVan.setColumns(10);
+					txtDimMaleteroVan.setBounds(179, 11, 131, 19);
+					panelVan.add(txtDimMaleteroVan);
+				}
+				{
+					JLabel lblTipoAsiento = new JLabel("Tipo de asientos:");
+					lblTipoAsiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					lblTipoAsiento.setBounds(10, 37, 165, 17);
+					panelVan.add(lblTipoAsiento);
+				}
+				{
+					txtTipoAsiento = new JTextField();
+					txtTipoAsiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					txtTipoAsiento.setColumns(10);
+					txtTipoAsiento.setBounds(179, 38, 131, 19);
+					panelVan.add(txtTipoAsiento);
+				}
+				{
+					JLabel lblCapRemolque = new JLabel("Capacidad de remolque:");
+					lblCapRemolque.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					lblCapRemolque.setBounds(10, 64, 165, 17);
+					panelVan.add(lblCapRemolque);
+				}
+				{
+					txtCapRemolque = new JTextField();
+					txtCapRemolque.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					txtCapRemolque.setColumns(10);
+					txtCapRemolque.setBounds(179, 65, 131, 19);
+					panelVan.add(txtCapRemolque);
+				}
+				{
+					JLabel lblTipoAcceso = new JLabel("Tipo de acceso:");
+					lblTipoAcceso.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					lblTipoAcceso.setBounds(10, 91, 165, 17);
+					panelVan.add(lblTipoAcceso);
+				}
+				{
+					txtTipoAcceso = new JTextField();
+					txtTipoAcceso.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					txtTipoAcceso.setColumns(10);
+					txtTipoAcceso.setBounds(179, 92, 131, 19);
+					panelVan.add(txtTipoAcceso);
+				}
+			}
+			{
+				JPanel panelPickUp = new JPanel();
+				panelPickUp.setLayout(null);
+				panelPickUp.setBackground(new Color(150, 241, 232));
+				panelPickUp.setBounds(21, 410, 364, 114);
+				contentPanel.add(panelPickUp);
+				{
+					JLabel lblDimMaletero = new JLabel("Dimensión del maletero:");
+					lblDimMaletero.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					lblDimMaletero.setBounds(10, 10, 165, 17);
+					panelPickUp.add(lblDimMaletero);
+				}
+				{
+					textField = new JTextField();
+					textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					textField.setColumns(10);
+					textField.setBounds(179, 11, 131, 19);
+					panelPickUp.add(textField);
+				}
+				{
+					JLabel lblTipoAsiento = new JLabel("Tipo de asientos:");
+					lblTipoAsiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					lblTipoAsiento.setBounds(10, 37, 165, 17);
+					panelPickUp.add(lblTipoAsiento);
+				}
+				{
+					textField_1 = new JTextField();
+					textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					textField_1.setColumns(10);
+					textField_1.setBounds(179, 38, 131, 19);
+					panelPickUp.add(textField_1);
+				}
+				{
+					JLabel lblCapRemolque = new JLabel("Capacidad de remolque:");
+					lblCapRemolque.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					lblCapRemolque.setBounds(10, 64, 165, 17);
+					panelPickUp.add(lblCapRemolque);
+				}
+				{
+					textField_2 = new JTextField();
+					textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					textField_2.setColumns(10);
+					textField_2.setBounds(179, 65, 131, 19);
+					panelPickUp.add(textField_2);
+				}
+				{
+					JLabel lblTipoAcceso = new JLabel("Tipo de acceso:");
+					lblTipoAcceso.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					lblTipoAcceso.setBounds(10, 91, 165, 17);
+					panelPickUp.add(lblTipoAcceso);
+				}
+				{
+					textField_3 = new JTextField();
+					textField_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					textField_3.setColumns(10);
+					textField_3.setBounds(179, 92, 131, 19);
+					panelPickUp.add(textField_3);
+				}
 			}
 			panelCBmarcaNueva.setVisible(false);
 		}
