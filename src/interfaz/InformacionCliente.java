@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 
-public class RegistrarCliente extends JDialog {
+public class InformacionCliente extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
@@ -23,7 +23,7 @@ public class RegistrarCliente extends JDialog {
 	private JTextField txtNoLic;
 	private JTextField txtExpLic;
 
-	public RegistrarCliente() {
+	public InformacionCliente() {
 		setTitle("Registrar información del cliente");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
