@@ -6,7 +6,6 @@ public class Empleado extends Persona{
 	private long noEmpleado; 
 	private ArrayList<Alquiler> listaAlquileres;
 	
-	
 	public Empleado(long noEmpleado, String nombre, String noCelular, String email) {
 		super(nombre, noCelular, email);
 		this.noEmpleado=noEmpleado;
@@ -25,5 +24,4 @@ public class Empleado extends Persona{
 	public ArrayList<Alquiler> getListaAlquileres() {
 		return listaAlquileres;
 	}
-
 }

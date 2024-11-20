@@ -1,5 +1,6 @@
 package interfaz;
 
+import java.awt.EventQueue;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -25,6 +26,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Login extends JDialog {
 
@@ -157,9 +164,23 @@ public class Login extends JDialog {
 		if(usuario.equals("")|| clave.equals("")) {
 			JOptionPane.showMessageDialog(contentPanel, "Favor de ingresar el usuario o contraseña");
 		}else {
-			dispose();
+			try {
+				Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+				Statement comando=conexion.createStatement();
+				ResultSet registroUsuario = comando.executeQuery("select nombreUsuario,contrasenia from cuentausuario where codigo="+usuario);
+				if (registroUsuario.next()==true) {
+					JOptionPane.showMessageDialog(contentPanel, "Encontrado");
+				} else {
+					JOptionPane.showMessageDialog(contentPanel, "NoEncontrado");
+				}
+				conexion.close();
+			} catch(SQLException ex){
+				setTitle(ex.toString());
+			}
+			
+			/*dispose();
 			Menu menu=new Menu(usuario);
-			menu.setVisible(true);
+			menu.setVisible(true);*/
 			/*if(Control.verificarCliente(usuario)!=null && clave.equals("1234")) {
 				Control.setClienteActual(usuario);//usuario es curp
 				
@@ -169,7 +190,7 @@ public class Login extends JDialog {
 				MenuPrincipal menuPrincipal=new MenuPrincipal(usuario);
 				menuPrincipal.setVisible(true);
 			}
-			else {
+			else {numero = (int) (Math.random() * 1000) + 1;
 				JOptionPane.showMessageDialog(contentPanel, "Usuario o contraseña incorrecta");
 			}*/
 		}
