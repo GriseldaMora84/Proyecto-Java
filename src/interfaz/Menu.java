@@ -27,11 +27,11 @@ public class Menu extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtNoEmpleado;
+	private JTextField txtUsuario;
+	private JTextField txtNombre;
 
-public Menu(String usuario) {
+public Menu() {
 		setTitle("Menú");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 776, 670);
@@ -58,6 +58,7 @@ public Menu(String usuario) {
 		JMenuItem mntmRegistrarV = new JMenuItem("Registrar vehículo");
 		mntmRegistrarV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				registrarVehiculo();
 				
 			}
 		});
@@ -67,10 +68,20 @@ public Menu(String usuario) {
 		JMenuItem mntmConsultar = new JMenuItem("Consultar");
 		mntmConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				consultarInventario();
 			}
 		});
 		mntmConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuInventario.add(mntmConsultar);
+		
+		JMenuItem mntmModificar = new JMenuItem("Modificar");
+		mntmModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modificarInventario();
+			}
+		});
+		mntmModificar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		menuInventario.add(mntmModificar);
 		
 		JMenu menuAlquiler = new JMenu("Alquiler");
 		menuAlquiler.setForeground(Color.BLACK);
@@ -81,7 +92,8 @@ public Menu(String usuario) {
 		JMenuItem mntmCotizar = new JMenuItem("Cotizar");
 		mntmCotizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				}
+				cotizar();
+			}
 		});
 		mntmCotizar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mntmCotizar.setBackground(new Color(240, 219, 231));
@@ -90,10 +102,8 @@ public Menu(String usuario) {
 		JMenuItem mntmConsultarHistorial = new JMenuItem("Consultar historial");
 		mntmConsultarHistorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				consultarHistorial();
 			}
-
-			
 		});
 		mntmConsultarHistorial.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuAlquiler.add(mntmConsultarHistorial);
@@ -106,10 +116,20 @@ public Menu(String usuario) {
 		mbOpciones.add(menuCliente);
 		
 		JMenuItem mntmRegistrarCliente = new JMenuItem("Registrar cliente");
+		mntmRegistrarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				registrarCliente();
+			}
+		});
 		mntmRegistrarCliente.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuCliente.add(mntmRegistrarCliente);
 		
 		JMenuItem mntmActualizarInfo = new JMenuItem("Actualizar información");
+		mntmRegistrarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				actualizarCliente();
+			}
+		});
 		mntmActualizarInfo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuCliente.add(mntmActualizarInfo);
 		
@@ -137,31 +157,59 @@ public Menu(String usuario) {
 		lblNombre.setBounds(250, 256, 134, 48);
 		contentPanel.add(lblNombre);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField.setBounds(472, 137, 169, 31);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		txtNoEmpleado = new JTextField();
+		txtNoEmpleado.setEditable(false);
+		txtNoEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtNoEmpleado.setBounds(472, 137, 169, 31);
+		contentPanel.add(txtNoEmpleado);
+		txtNoEmpleado.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_1.setColumns(10);
-		textField_1.setBounds(472, 198, 169, 31);
-		contentPanel.add(textField_1);
+		txtUsuario = new JTextField();
+		txtUsuario.setEditable(false);
+		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtUsuario.setColumns(10);
+		txtUsuario.setBounds(472, 198, 169, 31);
+		contentPanel.add(txtUsuario);
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textField_2.setColumns(10);
-		textField_2.setBounds(472, 256, 169, 31);
-		contentPanel.add(textField_2);
+		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
+		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtNombre.setColumns(10);
+		txtNombre.setBounds(472, 256, 169, 31);
+		contentPanel.add(txtNombre);
 		
 		JLabel lblReloj = new JLabel("reloj");
 		lblReloj.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblReloj.setBounds(550, 473, 45, 13);
 		contentPanel.add(lblReloj);
 		
+	}
+
+	public void registrarVehiculo() {
+		JOptionPane.showMessageDialog(contentPanel, "1");
+	}
+	
+	public void consultarInventario() {
+		JOptionPane.showMessageDialog(contentPanel, "1");
+	}
+	
+	public void modificarInventario() {
+		JOptionPane.showMessageDialog(contentPanel, "1");
+	}
+	
+	public void cotizar() {
+		JOptionPane.showMessageDialog(contentPanel, "1");
+	}
+	
+	public void consultarHistorial() {
+		JOptionPane.showMessageDialog(contentPanel, "1");
+	}
+	
+	public void registrarCliente() {
+		JOptionPane.showMessageDialog(contentPanel, "1");
+	}
+	
+	public void actualizarCliente() {
+		JOptionPane.showMessageDialog(contentPanel, "1");
 	}
 }

@@ -155,8 +155,23 @@ public class Login extends JDialog {
 		String clave=new String (pwdPassword.getPassword());
 
 		if(usuario.equals("")|| clave.equals("")) {
-			JOptionPane.showMessageDialog(contentPanel, "Favor de ingresar el usuario");
+			JOptionPane.showMessageDialog(contentPanel, "Favor de ingresar el usuario o contraseña");
 		}else {
+			dispose();
+			Menu menu=new Menu();
+			menu.setVisible(true);
+			/*if(Control.verificarCliente(usuario)!=null && clave.equals("1234")) {
+				Control.setClienteActual(usuario);//usuario es curp
+				
+				JOptionPane.showMessageDialog(contentPanel, "Bienvenido \n"
+						+Control.getClienteActual().getNombre());
+				dispose();
+				MenuPrincipal menuPrincipal=new MenuPrincipal(usuario);
+				menuPrincipal.setVisible(true);
+			}
+			else {
+				JOptionPane.showMessageDialog(contentPanel, "Usuario o contraseña incorrecta");
+			}*/
 		}
 	}
 }

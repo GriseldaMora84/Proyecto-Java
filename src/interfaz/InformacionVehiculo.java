@@ -66,7 +66,7 @@ public class InformacionVehiculo extends JDialog {
 
 		
 		try {
-			InformacionVehiculo dialog = new InformacionVehiculo(1,null);
+			InformacionVehiculo dialog = new InformacionVehiculo(4,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -423,7 +423,7 @@ public class InformacionVehiculo extends JDialog {
 					panelVan.setVisible(false);
 				}
 			});
-		}else{
+		}else if(opc==2){
 			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"PICK UP"}));
 			cbMarca.setModel(new DefaultComboBoxModel(new String[] { "NISSAN"}));
 			txtModelo.setText("aa");
@@ -469,6 +469,35 @@ public class InformacionVehiculo extends JDialog {
 				txtCubierta.setEditable(false);
 				txtAreaCarga.setText("ff");
 				txtAreaCarga.setEditable(false);
+			}
+		}else{
+			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"PICK UP",}));
+			cbMarca.setModel(new DefaultComboBoxModel(new String[] { "NISSAN","Toyota"}));
+			txtModelo.setText("aa");
+			txtAnio.setText("bb");
+			txtNoPlaca.setText("dd");
+			txtColor.setText("cc");
+			txtKilometraje.setText("ff");
+			txtPrecioRenta.setText("vv");
+			txtEficiencia.setText("uu");
+			txtPotencia.setText("gg");
+			//Verificar que panel activar
+			if(cbTipo.getSelectedItem().equals("VAN")){
+				panelVan.setVisible(true);
+				txtDimMaleteroVan.setText("ff");
+				txtTipoAsiento.setText("ff");
+				txtCapRemolque.setText("ff");
+				txtTipoAcceso.setText("ff");
+			}else if(cbTipo.getSelectedItem().equals("COMPACTO")) {
+				panelCompacto.setVisible(true);
+				txtDimMaletero.setText("ff");
+			}else {
+				panelPickUp.setVisible(true);
+				txtTraccion.setText("ff");
+				txtCabina.setText("ff");
+				txtTorque.setText("ff");
+				txtCubierta.setText("ff");
+				txtAreaCarga.setText("ff");
 			}
 		}
 		

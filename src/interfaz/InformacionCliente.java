@@ -42,7 +42,7 @@ public class InformacionCliente extends JDialog {
 
 		
 		try {
-			InformacionCliente dialog = new InformacionCliente(0,null,null);
+			InformacionCliente dialog = new InformacionCliente(1,null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
