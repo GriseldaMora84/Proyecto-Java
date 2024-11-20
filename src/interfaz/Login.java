@@ -40,7 +40,7 @@ public class Login extends JDialog {
 	public static void main(String[] args) {
 
 		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
 			
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException| UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
@@ -63,14 +63,14 @@ public class Login extends JDialog {
 		setForeground(new Color(0, 0, 0));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(150, 241, 232));
+		contentPanel.setBackground(new Color(220, 220, 220));
 		contentPanel.setForeground(new Color(240, 219, 231));
 		contentPanel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(150, 241, 232));
+		panel.setBackground(new Color(220, 220, 220));
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 255), null, null, null));
 		panel.setBounds(51, 35, 320, 178);
 		contentPanel.add(panel);
@@ -105,7 +105,7 @@ public class Login extends JDialog {
 		panel.add(pwdPassword);
 
 		panel_1 = new JPanel();
-		panel_1.setBackground(new Color(211, 251, 252));
+		panel_1.setBackground(new Color(220, 220, 220));
 		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_1.setBounds(8, 106, 304, 48);
 		panel.add(panel_1);
@@ -118,6 +118,7 @@ public class Login extends JDialog {
 				dispose();
 			}
 		});
+		panel_1.add(btnCancelar);
 		
 				btnAceptar = new JButton("ACEPTAR");
 				btnAceptar.setBackground(new Color(216, 191, 216));
@@ -128,7 +129,6 @@ public class Login extends JDialog {
 					}
 				});
 				panel_1.add(btnAceptar);
-		panel_1.add(btnCancelar);
 
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -143,11 +143,6 @@ public class Login extends JDialog {
 		JLabel iconLogin = new JLabel("");
 		iconLogin.setBounds(30, 36, 37, 48);
 		panel.add(iconLogin);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-		}
 	}
 
 	private void aceptar() {
