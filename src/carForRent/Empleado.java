@@ -3,7 +3,7 @@ package carForRent;
 import java.util.ArrayList;
 
 public class Empleado extends Persona{
-	private long noEmpleado;
+	private long noEmpleado; 
 	private ArrayList<Alquiler> listaAlquileres;
 	
 	
