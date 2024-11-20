@@ -105,7 +105,7 @@ public class BuscarAlquiler extends JDialog {
         tAlquileres = new JTable();
         tAlquileres.setModel(new DefaultTableModel(
                 new Object[][] {},
-                new String[] { "Cliente", "Empleado", "No. Placa", "Fecha de Alquiler", "Precio Renta" }
+                new String[] { "Cliente", "Empleado", "No. Placa", "Fecha de inicio", "Fecha fin", "Precio Renta" }
         ));
         scrollPane.setViewportView(tAlquileres);
 

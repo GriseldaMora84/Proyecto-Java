@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import carForRent.Alquiler;
 import carForRent.Cliente;
 
 import java.awt.Color;
@@ -41,7 +42,7 @@ public class InformacionCliente extends JDialog {
 
 		
 		try {
-			InformacionCliente dialog = new InformacionCliente(0,null);
+			InformacionCliente dialog = new InformacionCliente(0,null,null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -49,7 +50,7 @@ public class InformacionCliente extends JDialog {
 		}
 	}
 
-	public InformacionCliente(int opc, Cliente cliente) {
+	public InformacionCliente(int opc, Cliente cliente,Alquiler alquiler) {
 		setTitle("Registrar información del cliente");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
