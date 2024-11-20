@@ -406,13 +406,20 @@ public class InformacionVehiculo extends JDialog {
 			//Verificar que panel activar
 			if(cbTipo.getSelectedItem().equals("VAN")) {
 				panelVan.setVisible(true);
-				panelCompacto.setVisible(true);
+				panelCompacto.setVisible(false);
+				panelPickUp.setVisible(false);
 			}else if(cbTipo.getSelectedItem().equals("COMPACTO")) {
 				panelCompacto.setVisible(true);
+				panelPickUp.setVisible(false);
+				panelVan.setVisible(false);
 			}else if(cbTipo.getSelectedItem().equals("PICK UP")){
 				panelPickUp.setVisible(true);
+				panelCompacto.setVisible(false);
+				panelVan.setVisible(false);
 			}else {
-				
+				panelCompacto.setVisible(false);
+				panelPickUp.setVisible(false);
+				panelVan.setVisible(false);
 			}
 		}else{
 			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"PICK UP"}));
