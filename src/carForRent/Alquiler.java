@@ -8,15 +8,22 @@ public class Alquiler {
 	private Cliente cliente;
 	private Vehiculo vehiculo;
 	private Pago pago;
+	private long idEmpleado;
+	private int idCliente;
+	private String refPago;
 	
 	public Alquiler(String noAlquiler, String inicioAlquiler, String finAlquiler,  
-			Cliente cliente, Vehiculo vehiculo, Pago pago) {
+			Cliente cliente, Vehiculo vehiculo, Pago pago,
+			long idEmpleado, int idCliente, String refPago) {
 		this.noAlquiler=noAlquiler;
 		this.inicioAlquiler=inicioAlquiler;
 		this.finAlquiler=finAlquiler;
 		this.cliente=cliente;
 		this.vehiculo=vehiculo;
 		this.pago=pago;
+		this.idEmpleado=idEmpleado;
+		this.idCliente=idCliente;
+		this.refPago=refPago;
 	}
 	
 	public void setFinAlquiler(String finAlquiler) {
@@ -49,6 +56,18 @@ public class Alquiler {
 	
 	public Pago getPago() {
 		return pago;
+	}
+	
+	public long getIdEmpleado() {
+		return idEmpleado;
+	}
+	
+	public int getIdCliente() {
+		return idCliente;
+	}
+	
+	public String getRefPago() {
+		return refPago;
 	}
 	
 	public void calcularCostoTotal() {

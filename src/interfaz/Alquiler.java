@@ -8,14 +8,17 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class ListaVehiculos extends JDialog {
+public class Alquiler extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		try {
-			ListaVehiculos dialog = new ListaVehiculos();
+			Alquiler dialog = new Alquiler();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -26,7 +29,7 @@ public class ListaVehiculos extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListaVehiculos() {
+	public Alquiler() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

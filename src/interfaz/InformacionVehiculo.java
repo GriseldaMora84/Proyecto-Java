@@ -404,23 +404,25 @@ public class InformacionVehiculo extends JDialog {
 			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"", "VAN", "COMPACTO", "PICK UP"}));
 			cbMarca.setModel(new DefaultComboBoxModel(new String[] {"", "NISSAN", "TOYOTA", "FORD", "OTRO"}));
 			//Verificar que panel activar
-			if(cbTipo.getSelectedItem().equals("VAN")) {
-				panelVan.setVisible(true);
-				panelCompacto.setVisible(false);
-				panelPickUp.setVisible(false);
-			}else if(cbTipo.getSelectedItem().equals("COMPACTO")) {
-				panelCompacto.setVisible(true);
-				panelPickUp.setVisible(false);
-				panelVan.setVisible(false);
-			}else if(cbTipo.getSelectedItem().equals("PICK UP")){
-				panelPickUp.setVisible(true);
-				panelCompacto.setVisible(false);
-				panelVan.setVisible(false);
-			}else {
-				panelCompacto.setVisible(false);
-				panelPickUp.setVisible(false);
-				panelVan.setVisible(false);
-			}
+			cbTipo.addActionListener(e -> {
+				if(cbTipo.getSelectedItem().equals("VAN")) {
+					panelVan.setVisible(true);
+					panelCompacto.setVisible(false);
+					panelPickUp.setVisible(false);
+				}else if(cbTipo.getSelectedItem().equals("COMPACTO")) {
+					panelCompacto.setVisible(true);
+					panelPickUp.setVisible(false);
+					panelVan.setVisible(false);
+				}else if(cbTipo.getSelectedItem().equals("PICK UP")){
+					panelPickUp.setVisible(true);
+					panelCompacto.setVisible(false);
+					panelVan.setVisible(false);
+				}else {
+					panelCompacto.setVisible(false);
+					panelPickUp.setVisible(false);
+					panelVan.setVisible(false);
+				}
+			});
 		}else{
 			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"PICK UP"}));
 			cbMarca.setModel(new DefaultComboBoxModel(new String[] { "NISSAN"}));

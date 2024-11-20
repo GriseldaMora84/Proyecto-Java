@@ -3,14 +3,20 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import carForRent.Cliente;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class InformacionCliente extends JDialog {
 
@@ -22,8 +28,28 @@ public class InformacionCliente extends JDialog {
 	private JTextField txtEmail;
 	private JTextField txtNoLic;
 	private JTextField txtExpLic;
+	
+	public static void main(String[] args) {
 
-	public InformacionCliente() {
+		try {
+			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+			
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		try {
+			InformacionCliente dialog = new InformacionCliente(0,null);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public InformacionCliente(int opc, Cliente cliente) {
 		setTitle("Registrar información del cliente");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -98,22 +124,29 @@ public class InformacionCliente extends JDialog {
 		txtExpLic.setColumns(10);
 		txtExpLic.setBounds(174, 161, 137, 19);
 		contentPanel.add(txtExpLic);
+		
+		if(opc!=1) {
+			txtNombre.setText("aa");
+			txtTel.setText("bb");
+			txtEmail.setText("dd");
+			txtNoLic.setText("cc");
+			txtExpLic.setText("ff");
+		
+		}
+		JPanel buttonPane = new JPanel();
+		buttonPane.setBackground(new Color(201, 248, 243));
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(201, 248, 243));
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			JButton okButton = new JButton("OK");
+			okButton.setActionCommand("OK");
+			buttonPane.add(okButton);
+			getRootPane().setDefaultButton(okButton);
+		}
+		{
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.setActionCommand("Cancel");
+			buttonPane.add(cancelButton);
 		}
 	}
 }
