@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Alquiler extends JDialog {
+public class Cotizar extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
@@ -18,7 +18,7 @@ public class Alquiler extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			Alquiler dialog = new Alquiler();
+			Cotizar dialog = new Cotizar();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -29,7 +29,7 @@ public class Alquiler extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Alquiler() {
+	public Cotizar() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
