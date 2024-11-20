@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Pagar extends JDialog {
 
@@ -111,6 +113,11 @@ public class Pagar extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						aceptar();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -121,5 +128,8 @@ public class Pagar extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	public void aceptar() {
 	}
 }

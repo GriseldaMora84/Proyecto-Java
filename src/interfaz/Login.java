@@ -158,7 +158,7 @@ public class Login extends JDialog {
 			JOptionPane.showMessageDialog(contentPanel, "Favor de ingresar el usuario o contraseña");
 		}else {
 			dispose();
-			Menu menu=new Menu();
+			Menu menu=new Menu(usuario);
 			menu.setVisible(true);
 			/*if(Control.verificarCliente(usuario)!=null && clave.equals("1234")) {
 				Control.setClienteActual(usuario);//usuario es curp

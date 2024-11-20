@@ -31,9 +31,8 @@ public class Menu extends JDialog {
 	private JTextField txtUsuario;
 	private JTextField txtNombre;
 
-public Menu() {
+public Menu(String usuario) {
 		setTitle("Menú");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 776, 670);
 		contentPanel = new JPanel();
 		contentPanel.setBackground(new Color(150, 241, 232));
