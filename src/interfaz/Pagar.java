@@ -27,7 +27,7 @@ public class Pagar extends JDialog {
 		setTitle("Procesar pago");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(150, 241, 232));
+		contentPanel.setBackground(new Color(211, 211, 211));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -104,7 +104,7 @@ public class Pagar extends JDialog {
 		contentPanel.add(cbMes);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(201, 248, 243));
+			buttonPane.setBackground(new Color(245, 222, 179));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
