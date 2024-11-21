@@ -27,6 +27,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
 
 public class Login extends JDialog {
 
@@ -38,11 +39,13 @@ public class Login extends JDialog {
 	private AbstractButton btnCancelar;
 	private AbstractButton btnAceptar;
 	private Component lblPassword;
+	private JLabel lblNewLabel;
 
 	public static void main(String[] args) {
-
+		//com.jtattoo.plaf.smart.SmartLookAndFeel
+		//com.jtattoo.plaf.fast.FastLookAndFeel
 		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 			
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException| UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
@@ -60,10 +63,11 @@ public class Login extends JDialog {
 	}
 
 	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/pictures/Car-icon.png")));
 		
-		setTitle("Login");
-		Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("src/pictures/Car-icon"));
-        setIconImage(icon); 
+		setTitle("Login \t\t\t\t\t\tCar For Rent");	
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/interfaz/pictures/Car-icon.png")));
+
 		setForeground(new Color(0, 0, 0));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -75,14 +79,15 @@ public class Login extends JDialog {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(220, 220, 220));
-		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 255), null, null, null));
-		panel.setBounds(51, 35, 320, 178);
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(53, 29, 320, 201);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
 		txtUsuario = new JTextField();
+		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtUsuario.setColumns(10);
-		txtUsuario.setBounds(131, 29, 136, 21);
+		txtUsuario.setBounds(151, 67, 136, 24);
 		panel.add(txtUsuario);
 		
 		//Validacion para que no se ingrese un nombre de usuario mayor de lo permitido
@@ -103,29 +108,33 @@ public class Login extends JDialog {
 		});
 
 		pwdPassword = new JPasswordField();
+		pwdPassword.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		pwdPassword.setEchoChar('*');
 		pwdPassword.setColumns(10);
-		pwdPassword.setBounds(131, 67, 136, 17);
+		pwdPassword.setBounds(151, 98, 136, 24);
 		panel.add(pwdPassword);
 
 		panel_1 = new JPanel();
 		panel_1.setBackground(new Color(220, 220, 220));
-		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(8, 106, 304, 48);
+		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(10, 143, 304, 48);
 		panel.add(panel_1);
 
 		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setBackground(new Color(216, 191, 216));
+		btnCancelar.setBounds(53, 10, 97, 25);
+		btnCancelar.setBackground(new Color(255, 255, 255));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCancelar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
+		panel_1.setLayout(null);
 		panel_1.add(btnCancelar);
 		
 				btnAceptar = new JButton("ACEPTAR");
-				btnAceptar.setBackground(new Color(216, 191, 216));
+				btnAceptar.setBounds(160, 10, 89, 25);
+				btnAceptar.setBackground(new Color(255, 255, 255));
 				btnAceptar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				btnAceptar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -136,17 +145,23 @@ public class Login extends JDialog {
 
 		JLabel lblUsuario = new JLabel("Usuario");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblUsuario.setBounds(77, 34, 46, 11);
+		lblUsuario.setBounds(97, 72, 46, 11);
 		panel.add(lblUsuario);
 
 		lblPassword = new JLabel("Clave");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblPassword.setBounds(86, 70, 37, 11);
+		lblPassword.setBounds(106, 108, 37, 11);
 		panel.add(lblPassword);
 		
 		JLabel iconLogin = new JLabel("");
-		iconLogin.setBounds(30, 36, 37, 48);
+		iconLogin.setIcon(new ImageIcon(Login.class.getResource("/pictures/Car-icon.png")));
+		iconLogin.setBounds(33, 74, 57, 48);
 		panel.add(iconLogin);
+		
+		lblNewLabel = new JLabel("     I N I C I O  D E  S E S I Ó N ");
+		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
+		lblNewLabel.setBounds(10, 23, 277, 34);
+		panel.add(lblNewLabel);
 	}
 
 	private void aceptar() {
