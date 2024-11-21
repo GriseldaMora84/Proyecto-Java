@@ -35,7 +35,7 @@ public Menu(String usuario) {
 		setTitle("Menú");
 		setBounds(100, 100, 776, 670);
 		contentPanel = new JPanel();
-		contentPanel.setBackground(new Color(150, 241, 232));
+		contentPanel.setBackground(new Color(220, 220, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPanel);
