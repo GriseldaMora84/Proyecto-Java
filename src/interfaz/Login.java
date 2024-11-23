@@ -45,7 +45,9 @@ public class Login extends JDialog {
 		//com.jtattoo.plaf.smart.SmartLookAndFeel
 		//com.jtattoo.plaf.fast.FastLookAndFeel
 		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.fast.FastLookAndFeel");
 			
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException| UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
