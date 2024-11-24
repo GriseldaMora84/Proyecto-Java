@@ -112,8 +112,8 @@ public class Login extends JDialog {
 			public void keyReleased(KeyEvent arg0) {
 				//no mayor
 				String v=txtUsuario.getText();
-				if(v.length()>12) {//Como la clave es la CURP, en realidad deben ser 18 caracteres
-					JOptionPane.showMessageDialog(null, "El nombre de usuario no debe exceder de 12 caracteres");
+				if(v.length()>8) {//Nombre de usuario creado previamente
+					JOptionPane.showMessageDialog(null, "El nombre de usuario no debe exceder de 8 caracteres");
 					txtUsuario.setText(temp);
 										
 				}
@@ -137,6 +137,10 @@ public class Login extends JDialog {
 		        }
 		    }
 		});
+		
+		JLabel lblMensajeClave = new JLabel("Clave mínimo 8 caracteres");
+		lblMensajeClave.setBounds(151, 122, 163, 11);
+		panel.add(lblMensajeClave);
 
 		pwdPassword = new JPasswordField();
 		pwdPassword.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -149,15 +153,17 @@ public class Login extends JDialog {
 			String temp;
 			@Override
 			public void keyTyped(KeyEvent e) {
-				temp=pwdPassword.getText();
+				temp=new String (pwdPassword.getPassword());
 			}
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				String v=pwdPassword.getText();
-				if(v.length()>8) {//La contraseña es de 8 caracteres
-					JOptionPane.showMessageDialog(null, "La cantidad de caracteres de la contraseña no es válida");
-					pwdPassword.setText(temp);
+				String v=new String (pwdPassword.getPassword());
+				//pwdPassword.setText(temp);
+				if(v.length()<8) {//La contraseña es de minimo 8 caracteres
+					lblMensajeClave.setVisible(true);
 				}
+				else
+					lblMensajeClave.setVisible(false);
 			}
 		});
 		pwdPassword.addKeyListener(new KeyAdapter() {
