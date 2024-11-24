@@ -93,6 +93,7 @@ public class Login extends JDialog {
 		panel.add(txtUsuario);
 		
 		//Validacion para que no se ingrese un nombre de usuario mayor de lo permitido
+		
 		txtUsuario.addKeyListener(new KeyAdapter() {
 			String temp;
 			@Override
@@ -101,9 +102,10 @@ public class Login extends JDialog {
 			}
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				String v=txtUsuario.getText().trim();
-				if(v.length()>8) {//El usuario es de 8 caracteres
-					JOptionPane.showMessageDialog(null, "El nombre de usuario no debe ser exceder de 3 caracteres");
+				//no mayor
+				String v=txtUsuario.getText();
+				if(v.length()>12) {//Como la clave es la CURP, en realidad deben ser 18 caracteres
+					JOptionPane.showMessageDialog(null, "El nombre de usuario no debe exceder de 12 caracteres");
 					txtUsuario.setText(temp);
 				}
 			}
@@ -115,7 +117,22 @@ public class Login extends JDialog {
 		pwdPassword.setColumns(10);
 		pwdPassword.setBounds(151, 98, 136, 24);
 		panel.add(pwdPassword);
-
+		
+		pwdPassword.addKeyListener(new KeyAdapter() {
+			String temp;
+			@Override
+			public void keyTyped(KeyEvent e) {
+				temp=pwdPassword.getText();
+			}
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				String v=pwdPassword.getText();
+				if(v.length()>8) {//La contraseña es de 8 caracteres
+					JOptionPane.showMessageDialog(null, "La cantidad de caracteres de la contraseña no es válida");
+					pwdPassword.setText(temp);
+				}
+			}
+		});
 		panel_1 = new JPanel();
 		panel_1.setBackground(new Color(220, 220, 220));
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
