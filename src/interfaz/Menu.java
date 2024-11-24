@@ -33,7 +33,7 @@ public class Menu extends JDialog {
 
 public Menu(String usuario) {
 		setTitle("Menú");
-		setBounds(100, 100, 776, 670);
+		setBounds(100, 100, 776, 601);
 		contentPanel = new JPanel();
 		contentPanel.setBackground(new Color(220, 220, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -132,16 +132,6 @@ public Menu(String usuario) {
 		mntmActualizarInfo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuCliente.add(mntmActualizarInfo);
 		
-		JLabel lblFoto = new JLabel("");
-		lblFoto.setIcon(new ImageIcon(Menu.class.getResource("/pictures/perfil.png")));
-		lblFoto.setBorder(null);
-		lblFoto.setBackground(new Color(220, 220, 220));
-		lblFoto.setOpaque(true);
-		lblFoto.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFoto.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblFoto.setBounds(27, 130, 185, 220);
-		contentPanel.add(lblFoto);
-		
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblUsuario.setBounds(250, 198, 134, 48);
@@ -180,8 +170,13 @@ public Menu(String usuario) {
 		
 		JLabel lblReloj = new JLabel("reloj");
 		lblReloj.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblReloj.setBounds(550, 473, 45, 13);
+		lblReloj.setBounds(623, 20, 45, 13);
 		contentPanel.add(lblReloj);
+		
+		JLabel lblFotoUser = new JLabel("  ");
+		lblFotoUser.setIcon(new ImageIcon(Menu.class.getResource("/pictures/perfil128.png")));
+		lblFotoUser.setBounds(54, 153, 134, 128);
+		contentPanel.add(lblFotoUser);
 		
 	}
 
