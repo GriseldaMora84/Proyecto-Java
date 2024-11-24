@@ -104,4 +104,20 @@ public class Vehiculo {
 		listaAlquileres.add(a);
 		return "Alquiler ingresado";
 	}
+
+	public void setModelo(String modelo) {
+		this.modelo=modelo;
+	}
+
+	public void setMarca(String marca) {
+		this.marca=marca;
+	}
+
+	public void setAnio(int anio) {
+		this.anio=anio;
+	}
+
+	public void setPotencia(String potencia) {
+		this.potencia=potencia;
+	}
 }

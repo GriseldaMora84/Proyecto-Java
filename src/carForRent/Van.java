@@ -31,4 +31,21 @@ public class Van extends Vehiculo{
 	public String getTipoAcceso() {
 		return tipoAcceso;
 	}
+
+	public void setDimMaletero(String dimMaltero) {
+		this.dimMaletero=dimMaletero;
+		
+	}
+
+	public void setTipoAsientos(String tipoAsientos) {
+		this.tipoAsientos=tipoAsientos;
+	}
+
+	public void setCapRemolque(String capRemolque) {
+		this.capRemolque=capRemolque;
+	}
+
+	public void setTipoAcceso(String tipoAcceso) {
+		this.tipoAcceso=tipoAcceso;
+	}
 }

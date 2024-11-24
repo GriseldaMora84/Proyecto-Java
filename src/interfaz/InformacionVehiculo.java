@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -70,14 +71,14 @@ public class InformacionVehiculo extends JDialog {
 	
 	public InformacionVehiculo(int opc,Vehiculo vehiculo ) {
 		//Conexion a la base de datos
-			try {
-				conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
-				statementSql=conexion.createStatement();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error de conexión");
-			}
+		try {
+			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+			statementSql=conexion.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error de conexión");
+		}
 		
 		setTitle("Información del vehículo");
 		setBounds(100, 100, 450, 592);
@@ -406,7 +407,7 @@ public class InformacionVehiculo extends JDialog {
 				JButton btnSig = new JButton("Siguiente");
 				btnSig.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						siguiente(opc);
+						siguiente(opc, vehiculo);
 					}
 				});
 				btnSig.setActionCommand("OK");
@@ -479,87 +480,98 @@ public class InformacionVehiculo extends JDialog {
 					}
 				});
 		}else if(opc==2){//Consulta de vehículos
-			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"PICK UP"}));
-			cbMarca.setModel(new DefaultComboBoxModel(new String[] { "NISSAN"}));
-			txtModelo.setText("aa");
+			txtID.setText(String.valueOf(vehiculo.getId()));
+			cbTipo.setModel(new DefaultComboBoxModel(new String[] {vehiculo.getTipo()}));
+			cbMarca.setModel(new DefaultComboBoxModel(new String[] { vehiculo.getMarca()}));
+			txtModelo.setText(vehiculo.getModelo());
 			txtModelo.setEditable(false);
-			txtAnio.setText("bb");
+			txtAnio.setText(String.valueOf(vehiculo.getAnio()));
 			txtAnio.setEditable(false);
-			txtNoPlaca.setText("dd");
+			txtNoPlaca.setText(vehiculo.getPlaca());
 			txtNoPlaca.setEditable(false);
-			txtColor.setText("cc");
+			txtColor.setText(vehiculo.getColor());
 			txtColor.setEditable(false);
-			txtKilometraje.setText("ff");
+			txtKilometraje.setText(vehiculo.getKilometraje());
 			txtKilometraje.setEditable(false);
-			txtPrecioRenta.setText("vv");
+			txtPrecioRenta.setText(String.valueOf(vehiculo.getPrecioRenta()));
 			txtPrecioRenta.setEditable(false);
-			txtEficiencia.setText("uu");
+			txtEficiencia.setText(vehiculo.getEficiencia());
 			txtEficiencia.setEditable(false);
-			txtPotencia.setText("gg");
+			txtPotencia.setText(vehiculo.getPotencia());
 			txtPotencia.setEditable(false);
 			//Verificar que panel activar dependiendo de lo ya registrado
-			if(cbTipo.getSelectedItem().equals("VAN")){
+			if(vehiculo instanceof Van){
+				Van van = (Van) vehiculo;
 				panelVan.setVisible(true);
-				txtDimMaleteroVan.setText("ff");
+				txtDimMaleteroVan.setText(van.getDimMaletero());
 				txtDimMaleteroVan.setEditable(false);
-				txtTipoAsiento.setText("ff");
+				txtTipoAsiento.setText(van.getTipoAsientos());
 				txtTipoAsiento.setEditable(false);
-				txtCapRemolque.setText("ff");
+				txtCapRemolque.setText(van.getCapRemolque());
 				txtCapRemolque.setEditable(false);
-				txtTipoAcceso.setText("ff");
+				txtTipoAcceso.setText(van.getTipo());
 				txtTipoAcceso.setEditable(false);
-			}else if(cbTipo.getSelectedItem().equals("COMPACTO")) {
+			}else if(vehiculo instanceof Compacto) {
 				panelCompacto.setVisible(true);
-				txtDimMaletero.setText("ff");
+				Compacto compacto = (Compacto) vehiculo;
+				txtDimMaletero.setText(compacto.getDimMaletero());
 				txtDimMaletero.setEditable(false);
 			}else {
+				PickUp pu = (PickUp) vehiculo;
 				panelPickUp.setVisible(true);
-				txtTraccion.setText("ff");
+				txtTraccion.setText(pu.getTraccion());
 				txtTraccion.setEditable(false);
-				txtCabina.setText("ff");
+				txtCabina.setText(pu.getCabina());
 				txtCabina.setEditable(false);
-				txtTorque.setText("ff");
+				txtTorque.setText(pu.getTorque());
 				txtTorque.setEditable(false);
-				txtCubierta.setText("ff");
+				txtCubierta.setText(pu.getCubierta());
 				txtCubierta.setEditable(false);
-				txtAreaCarga.setText("ff");
+				txtAreaCarga.setText(pu.getAreaCarga());
 				txtAreaCarga.setEditable(false);
 			}
 		}else{//Modicación de información
-			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"PICK UP",}));
-			cbMarca.setModel(new DefaultComboBoxModel(new String[] { "NISSAN","Toyota"}));
-			txtModelo.setText("aa");
-			txtAnio.setText("bb");
-			txtNoPlaca.setText("dd");
-			txtColor.setText("cc");
-			txtKilometraje.setText("ff");
-			txtPrecioRenta.setText("vv");
-			txtEficiencia.setText("uu");
-			txtPotencia.setText("gg");
-			//Verificar que panel activar de acuerdo a lo ya registrado
-			if(cbTipo.getSelectedItem().equals("VAN")){
-				panelVan.setVisible(true);
-				txtDimMaleteroVan.setText("ff");
-				txtTipoAsiento.setText("ff");
-				txtCapRemolque.setText("ff");
-				txtTipoAcceso.setText("ff");
-			}else if(cbTipo.getSelectedItem().equals("COMPACTO")) {
-				panelCompacto.setVisible(true);
-				txtDimMaletero.setText("ff");
+			txtID.setText(String.valueOf(vehiculo.getId()));
+			cbTipo.setModel(new DefaultComboBoxModel(new String[] {vehiculo.getTipo()}));
+			cbMarca.setModel(new DefaultComboBoxModel(new String[] { vehiculo.getMarca()}));
+			txtModelo.setText(vehiculo.getModelo());
+			txtAnio.setText(String.valueOf(vehiculo.getAnio()));
+			txtNoPlaca.setText(vehiculo.getPlaca());
+			txtColor.setText(vehiculo.getColor());
+			txtKilometraje.setText(vehiculo.getKilometraje());
+			txtPrecioRenta.setText(String.valueOf(vehiculo.getPrecioRenta()));
+			txtEficiencia.setText(vehiculo.getEficiencia());
+			txtPotencia.setText(vehiculo.getPotencia());
+			//Verificar que panel activar dependiendo de lo ya registrado
+			if(vehiculo instanceof Van) {
+				Van van = (Van) vehiculo;
+				txtDimMaleteroVan.setText(van.getDimMaletero());
+				txtTipoAsiento.setText(van.getTipoAsientos());
+				txtCapRemolque.setText(van.getCapRemolque());
+				txtTipoAcceso.setText(van.getTipo());
+			}else if(vehiculo instanceof Compacto) {
+				Compacto compacto = (Compacto) vehiculo;
+				txtDimMaletero.setText(compacto.getDimMaletero());
 			}else {
-				panelPickUp.setVisible(true);
-				txtTraccion.setText("ff");
-				txtCabina.setText("ff");
-				txtTorque.setText("ff");
-				txtCubierta.setText("ff");
-				txtAreaCarga.setText("ff");
+				PickUp pu = (PickUp) vehiculo;
+				txtTraccion.setText(pu.getTraccion());
+				txtCabina.setText(pu.getCabina());
+				txtTorque.setText(pu.getTorque());
+				txtCubierta.setText(pu.getCubierta());
+				txtAreaCarga.setText(pu.getAreaCarga());
 			}
 		}
 	}
 	
-	public void siguiente(int opc) {
+	public void siguiente(int opc, Vehiculo vehiculo) {
 		if(opc==1) {
 			registrar();
+		}
+		else if(opc==2) {
+			consultar(vehiculo);
+		}
+		else {
+			modificar(vehiculo);
 		}
 	}
 	
@@ -582,7 +594,7 @@ public class InformacionVehiculo extends JDialog {
 			Compacto vCompacto= new Compacto(dimMal,id,marca,modelo,anio,placa,color,kilometraje,
 					precioRenta,eficiencia,potencia,tipo);
 			Control.ingresaVehiculo(vCompacto);
-			String consulta = "INSERT INTO vehiculocompacto (id, marca, modelo, anio, placa, color, kilometraje, precioRenta, eficiencia, potencia, dimMaletero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String consulta = "INSERT INTO vehiculocompacto (id, marca, modelo, anio, placa, color, kilometraje, precioRenta, eficiencia, potencia, dimMaletero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			try {
 				ps=conexion.prepareStatement(consulta);
 				ps.setInt(1, id);
@@ -596,6 +608,8 @@ public class InformacionVehiculo extends JDialog {
 			    ps.setString(9, eficiencia);
 			    ps.setString(10, potencia);
 			    ps.setString(11, dimMal); 
+			    // Ejecuta la actualización (INSERT)
+			    ps.executeUpdate();
 				JOptionPane.showMessageDialog(contentPanel, "Auto registrado exitosamente");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -610,18 +624,32 @@ public class InformacionVehiculo extends JDialog {
 			String tipoAcceso=txtTipoAcceso.getText();
 			Van vVan= new Van(dimMalVan,tipoAsientos,capRemolque,tipoAcceso,id,marca,modelo,anio,placa,color,kilometraje,
 					precioRenta,eficiencia,potencia,tipo);
+			Control.ingresaVehiculo(vVan);
+			String consulta = "INSERT INTO vehiculovan(id, marca, modelo, anio, placa, color, kilometraje, precioRenta, eficiencia, potencia, dimMaletero, tipoAsietos, capRemolque, tipoAcceso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			try {
-				statementSql.executeUpdate("insert into vehiculovan(id,marca,modelo,anio,placa,color,kilometraje,\"\r\n"
-						+ "					+ \"precioRenta,eficiencia,potencia,dimMalVan,tipoAsientos,capRemolque,tipoAcceso)"
-						+ "('"+id+"',"+marca+"',"+modelo+"',"+anio+"',"+placa+"',"+color+"',"+kilometraje+
-						"',"+precioRenta+"',"+eficiencia+"',"+potencia+"',"+dimMalVan+"',"+tipoAsientos+
-						"',"+tipoAcceso+")");
+				ps=conexion.prepareStatement(consulta);
+				ps.setInt(1, id);
+				ps.setString(2, marca);
+			    ps.setString(3, modelo);
+			    ps.setInt(4, anio);
+			    ps.setString(5, placa);
+			    ps.setString(6, color);
+			    ps.setString(7, kilometraje);
+			    ps.setDouble(8, precioRenta);
+			    ps.setString(9, eficiencia);
+			    ps.setString(10, potencia);
+			    ps.setString(11, dimMalVan); 
+			    ps.setString(12, tipoAsientos);
+			    ps.setString(13, capRemolque);
+			    ps.setString(14, tipoAcceso);
+			    // Ejecuta la actualización (INSERT)
+			    ps.executeUpdate();
+				JOptionPane.showMessageDialog(contentPanel, "Auto registrado exitosamente");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				JOptionPane.showMessageDialog(contentPanel, "Error");
 			}
-			Control.ingresaVehiculo(vVan);
-			JOptionPane.showMessageDialog(contentPanel, "Auto registrado exitosamente");
 		}else {
 			String traccion=txtTraccion.getText();
 			String cabina=txtCabina.getText();
@@ -630,18 +658,173 @@ public class InformacionVehiculo extends JDialog {
 			String areaCarga=txtAreaCarga.getText();
 			PickUp vPickUp=new PickUp(traccion,cabina,torque,cubierta,areaCarga,id,marca,modelo,anio,placa,color,kilometraje,
 					precioRenta,eficiencia,potencia,tipo);
+			Control.ingresaVehiculo(vPickUp);
+			String consulta = "INSERT INTO vehiculopickup (id, marca, modelo, anio, placa, color, kilometraje, precioRenta, eficiencia, potencia, traccion, cabina, torque, areaCarga) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			try {
-				statementSql.executeUpdate("insert into vehiculovan(id,marca,modelo,anio,placa,color,kilometraje,\"\r\n"
-						+ "					+ \"precioRenta,eficiencia,potencia,dimMalVan,tipoAsientos,capRemolque,tipoAcceso)"
-						+ "('"+id+"',"+marca+"',"+modelo+"',"+anio+"',"+placa+"',"+color+"',"+kilometraje+
-						"',"+precioRenta+"',"+eficiencia+"',"+potencia+"',"+traccion+"',"+cabina+"',"+torque+
-						"',"+cubierta+"',"+areaCarga+")");
-				Control.ingresaVehiculo(vPickUp);
+				ps=conexion.prepareStatement(consulta);
+				ps.setInt(1, id);
+				ps.setString(2, marca);
+			    ps.setString(3, modelo);
+			    ps.setInt(4, anio);
+			    ps.setString(5, placa);
+			    ps.setString(6, color);
+			    ps.setString(7, kilometraje);
+			    ps.setDouble(8, precioRenta);
+			    ps.setString(9, eficiencia);
+			    ps.setString(10, potencia);
+			    ps.setString(11, traccion); 
+			    ps.setString(12, cabina);
+			    ps.setString(13, torque);
+			    ps.setString(14, cubierta);
+			    ps.setString(15, areaCarga);
+			    // Ejecuta la actualización (INSERT)
+			    ps.executeUpdate();
 				JOptionPane.showMessageDialog(contentPanel, "Auto registrado exitosamente");
+				dispose();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				JOptionPane.showMessageDialog(contentPanel, "Error");
 			}
 		}
+	}
+	
+	public void consultar(Vehiculo vehiculo) {
+		
+	}
+	
+	public void modificar(Vehiculo vehiculo) {
+	    int id = Integer.parseInt(txtID.getText());
+	    
+	    if (vehiculo != null) {
+	        // Obtener los nuevos valores del vehículo desde los campos de texto
+	        String tipo = (String) cbTipo.getSelectedItem();
+	        String marca = (String) cbTipo.getSelectedItem();
+	        if (marca.equals("OTRO"))
+	            marca = txtMarca.getText();
+	        String modelo = txtModelo.getText();
+	        int anio = Integer.parseInt(txtAnio.getText());
+	        String placa = txtNoPlaca.getText();
+	        String color = txtColor.getText();
+	        String kilometraje = txtKilometraje.getText();
+	        double precioRenta = Double.parseDouble(txtPrecioRenta.getText());
+	        String eficiencia = txtEficiencia.getText();
+	        String potencia = txtPotencia.getText();
+
+	        // Actualizar los valores del vehículo en base a lo que el usuario haya modificado
+	        vehiculo.setMarca(marca);
+	        vehiculo.setModelo(modelo);
+	        vehiculo.setAnio(anio);
+	        vehiculo.setPlaca(placa);
+	        vehiculo.setColor(color);
+	        vehiculo.setKilometraje(kilometraje);
+	        vehiculo.setPrecioRenta(precioRenta);
+	        vehiculo.setEficiencia(eficiencia);
+	        vehiculo.setPotencia(potencia);
+
+	        // Dependiendo del tipo de vehículo, actualizar también otros atributos específicos
+	        if (tipo.equals("COMPACTO")) {
+	            String dimMal = txtDimMaletero.getText();
+	            Compacto vCompacto = (Compacto) vehiculo;
+	            vCompacto.setDimMaletero(dimMal);
+	            
+	            // Actualizar el vehículo en la base de datos
+	            String consulta = "UPDATE vehiculocompacto SET marca = ?, modelo = ?, anio = ?, placa = ?, color = ?, kilometraje = ?, precioRenta = ?, eficiencia = ?, potencia = ?, dimMaletero = ? WHERE id = ?";
+	            try {
+	                ps = conexion.prepareStatement(consulta);
+	                ps.setString(1, marca);
+	                ps.setString(2, modelo);
+	                ps.setInt(3, anio);
+	                ps.setString(4, placa);
+	                ps.setString(5, color);
+	                ps.setString(6, kilometraje);
+	                ps.setDouble(7, precioRenta);
+	                ps.setString(8, eficiencia);
+	                ps.setString(9, potencia);
+	                ps.setString(10, dimMal);
+	                ps.setInt(11, id);
+	                ps.executeUpdate();
+	                JOptionPane.showMessageDialog(contentPanel, "Auto modificado exitosamente");
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	                JOptionPane.showMessageDialog(contentPanel, "Error al modificar el auto");
+	            }
+	        } else if (tipo.equals("VAN")) {
+	            // Similar para el caso "VAN"
+	            String dimMalVan = txtDimMaleteroVan.getText();
+	            String tipoAsientos = txtTipoAsiento.getText();
+	            String capRemolque = txtCapRemolque.getText();
+	            String tipoAcceso = txtTipoAcceso.getText();
+	            Van vVan = (Van) vehiculo;
+	            vVan.setDimMaletero(dimMalVan);
+	            vVan.setTipoAsientos(tipoAsientos);
+	            vVan.setCapRemolque(capRemolque);
+	            vVan.setTipoAcceso(tipoAcceso);
+
+	            String consulta = "UPDATE vehiculovan SET marca = ?, modelo = ?, anio = ?, placa = ?, color = ?, kilometraje = ?, precioRenta = ?, eficiencia = ?, potencia = ?, dimMaletero = ?, tipoAsietos = ?, capRemolque = ?, tipoAcceso = ? WHERE id = ?";
+	            try {
+	                ps = conexion.prepareStatement(consulta);
+	                ps.setString(1, marca);
+	                ps.setString(2, modelo);
+	                ps.setInt(3, anio);
+	                ps.setString(4, placa);
+	                ps.setString(5, color);
+	                ps.setString(6, kilometraje);
+	                ps.setDouble(7, precioRenta);
+	                ps.setString(8, eficiencia);
+	                ps.setString(9, potencia);
+	                ps.setString(10, dimMalVan);
+	                ps.setString(11, tipoAsientos);
+	                ps.setString(12, capRemolque);
+	                ps.setString(13, tipoAcceso);
+	                ps.setInt(14, id);
+	                ps.executeUpdate();
+	                JOptionPane.showMessageDialog(contentPanel, "Van modificada exitosamente");
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	                JOptionPane.showMessageDialog(contentPanel, "Error al modificar la van");
+	            }
+	        } else {
+	            // Similar para el caso "PICKUP"
+	            String traccion = txtTraccion.getText();
+	            String cabina = txtCabina.getText();
+	            String torque = txtTorque.getText();
+	            String cubierta = txtCubierta.getText();
+	            String areaCarga = txtAreaCarga.getText();
+	            PickUp vPickUp = (PickUp) vehiculo;
+	            vPickUp.setTraccion(traccion);
+	            vPickUp.setCabina(cabina);
+	            vPickUp.setTorque(torque);
+	            vPickUp.setCubierta(cubierta);
+	            vPickUp.setAreaCarga(areaCarga);
+
+	            String consulta = "UPDATE vehiculopickup SET marca = ?, modelo = ?, anio = ?, placa = ?, color = ?, kilometraje = ?, precioRenta = ?, eficiencia = ?, potencia = ?, traccion = ?, cabina = ?, torque = ?, areaCarga = ? WHERE id = ?";
+	            try {
+	                ps = conexion.prepareStatement(consulta);
+	                ps.setString(1, marca);
+	                ps.setString(2, modelo);
+	                ps.setInt(3, anio);
+	                ps.setString(4, placa);
+	                ps.setString(5, color);
+	                ps.setString(6, kilometraje);
+	                ps.setDouble(7, precioRenta);
+	                ps.setString(8, eficiencia);
+	                ps.setString(9, potencia);
+	                ps.setString(10, traccion);
+	                ps.setString(11, cabina);
+	                ps.setString(12, torque);
+	                ps.setString(13, cubierta);
+	                ps.setString(14, areaCarga);
+	                ps.setInt(15, id);
+	                ps.executeUpdate();
+	                JOptionPane.showMessageDialog(contentPanel, "PickUp modificada exitosamente");
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	                JOptionPane.showMessageDialog(contentPanel, "Error al modificar la PickUp");
+	            }
+	        }
+	    } else {
+	        JOptionPane.showMessageDialog(contentPanel, "No se encontró el vehículo con ese ID");
+	    }
 	}
 }

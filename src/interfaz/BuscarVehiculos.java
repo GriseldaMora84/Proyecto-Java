@@ -8,10 +8,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import carForRent.Control;
+import carForRent.Vehiculo;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -24,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 
@@ -56,6 +62,7 @@ public class BuscarVehiculos extends JDialog {
 	private java.sql.Connection conexion;//Hace la conexión
 	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
 	private java.sql.Statement statementSql;//Realizar consultas
+	private ArrayList<Vehiculo> vehiculos;
 
     public BuscarVehiculos() {
     	//Conexion a la base de datos
@@ -255,10 +262,102 @@ public class BuscarVehiculos extends JDialog {
     }
     
     public void buscar() {
-    	//Primero veficar que checkBox está marcado
-    	if (chkTipo.isSelected()) {
-            String tipo = txtTipo.getText(); // Obtener el texto del JTextField correspondiente
-            System.out.println("Tipo seleccionado: " + tipo);
-        }
-    }
+    	vehiculos=Control.getVehiculos();
+	 // Crear una lista temporal para los resultados
+	    ArrayList<Vehiculo> vehiculosEncontrados = new ArrayList<Vehiculo>();
+	
+	    // Iterar sobre el ArrayList de vehículos
+	    for (Vehiculo v : vehiculos) {
+	        boolean coincide = true;
+	
+	        // Verificar los criterios seleccionados y filtrar
+	        //Se usa contains para búsqueda flexible. 
+	        //Si el usuario ingresa solo una parte de la placa (por ejemplo, "ABC"), se verificaría si esa parte existe 
+	        //dentro de la placa completa (por ejemplo, "AB123"). 
+	        if (chkPlaca.isSelected() && !v.getPlaca().contains(txtNoPlaca.getText())) {
+	            coincide = false;  // Si no coincide con la placa, no agregarlo
+	        }
+	        //Compara dos cadenas de texto para ver si son iguales, ignorando las diferencias de mayúsculas y minúsculas. 
+	        if (chkTipo.isSelected() && !v.getTipo().equalsIgnoreCase(txtTipo.getText())) {
+	            coincide = false;  // Si no coincide con el tipo, no agregarlo
+	        }
+	        if (chkMarca.isSelected() && !v.getMarca().equalsIgnoreCase(txtMarca.getText())) {
+	            coincide = false;  // Si no coincide con la marca, no agregarlo
+	        }
+	        if (chkModelo.isSelected() && !v.getModelo().equalsIgnoreCase(txtModelo.getText())) {
+	            coincide = false;  // Si no coincide con el modelo, no agregarlo
+	        }
+	        if (chkAnio.isSelected() && v.getAnio() != Integer.parseInt(txtAnio.getText())) {
+	            coincide = false;  // Si no coincide con el año, no agregarlo
+	        }
+	        if (chkColor.isSelected() && !v.getColor().equalsIgnoreCase(txtColor.getText())) {
+	            coincide = false;  // Si no coincide con el color, no agregarlo
+	        }
+	        if (chkKilometraje.isSelected() && !v.getKilometraje().contains(txtKilometraje.getText())) {
+	            coincide = false;  // Si no coincide con el kilometraje, no agregarlo
+	        }
+	        if (chkPrecioRenta.isSelected() && v.getPrecioRenta() != Double.parseDouble(txtPrecioRenta.getText())) {
+	            coincide = false;  // Si no coincide con el precio de renta, no agregarlo
+	        }
+	        if (chkEficiencia.isSelected() && !v.getEficiencia().equalsIgnoreCase(txtEficiencia.getText())) {
+	            coincide = false;  // Si no coincide con la eficiencia, no agregarlo
+	        }
+	        if (chkPotencia.isSelected() && !v.getPotencia().equalsIgnoreCase(txtPotencia.getText())) {
+	            coincide = false;  // Si no coincide con la potencia, no agregarlo
+	        }
+	        // Si todos los criterios coinciden, agregar el vehículo a la lista de resultados
+	        if (coincide) {
+	            vehiculosEncontrados.add(v);
+	        }
+	    }
+	
+	    // Mostrar los resultados en la tabla
+	    actualizarTabla(vehiculosEncontrados);
+	}
+	
+	public void actualizarTabla(ArrayList<Vehiculo> vehiculosEncontrados) {
+	    // Limpiar la tabla antes de agregar nuevos resultados
+	    DefaultTableModel model = (DefaultTableModel) tVehiculos.getModel();
+	    model.setRowCount(0);  // Limpiar la tabla
+	
+	    // Agregar los vehículos encontrados a la tabla
+	    for (Vehiculo v : vehiculosEncontrados) {
+	        model.addRow(new Object[] {
+	            v.getPlaca(),
+	            v.getModelo(),
+	            v.getMarca(),
+	            v.getAnio(),
+	            v.getColor(),
+	            v.getPrecioRenta()
+	        });
+	    }
+	    tVehiculos.setDefaultEditor(Object.class, null);//Evitar que el usuario edite las celdas
+		//ya que se agregaron los datos, repintar la tabla
+	    tVehiculos.repaint();
+	    ListSelectionModel seleccion = 	    tVehiculos.getSelectionModel();
+
+		seleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        seleccion.addListSelectionListener(new ListSelectionListener() {    
+            public void valueChanged(ListSelectionEvent e) {    
+                // Verificar si la selección está ajustada
+                if (!e.getValueIsAdjusting()) {
+                    int filaSeleccionada = tVehiculos.getSelectedRow();
+                    if (filaSeleccionada != -1) {
+                    	for (Vehiculo v : Control.getVehiculos()) {
+                	        model.addRow(new Object[] {
+                	            v.getPlaca(),
+                	            v.getModelo(),
+                	            v.getMarca(),
+                	            v.getAnio(),
+                	            v.getColor(),
+                	            v.getPrecioRenta()
+                	        });
+                        dispose();
+                        OperacionCuenta v= new OperacionCuenta(c);
+                		v.setVisible(true);
+                    }
+                }
+            }    
+        });
+	}
 }

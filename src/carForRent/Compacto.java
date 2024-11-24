@@ -12,4 +12,8 @@ public class Compacto extends Vehiculo{
 	public String getDimMaletero() {
 		return dimMaletero;
 	}
+
+	public void setDimMaletero(String dimMaletero) {
+		this.dimMaletero=dimMaletero;
+	}
 }

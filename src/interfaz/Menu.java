@@ -85,15 +85,6 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		mntmRegistrarV.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuInventario.add(mntmRegistrarV);
 		
-		JMenuItem mntmConsultar = new JMenuItem("Consultar");
-		mntmConsultar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				consultarInventario();
-			}
-		});
-		mntmConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		menuInventario.add(mntmConsultar);
-		
 		JMenuItem mntmModificar = new JMenuItem("Modificar");
 		mntmModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -226,17 +217,14 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	}
 
 	public void registrarVehiculo() {
-		//1 indica que se hará un registri y null que no hay un vehículo creado aún
+		//1 indica que se hará un registro y null que no hay un vehículo creado aún
 		InformacionVehiculo v = new InformacionVehiculo(1,null);
 		v.setVisible(true);
 	}
 	
-	public void consultarInventario() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
-	}
-	
 	public void modificarInventario() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		BuscarVehiculos v = new BuscarVehiculos();
+		v.setVisible(true);
 	}
 	
 	public void cotizar() {

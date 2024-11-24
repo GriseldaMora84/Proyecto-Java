@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
 import interfaz.Menu;
 
 public class Control {
@@ -30,5 +29,9 @@ public class Control {
 	
 	public static void ingresaVehiculo(Vehiculo vehiculo) {//Método para crear clientes
 		vehiculos.add(vehiculo);
+	}
+	
+	public static ArrayList<Vehiculo> getVehiculos() {
+		return vehiculos;
 	}
 }

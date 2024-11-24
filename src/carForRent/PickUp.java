@@ -42,4 +42,20 @@ public class PickUp extends Vehiculo{
 		return areaCarga;
 	}
 
+	public void setTraccion(String traccion) {
+		this.traccion=traccion;
+	}
+
+	public void setCabina(String cabina) {
+		this.cabina=cabina;
+	}
+
+	public void setAreaCarga(String areaCarga) {
+		this.areaCarga=areaCarga;
+	}
+
+	public void setTorque(String torque) {
+		this.torque=torque;
+	}
+
 }
