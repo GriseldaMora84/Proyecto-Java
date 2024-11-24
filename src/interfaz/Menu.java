@@ -132,9 +132,10 @@ public Menu(String usuario) {
 		mntmActualizarInfo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuCliente.add(mntmActualizarInfo);
 		
-		JLabel lblFoto = new JLabel("FOTO");
-		lblFoto.setBorder(BorderFactory.createLineBorder(Color.black));
-		lblFoto.setBackground(Color.LIGHT_GRAY);
+		JLabel lblFoto = new JLabel("");
+		lblFoto.setIcon(new ImageIcon(Menu.class.getResource("/pictures/perfil.png")));
+		lblFoto.setBorder(null);
+		lblFoto.setBackground(new Color(220, 220, 220));
 		lblFoto.setOpaque(true);
 		lblFoto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFoto.setFont(new Font("Tahoma", Font.PLAIN, 20));
