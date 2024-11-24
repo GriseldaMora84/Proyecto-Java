@@ -6,10 +6,10 @@ public class Van extends Vehiculo{
 	private String capRemolque;//Capacidad del remolque
 	private String tipoAcceso;
 	
-	public Van(String dimMaletero, String tipoAsientos, String capRemolque, String tipoAcceso, String marca, 
+	public Van(String dimMaletero, String tipoAsientos, String capRemolque, String tipoAcceso, int id,String marca, 
 			String modelo, int anio, String placa, String color, String kilometraje, double precioRenta, 
-			String eficiencia, String potencia) {
-		super(marca,modelo,anio,placa,color,kilometraje,precioRenta,eficiencia,potencia);
+			String eficiencia, String potencia,String tipo) {
+		super(id,marca,modelo,anio,placa,color,kilometraje,precioRenta,eficiencia,potencia,tipo);
 		this.dimMaletero=dimMaletero;
 		this.tipoAsientos=tipoAsientos;
 		this.capRemolque=capRemolque;

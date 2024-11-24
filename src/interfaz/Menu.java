@@ -18,6 +18,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import carForRent.Control;
+
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -38,6 +41,8 @@ public class Menu extends JDialog {
 	private java.sql.Statement statementSql;//Realizar consultas
 
 public Menu(String noEmpleado,String nombreUsuario) {
+	//Inicializar clase control
+	Control.inicializa();
 	//Conexion a la base de datos
 		try {
 			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
@@ -221,7 +226,9 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	}
 
 	public void registrarVehiculo() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		//1 indica que se hará un registri y null que no hay un vehículo creado aún
+		InformacionVehiculo v = new InformacionVehiculo(1,null);
+		v.setVisible(true);
 	}
 	
 	public void consultarInventario() {

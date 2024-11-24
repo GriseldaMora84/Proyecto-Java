@@ -17,9 +17,14 @@ import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import javax.swing.JCheckBox;
 
 public class BuscarVehiculos extends JDialog {
@@ -48,25 +53,21 @@ public class BuscarVehiculos extends JDialog {
     private JTextField txtNoPlaca;
 	private JTable tVehiculos;
 	private Object scrollPane;
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            BuscarVehiculos dialog = new BuscarVehiculos();
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	private java.sql.Connection conexion;//Hace la conexión
+	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
+	private java.sql.Statement statementSql;//Realizar consultas
 
     public BuscarVehiculos() {
+    	//Conexion a la base de datos
+		try {
+			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+			statementSql=conexion.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error de conexión");
+		}
+		
         setTitle("Buscar Vehículos");
         setBounds(100, 100, 600, 743);
         getContentPane().setLayout(new BorderLayout());
@@ -236,17 +237,28 @@ public class BuscarVehiculos extends JDialog {
         buttonPane.setBackground(new Color(201, 248, 243));
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        JButton okButton = new JButton("OK");
-        okButton.setActionCommand("OK");
-        buttonPane.add(okButton);
-        getRootPane().setDefaultButton(okButton);
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		buscar();
+        	}
+        });
+        btnBuscar.setActionCommand("OK");
+        buttonPane.add(btnBuscar);
+        getRootPane().setDefaultButton(btnBuscar);
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setActionCommand("Cancel");
         buttonPane.add(cancelButton);
 
-        cancelButton.addActionListener(e -> dispose()); // Cerrar el diálogo al cancelar.
-
-        
+        cancelButton.addActionListener(e -> dispose()); // Cerrar el diálogo al cancelar
+    }
+    
+    public void buscar() {
+    	//Primero veficar que checkBox está marcado
+    	if (chkTipo.isSelected()) {
+            String tipo = txtTipo.getText(); // Obtener el texto del JTextField correspondiente
+            System.out.println("Tipo seleccionado: " + tipo);
+        }
     }
 }

@@ -278,7 +278,7 @@ public class Login extends JDialog {
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	            JOptionPane.showMessageDialog(contentPanel, "Error al realizar la consulta: " + e.getMessage());
-	        }//numero = (int) (Math.random() * 1000) + 1;
+	        }
 		}
 	}
 }

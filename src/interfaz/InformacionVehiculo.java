@@ -8,6 +8,10 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import carForRent.Compacto;
+import carForRent.Control;
+import carForRent.PickUp;
+import carForRent.Van;
 import carForRent.Vehiculo;
 
 import javax.swing.JLabel;
@@ -16,12 +20,19 @@ import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class InformacionVehiculo extends JDialog {
 
@@ -53,28 +64,21 @@ public class InformacionVehiculo extends JDialog {
 	private JPanel panelCompacto;
 	private JPanel panelVan;
 	private JPanel panelPickUp;
-	
-	public static void main(String[] args) {
-
-		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-			
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException| UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
-		try {
-			InformacionVehiculo dialog = new InformacionVehiculo(4,null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private java.sql.Connection conexion;//Hace la conexión
+	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
+	private java.sql.Statement statementSql;//Realizar consultas
 	
 	public InformacionVehiculo(int opc,Vehiculo vehiculo ) {
+		//Conexion a la base de datos
+			try {
+				conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+				statementSql=conexion.createStatement();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error de conexión");
+			}
+		
 		setTitle("Información del vehículo");
 		setBounds(100, 100, 450, 592);
 		getContentPane().setLayout(new BorderLayout());
@@ -199,12 +203,6 @@ public class InformacionVehiculo extends JDialog {
 				txtKilometraje.setColumns(10);
 				txtKilometraje.setBounds(124, 207, 131, 19);
 				contentPanel.add(txtKilometraje);
-			}
-			{
-				JLabel lblAvisoKilometraje = new JLabel("Km/h");
-				lblAvisoKilometraje.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				lblAvisoKilometraje.setBounds(265, 210, 64, 13);
-				contentPanel.add(lblAvisoKilometraje);
 			}
 			{
 				txtPrecioRenta = new JTextField();
@@ -399,11 +397,41 @@ public class InformacionVehiculo extends JDialog {
 			panelPickUp.add(txtAreaCarga);
 		}
 		panelPickUp.setVisible(false);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(201, 248, 243));
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton btnSig = new JButton("Siguiente");
+				btnSig.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						siguiente(opc);
+					}
+				});
+				btnSig.setActionCommand("OK");
+				buttonPane.add(btnSig);
+				getRootPane().setDefaultButton(btnSig);
+			}
+			{
+				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				btnCancelar.setActionCommand("Cancel");
+				buttonPane.add(btnCancelar);
+			}
+		}
 		
-		if(opc==1){
+		//Vericar que panales activar y si los txt estarán activos
+		if(opc==1){//Registrar vehiculo
+			int numero=(int) ((Math.random() * 1000) + 1);
+			txtID.setText(String.valueOf(numero));
 			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"", "VAN", "COMPACTO", "PICK UP"}));
 			cbMarca.setModel(new DefaultComboBoxModel(new String[] {"", "NISSAN", "TOYOTA", "FORD", "OTRO"}));
-			//Verificar que panel activar
+			//Verificar que panel activar dependiendo del vehiculo elegido
 			cbTipo.addActionListener(e -> {
 				if(cbTipo.getSelectedItem().equals("VAN")) {
 					panelVan.setVisible(true);
@@ -423,7 +451,34 @@ public class InformacionVehiculo extends JDialog {
 					panelVan.setVisible(false);
 				}
 			});
-		}else if(opc==2){
+			//Proceso para verificar que se ingresó un double
+			txtPrecioRenta.addKeyListener(new KeyAdapter() {
+				String temp;
+				@Override			
+				public void keyTyped(KeyEvent e) {
+					char caracter = e.getKeyChar();
+					// Verificar si la tecla pulsada no es un digito
+					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
+			        	 && (caracter!='.')   ){		  	 		    	  
+						e.consume();  // ignorar el evento de teclado      
+					}
+					temp=txtPrecioRenta.getText();
+				}
+				@Override
+				public void keyReleased(KeyEvent arg0) {//Verifcar que se ingrese un double
+				  	String v=txtPrecioRenta.getText().trim();
+				    	double d;
+				    	 try {
+				    	  //trata de convertir
+				    		  if(!v.equals(""))
+				    			  d=Double.parseDouble(v);
+				    	  }catch(Exception e) {
+				    		  JOptionPane.showMessageDialog(null, "Número incorrecto");
+				    		  txtPrecioRenta.setText(temp);
+				    	  }
+					}
+				});
+		}else if(opc==2){//Consulta de vehículos
 			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"PICK UP"}));
 			cbMarca.setModel(new DefaultComboBoxModel(new String[] { "NISSAN"}));
 			txtModelo.setText("aa");
@@ -442,7 +497,7 @@ public class InformacionVehiculo extends JDialog {
 			txtEficiencia.setEditable(false);
 			txtPotencia.setText("gg");
 			txtPotencia.setEditable(false);
-			//Verificar que panel activar
+			//Verificar que panel activar dependiendo de lo ya registrado
 			if(cbTipo.getSelectedItem().equals("VAN")){
 				panelVan.setVisible(true);
 				txtDimMaleteroVan.setText("ff");
@@ -470,7 +525,7 @@ public class InformacionVehiculo extends JDialog {
 				txtAreaCarga.setText("ff");
 				txtAreaCarga.setEditable(false);
 			}
-		}else{
+		}else{//Modicación de información
 			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"PICK UP",}));
 			cbMarca.setModel(new DefaultComboBoxModel(new String[] { "NISSAN","Toyota"}));
 			txtModelo.setText("aa");
@@ -481,7 +536,7 @@ public class InformacionVehiculo extends JDialog {
 			txtPrecioRenta.setText("vv");
 			txtEficiencia.setText("uu");
 			txtPotencia.setText("gg");
-			//Verificar que panel activar
+			//Verificar que panel activar de acuerdo a lo ya registrado
 			if(cbTipo.getSelectedItem().equals("VAN")){
 				panelVan.setVisible(true);
 				txtDimMaleteroVan.setText("ff");
@@ -500,22 +555,92 @@ public class InformacionVehiculo extends JDialog {
 				txtAreaCarga.setText("ff");
 			}
 		}
-		
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(201, 248, 243));
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton btnSig = new JButton("Siguiente");
-				btnSig.setActionCommand("OK");
-				buttonPane.add(btnSig);
-				getRootPane().setDefaultButton(btnSig);
+	}
+	
+	public void siguiente(int opc) {
+		if(opc==1) {
+			registrar();
+		}
+	}
+	
+	public void registrar() {
+		int id=Integer.parseInt(txtID.getText());
+		String tipo=(String) cbTipo.getSelectedItem();
+		String marca=(String) cbTipo.getSelectedItem();
+		if(marca.equals("OTRO"))
+			marca=txtMarca.getText();
+		String modelo=txtModelo.getText();
+		int anio=Integer.parseInt(txtAnio.getText());
+		String placa=txtNoPlaca.getText();
+		String color=txtColor.getText();
+		String kilometraje=txtKilometraje.getText();
+		double precioRenta=Double.parseDouble(txtPrecioRenta.getText());
+		String eficiencia=txtEficiencia.getText();
+		String potencia=txtPotencia.getText();
+		if(tipo.equals("COMPACTO")) {
+			String dimMal=txtDimMaletero.getText();
+			Compacto vCompacto= new Compacto(dimMal,id,marca,modelo,anio,placa,color,kilometraje,
+					precioRenta,eficiencia,potencia,tipo);
+			Control.ingresaVehiculo(vCompacto);
+			String consulta = "INSERT INTO vehiculocompacto (id, marca, modelo, anio, placa, color, kilometraje, precioRenta, eficiencia, potencia, dimMaletero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			try {
+				ps=conexion.prepareStatement(consulta);
+				ps.setInt(1, id);
+				ps.setString(2, marca);
+			    ps.setString(3, modelo);
+			    ps.setInt(4, anio);
+			    ps.setString(5, placa);
+			    ps.setString(6, color);
+			    ps.setString(7, kilometraje);
+			    ps.setDouble(8, precioRenta);
+			    ps.setString(9, eficiencia);
+			    ps.setString(10, potencia);
+			    ps.setString(11, dimMal); 
+				JOptionPane.showMessageDialog(contentPanel, "Auto registrado exitosamente");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(contentPanel, "Error");
 			}
-			{
-				JButton btnCancelar = new JButton("Cancelar");
-				btnCancelar.setActionCommand("Cancel");
-				buttonPane.add(btnCancelar);
+		}
+		else if(tipo.equals("VAN")){
+			String dimMalVan=txtDimMaleteroVan.getText();
+			String tipoAsientos=txtTipoAsiento.getText();
+			String capRemolque=txtCapRemolque.getText();
+			String tipoAcceso=txtTipoAcceso.getText();
+			Van vVan= new Van(dimMalVan,tipoAsientos,capRemolque,tipoAcceso,id,marca,modelo,anio,placa,color,kilometraje,
+					precioRenta,eficiencia,potencia,tipo);
+			try {
+				statementSql.executeUpdate("insert into vehiculovan(id,marca,modelo,anio,placa,color,kilometraje,\"\r\n"
+						+ "					+ \"precioRenta,eficiencia,potencia,dimMalVan,tipoAsientos,capRemolque,tipoAcceso)"
+						+ "('"+id+"',"+marca+"',"+modelo+"',"+anio+"',"+placa+"',"+color+"',"+kilometraje+
+						"',"+precioRenta+"',"+eficiencia+"',"+potencia+"',"+dimMalVan+"',"+tipoAsientos+
+						"',"+tipoAcceso+")");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Control.ingresaVehiculo(vVan);
+			JOptionPane.showMessageDialog(contentPanel, "Auto registrado exitosamente");
+		}else {
+			String traccion=txtTraccion.getText();
+			String cabina=txtCabina.getText();
+			String torque=txtTorque.getText();
+			String cubierta=txtCubierta.getText();
+			String areaCarga=txtAreaCarga.getText();
+			PickUp vPickUp=new PickUp(traccion,cabina,torque,cubierta,areaCarga,id,marca,modelo,anio,placa,color,kilometraje,
+					precioRenta,eficiencia,potencia,tipo);
+			try {
+				statementSql.executeUpdate("insert into vehiculovan(id,marca,modelo,anio,placa,color,kilometraje,\"\r\n"
+						+ "					+ \"precioRenta,eficiencia,potencia,dimMalVan,tipoAsientos,capRemolque,tipoAcceso)"
+						+ "('"+id+"',"+marca+"',"+modelo+"',"+anio+"',"+placa+"',"+color+"',"+kilometraje+
+						"',"+precioRenta+"',"+eficiencia+"',"+potencia+"',"+traccion+"',"+cabina+"',"+torque+
+						"',"+cubierta+"',"+areaCarga+")");
+				Control.ingresaVehiculo(vPickUp);
+				JOptionPane.showMessageDialog(contentPanel, "Auto registrado exitosamente");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
