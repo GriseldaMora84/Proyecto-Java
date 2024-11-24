@@ -73,6 +73,7 @@ public class Login extends JDialog {
 		setForeground(new Color(0, 0, 0));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
+		
 		contentPanel.setBackground(new Color(220, 220, 220));
 		contentPanel.setForeground(new Color(240, 219, 231));
 		contentPanel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -107,8 +108,27 @@ public class Login extends JDialog {
 				if(v.length()>12) {//Como la clave es la CURP, en realidad deben ser 18 caracteres
 					JOptionPane.showMessageDialog(null, "El nombre de usuario no debe exceder de 12 caracteres");
 					txtUsuario.setText(temp);
+										
 				}
 			}
+			
+		});
+		//Si el usuario da enter cuando este ingresando el textUsuario.
+		txtUsuario.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        // Verifica si la tecla presionada es Enter
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		        	try {
+						Thread.sleep(500);
+						aceptar();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		            
+		        }
+		    }
 		});
 
 		pwdPassword = new JPasswordField();
@@ -133,9 +153,26 @@ public class Login extends JDialog {
 				}
 			}
 		});
+		pwdPassword.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        // Verifica si la tecla presionada es Enter
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		        	try {
+						Thread.sleep(500);
+						aceptar();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		            
+		        }
+		    }
+		});
+		
 		panel_1 = new JPanel();
 		panel_1.setBackground(new Color(220, 220, 220));
-		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(null);
 		panel_1.setBounds(10, 143, 304, 48);
 		panel.add(panel_1);
 
