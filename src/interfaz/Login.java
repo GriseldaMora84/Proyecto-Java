@@ -47,6 +47,9 @@ public class Login extends JDialog {
 	private AbstractButton btnAceptar;
 	private Component lblPassword;
 	private JLabel lblNewLabel;
+	private java.sql.Connection conexion;//Hace la conexión
+	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
+	private java.sql.Statement statementSql;//Realizar consultas
 
 	public static void main(String[] args) {
 		//com.jtattoo.plaf.smart.SmartLookAndFeel
@@ -77,6 +80,16 @@ public class Login extends JDialog {
 		setTitle("Login \t\t\t\t\t\tCar For Rent");	
 		//setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/interfaz/pictures/Car-icon.png")));
 
+		//Conexion a la base de datos
+		try {
+			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+			statementSql=conexion.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error de conexión");
+		}
+		
 		setForeground(new Color(0, 0, 0));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -236,39 +249,36 @@ public class Login extends JDialog {
 	private void aceptar() {
 		String usuario=txtUsuario.getText();
 		String clave=new String (pwdPassword.getPassword());
-
+		
 		if(usuario.equals("")|| clave.equals("")) {
-			JOptionPane.showMessageDialog(contentPanel, "Favor de ingresar el usuario o contraseña");
+			JOptionPane.showMessageDialog(contentPanel, "Favor de vericar usuario y/o clave");
 		}else {
-			try {
-				Connection conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
-				Statement comando=conexion.createStatement();
-				ResultSet registroUsuario = comando.executeQuery("select nombreUsuario,contrasenia from cuentausuario where codigo="+usuario);
-				if (registroUsuario.next()==true) {
-					JOptionPane.showMessageDialog(contentPanel, "Encontrado");
-				} else {
-					JOptionPane.showMessageDialog(contentPanel, "NoEncontrado");
-				}
-				conexion.close();
-			} catch(SQLException ex){
-				setTitle(ex.toString());
-			}
-			
-			/*dispose();
-			Menu menu=new Menu(usuario);
-			menu.setVisible(true);*/
-			/*if(Control.verificarCliente(usuario)!=null && clave.equals("1234")) {
-				Control.setClienteActual(usuario);//usuario es curp
-				
-				JOptionPane.showMessageDialog(contentPanel, "Bienvenido \n"
-						+Control.getClienteActual().getNombre());
-				dispose();
-				MenuPrincipal menuPrincipal=new MenuPrincipal(usuario);
-				menuPrincipal.setVisible(true);
-			}
-			else {numero = (int) (Math.random() * 1000) + 1;
-				JOptionPane.showMessageDialog(contentPanel, "Usuario o contraseña incorrecta");
-			}*/
+			ResultSet registroUsuario;
+	        try {
+	        	//Se selecciona todo de la tabla cuentausuario
+	            String consulta = "SELECT * FROM cuentausuario WHERE nombreUsuario = ? AND contrasenia = ?";
+	            ps = statementSql.getConnection().prepareStatement(consulta);
+	            ps.setString(1, usuario); //Empieza en la columna 1 de la tabla buscando a usuario (parametro de búsqueda)
+	            ps.setString(2, clave); //Empieza en la columna 2 de la tabla buscando a contrasenia (parametro de búsqueda)
+	            registroUsuario = ps.executeQuery();//Devulve resultado donde usuario y clave concidan
+	
+	            if (registroUsuario.next()) {
+	                JOptionPane.showMessageDialog(contentPanel, "Bienvenido \n"+registroUsuario.getString("nombreUsuario"));
+					dispose();
+					Menu menuPrincipal=new Menu(registroUsuario.getString("noEmpleado"),registroUsuario.getString("nombreUsuario"));
+					menuPrincipal.setVisible(true);
+					conexion.close();
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+	            }
+	
+	            // Cerrar el ResultSet y PreparedStatement
+	            registroUsuario.close();
+	            ps.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            JOptionPane.showMessageDialog(contentPanel, "Error al realizar la consulta: " + e.getMessage());
+	        }//numero = (int) (Math.random() * 1000) + 1;
 		}
 	}
 }
