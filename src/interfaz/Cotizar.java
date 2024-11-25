@@ -11,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 import carForRent.Alquiler;
 import carForRent.Cliente;
 import carForRent.Control;
-import carForRent.Pago;
 import carForRent.Vehiculo;
 
 import java.awt.Color;
@@ -151,7 +150,7 @@ public class Cotizar extends JDialog {
 						if(!txtTarifa.getText().isEmpty()){
 							double tarifa=Double.parseDouble(txtTarifa.getText());
 							if(alquiler!=null && tarifa>0) {
-								alquilar(tarifa,noEmpleado);
+								alquilar();
 							}
 						}
 					}
@@ -203,19 +202,19 @@ public class Cotizar extends JDialog {
 		    String fechaFinS=anioFin + "-" + mesFin + "-" + diaFin;
 		    //Creacion de alquiler provisional
 		    alquiler=new Alquiler(String.valueOf( ((Math.random() * 1000) + 1)),fechaInicioS,fechaFinS,
-		    		null,vehiculo,null,noEmpleado,"0");
+		    		null,vehiculo,noEmpleado,"0",Double.parseDouble(txtTarifa.getText()));
 		}
 	}
 	
-	public void alquilar(double tarifa,long noEmpleado) {
+	public void alquilar() {
 		if(chkClienteRegistrado.isSelected()) {
-			BuscarCliente v=new BuscarCliente(3,alquiler,tarifa,noEmpleado);
+			BuscarCliente v=new BuscarCliente(3,alquiler,alquiler.getCostoTotal(),alquiler.getIdEmpleado());
 			v.setVisible(true);
 			dispose();
 		}
 		else {
 			Cliente cliente = new Cliente(1, "", "", "", "","");
-			InformacionCliente v=new InformacionCliente(1,cliente,alquiler,tarifa);
+			InformacionCliente v=new InformacionCliente(1,cliente,alquiler);
 			v.setVisible(true);
 			dispose();
 		}
