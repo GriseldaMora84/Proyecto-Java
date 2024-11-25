@@ -40,8 +40,9 @@ public class Menu extends JDialog {
 	private java.sql.Connection conexion;//Hace la conexión
 	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
 	private java.sql.Statement statementSql;//Realizar consultas
+	//Variables para el reloj
 	private JLabel lblHora;
-	private int hora,minutos,segundos,x;
+	private int hora,minutos,segundos;
 	private String ampM;
 
 	public Menu(String noEmpleado,String nombreUsuario) {
@@ -76,7 +77,7 @@ public class Menu extends JDialog {
 		JMenu menuInventario = new JMenu("Inventario");
 		menuInventario.setBackground(new Color(240, 219, 231));
 		menuInventario.setForeground(new Color(0, 0, 0));
-		menuInventario.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 16));
+		menuInventario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		mbOpciones.add(menuInventario);
 
 		JMenuItem mntmRegistrarV = new JMenuItem("Registrar vehículo");
@@ -100,7 +101,7 @@ public class Menu extends JDialog {
 
 		JMenu menuAlquiler = new JMenu("Alquiler");
 		menuAlquiler.setForeground(Color.BLACK);
-		menuAlquiler.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 16));
+		menuAlquiler.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		menuAlquiler.setBackground(new Color(201, 248, 243));
 		mbOpciones.add(menuAlquiler);
 
@@ -126,7 +127,7 @@ public class Menu extends JDialog {
 
 		JMenu menuCliente = new JMenu("Cliente");
 		menuCliente.setForeground(Color.BLACK);
-		menuCliente.setFont(new Font("Segoe UI Semilight", Font.PLAIN, 16));
+		menuCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		menuCliente.setBackground(new Color(240, 219, 231));
 		mbOpciones.add(menuCliente);
 
@@ -217,8 +218,8 @@ public class Menu extends JDialog {
 		
 		
 		lblHora = new JLabel("Hora:");
-		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblHora.setBounds(560, 20, 192, 31);
+		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblHora.setBounds(647, 20, 105, 31);
 		contentPanel.add(lblHora);
 		reloj();
 
