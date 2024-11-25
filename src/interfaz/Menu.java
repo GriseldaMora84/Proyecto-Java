@@ -43,6 +43,8 @@ public class Menu extends JDialog {
 public Menu(String noEmpleado,String nombreUsuario) {
 	//Inicializar clase control
 	Control.inicializa();
+	Control.cargarVehiculosDesdeBD();
+	
 	//Conexion a la base de datos
 		try {
 			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
@@ -228,7 +230,8 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	}
 	
 	public void cotizar() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		BuscarVehiculos v=new BuscarVehiculos();
+		v.setVisible(true);
 	}
 	
 	public void consultarHistorial() {
