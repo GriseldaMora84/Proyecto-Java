@@ -90,102 +90,112 @@ public class BuscarVehiculos extends JDialog {
 
         // Crear y posicionar los componentes
         chkTipo = new JCheckBox("Tipo");
+        chkTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkTipo.setBackground(new Color(220, 220, 220));
         chkTipo.setBounds(20, 90, 100, 25);
         contentPanel.add(chkTipo);
 
         txtTipo = new JTextField();
-        txtTipo.setBounds(150, 90, 150, 25);
+        txtTipo.setBounds(178, 92, 150, 25);
         contentPanel.add(txtTipo);
         txtTipo.setVisible(false);
 
         chkMarca = new JCheckBox("Marca");
+        chkMarca.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkMarca.setBackground(new Color(220, 220, 220));
         chkMarca.setBounds(20, 130, 100, 25);
         contentPanel.add(chkMarca);
 
         txtMarca = new JTextField();
-        txtMarca.setBounds(150, 130, 150, 25);
+        txtMarca.setBounds(178, 127, 150, 25);
         contentPanel.add(txtMarca);
         txtMarca.setVisible(false);
 
         chkModelo = new JCheckBox("Modelo");
+        chkModelo.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkModelo.setBackground(new Color(220, 220, 220));
         chkModelo.setBounds(20, 170, 100, 25);
         contentPanel.add(chkModelo);
 
         txtModelo = new JTextField();
-        txtModelo.setBounds(150, 170, 150, 25);
+        txtModelo.setBounds(178, 172, 150, 25);
         contentPanel.add(txtModelo);
         txtModelo.setVisible(false);
 
         chkAnio = new JCheckBox("Año");
+        chkAnio.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkAnio.setBackground(new Color(220, 220, 220));
         chkAnio.setBounds(20, 210, 100, 25);
         contentPanel.add(chkAnio);
 
         txtAnio = new JTextField();
-        txtAnio.setBounds(150, 210, 150, 25);
+        txtAnio.setBounds(178, 207, 150, 25);
         contentPanel.add(txtAnio);
         txtAnio.setVisible(false);
 
         chkColor = new JCheckBox("Color");
+        chkColor.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkColor.setBackground(new Color(220, 220, 220));
         chkColor.setBounds(20, 250, 100, 25);
         contentPanel.add(chkColor);
 
         txtColor = new JTextField();
-        txtColor.setBounds(150, 250, 150, 25);
+        txtColor.setBounds(178, 252, 150, 25);
         contentPanel.add(txtColor);
         txtColor.setVisible(false);
 
         chkKilometraje = new JCheckBox("Kilometraje");
+        chkKilometraje.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkKilometraje.setBackground(new Color(220, 220, 220));
         chkKilometraje.setBounds(20, 290, 100, 25);
         contentPanel.add(chkKilometraje);
 
         txtKilometraje = new JTextField();
-        txtKilometraje.setBounds(150, 290, 150, 25);
+        txtKilometraje.setBounds(178, 287, 150, 25);
         contentPanel.add(txtKilometraje);
         txtKilometraje.setVisible(false);
 
         chkPrecioRenta = new JCheckBox("Precio de Renta");
+        chkPrecioRenta.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkPrecioRenta.setBackground(new Color(220, 220, 220));
         chkPrecioRenta.setBounds(20, 321, 150, 25);
         contentPanel.add(chkPrecioRenta);
 
         txtPrecioRenta = new JTextField();
-        txtPrecioRenta.setBounds(178, 325, 150, 25);
+        txtPrecioRenta.setBounds(178, 323, 150, 25);
         contentPanel.add(txtPrecioRenta);
         txtPrecioRenta.setVisible(false);
 
         chkEficiencia = new JCheckBox("Eficiencia");
+        chkEficiencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkEficiencia.setBackground(new Color(220, 220, 220));
         chkEficiencia.setBounds(20, 362, 100, 25);
         contentPanel.add(chkEficiencia);
 
         txtEficiencia = new JTextField();
-        txtEficiencia.setBounds(150, 362, 150, 25);
+        txtEficiencia.setBounds(178, 358, 150, 25);
         contentPanel.add(txtEficiencia);
         txtEficiencia.setVisible(false);
 
         chkPotencia = new JCheckBox("Potencia");
+        chkPotencia.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkPotencia.setBackground(new Color(220, 220, 220));
         chkPotencia.setBounds(20, 397, 100, 25);
         contentPanel.add(chkPotencia);
 
         txtPotencia = new JTextField();
-        txtPotencia.setBounds(150, 397, 150, 25);
+        txtPotencia.setBounds(178, 393, 150, 25);
         contentPanel.add(txtPotencia);
         txtPotencia.setVisible(false);
         
         chkPlaca = new JCheckBox("Número de placa");
+        chkPlaca.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkPlaca.setBackground(new Color(220, 220, 220));
-        chkPlaca.setBounds(20, 50, 124, 25);
+        chkPlaca.setBounds(20, 50, 150, 25);
         contentPanel.add(chkPlaca);
         
         txtNoPlaca = new JTextField();
-        txtNoPlaca.setBounds(150, 40, 150, 32);
+        txtNoPlaca.setBounds(178, 57, 150, 25);
         contentPanel.add(txtNoPlaca);
         txtNoPlaca.setColumns(10);
         txtNoPlaca.setVisible(false);
