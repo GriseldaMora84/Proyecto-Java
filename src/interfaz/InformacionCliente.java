@@ -133,6 +133,10 @@ public class InformacionCliente extends JDialog {
 			txtNoLic.setText(cliente.getNoLicencia());
 			txtExpLic.setText(cliente.getFechaExpLicencia());
 		}
+		else {
+			int numero=(int) ((Math.random() * 1000) + 1);
+			txtNoCliente.setText( String.valueOf(numero));
+		}
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBackground(new Color(220, 220, 220));
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -207,7 +211,7 @@ public class InformacionCliente extends JDialog {
 			cliente.setFechaExpLicencia(fechaExpLicencia);
 
 			// Actualizar el cliente en la base de datos
-			String consulta = "UPDATE cliente SET nombre = ?, noCelular = ?, email = ?, noLicencia = ?, fechaExpLicencia = ? WHERE id = ?";
+			String consulta = "UPDATE cliente SET nombre = ?, noCelular = ?, email = ?, noLicencia = ?, expiracionLic = ? WHERE id = ?";
 			try {
 			    ps = conexion.prepareStatement(consulta);
 			    ps.setString(1, nombre);
