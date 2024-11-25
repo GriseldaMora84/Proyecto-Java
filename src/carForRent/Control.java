@@ -149,14 +149,13 @@ public class Control {
 	    String consulta = "SELECT * FROM empleado"; 
 	    try (ResultSet rs = statementSql.executeQuery(consulta)) {
 	        while (rs.next()) {
-	            // Crear un objeto Cliente con los datos obtenidos
+	            // Crear un objeto Empleado con los datos obtenidos
 	            Empleado e = new Empleado(
 	                rs.getInt("id"),
 	                rs.getString("nombre"),
 	                rs.getString("noCel"),
 	                rs.getString("email")
 	            );
-	            // Agregar el empleado a la lista de clientes
 	            empleados.add(e); 
 	        }
 	    } catch (SQLException e) {
@@ -169,15 +168,18 @@ public class Control {
 	    String consulta = "SELECT * FROM alquiler"; 
 	    try (ResultSet rs = statementSql.executeQuery(consulta)) {
 	        while (rs.next()) {
-	            // Crear un objeto Cliente con los datos obtenidos
-	            /*Alquiler al = new Alquiler(
+	            // Crear un objeto Alquiler con los datos obtenidos
+	            Alquiler al = new Alquiler(
 	                rs.getString("noAlquiler"),
-	                rs.getString("nombre"),
-	                rs.getString("noCel"),
-	                rs.getString("email")
-	            );*/
-	            // Agregar el cliente a la lista de clientes
-	           // empleados.add(e); 
+	                rs.getString("inicio"),
+	                rs.getString("fin"),
+	                getClienteID(rs.getInt("noCliente")),
+	                getVehiculoID(rs.getInt("idVehiculo")),
+	                (long)rs.getInt("idEmpleado"),
+	                rs.getString("refPago"),
+	                rs.getDouble("costoTotal")
+	            );
+	           alquileres.add(al);
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -188,6 +190,16 @@ public class Control {
 	public static Vehiculo getVehiculo(String placa) {
 	    for (Vehiculo v : vehiculos) {
 	        if (v.getPlaca().equals(placa)) {
+	            return v; // Regresar el vehículo si coincide
+	        }
+	    }
+	    // Si no se encuentra regresar null
+	    return null;
+	}
+	
+	public static Vehiculo getVehiculoID(int id) {
+	    for (Vehiculo v : vehiculos) {
+	        if (v.getId()==id) {
 	            return v; // Regresar el vehículo si coincide
 	        }
 	    }
@@ -224,12 +236,26 @@ public class Control {
 	    return null;
 	}
 	
+	public static Cliente getClienteID(int id) {
+		for (Cliente c : clientes) {
+	        if (c.getNoCliente()==id) {
+	            return c; // Regresar el vehículo si coincide
+	        }
+	    }
+	    // Si no se encuentra regresar null
+	    return null;
+	}
+	
 	public static ArrayList<Vehiculo> getVehiculos() {
 		return vehiculos;
 	}
 	
 	public static ArrayList<Cliente> getClientes() {
 		return clientes;
+	}
+	
+	public static ArrayList<Alquiler> getAlquileres() {
+		return alquileres;
 	}
 	
 	public static double calcularCostoTotal(int dias,Vehiculo vehiculo) {

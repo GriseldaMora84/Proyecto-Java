@@ -54,6 +54,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	Control.cargarVehiculosDesdeBD();
 	Control.cargarClientesDesdeBD();
 	Control.cargarEmpleadosDesdeBD();
+	Control.cargarAlquileresDesdeBD();
 	
 	//Conexion a la base de datos
 	//branch 'master' of https://github.com/GriseldaMora84/Proyecto-Java
@@ -267,7 +268,8 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	}
 
 	public void consultarHistorial() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		BuscarAlquiler v= new BuscarAlquiler();
+		v.setVisible(true);
 	}
 
 	public void registrarCliente() {
