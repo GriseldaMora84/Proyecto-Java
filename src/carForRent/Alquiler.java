@@ -70,8 +70,8 @@ public class Alquiler {
 		return refPago;
 	}
 	
-	public void calcularCostoTotal() {
-		double costoAdicional=500;
+	public void calcularCostoTotal(int dias) {
+		double costoAdicional=100*dias;
 		costoTotal=costoAdicional+vehiculo.getPrecioRenta();
 	}
 }

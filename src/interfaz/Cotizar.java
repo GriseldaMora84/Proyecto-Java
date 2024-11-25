@@ -12,17 +12,35 @@ import carForRent.Vehiculo;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
+import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit;
+import java.awt.event.ActionEvent;
 
 public class Cotizar extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
+	private JComboBox cbDiaI;
+	private JComboBox cbMesI;
+	private JComboBox cbAnioI;
+	private JComboBox cbDiaF;
+	private JComboBox cbMesF;
+	private JComboBox cbAnioF;
 	
 	public Cotizar(Vehiculo vehiculo) {
 		setBounds(100, 100, 450, 479);
@@ -44,19 +62,19 @@ public class Cotizar extends JDialog {
 			contentPanel.add(lblFechaInicio);
 		}
 		
-		JComboBox cbDiaI = new JComboBox();
+		cbDiaI = new JComboBox();
 		cbDiaI.setModel(new DefaultComboBoxModel(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
 		cbDiaI.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		cbDiaI.setBounds(10, 89, 48, 21);
 		contentPanel.add(cbDiaI);
 		
-		JComboBox cbMesI = new JComboBox();
+		cbMesI = new JComboBox();
 		cbMesI.setModel(new DefaultComboBoxModel(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
 		cbMesI.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		cbMesI.setBounds(68, 89, 139, 21);
 		contentPanel.add(cbMesI);
 		
-		JComboBox cbAnioI = new JComboBox();
+		cbAnioI = new JComboBox();
 		cbAnioI.setModel(new DefaultComboBoxModel(new String[] {"", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032"}));
 		cbAnioI.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		cbAnioI.setBounds(217, 90, 92, 21);
@@ -67,25 +85,30 @@ public class Cotizar extends JDialog {
 		lblFechaFin.setBounds(10, 125, 197, 24);
 		contentPanel.add(lblFechaFin);
 		
-		JComboBox cbDiaIF = new JComboBox();
-		cbDiaIF.setModel(new DefaultComboBoxModel(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
-		cbDiaIF.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		cbDiaIF.setBounds(10, 158, 48, 21);
-		contentPanel.add(cbDiaIF);
+		cbDiaF = new JComboBox();
+		cbDiaF.setModel(new DefaultComboBoxModel(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		cbDiaF.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		cbDiaF.setBounds(10, 158, 48, 21);
+		contentPanel.add(cbDiaF);
 		
-		JComboBox cbMesF = new JComboBox();
+		cbMesF = new JComboBox();
 		cbMesF.setModel(new DefaultComboBoxModel(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
 		cbMesF.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		cbMesF.setBounds(68, 159, 139, 21);
 		contentPanel.add(cbMesF);
 		
-		JComboBox cbAnioF = new JComboBox();
+		cbAnioF = new JComboBox();
 		cbAnioF.setModel(new DefaultComboBoxModel(new String[] {"", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032"}));
 		cbAnioF.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		cbAnioF.setBounds(217, 159, 92, 21);
 		contentPanel.add(cbAnioF);
 		
-		JButton btnCotizar = new JButton("OK");
+		JButton btnCotizar = new JButton("Cotizar");
+		btnCotizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cotizar();
+			}
+		});
 		btnCotizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCotizar.setActionCommand("OK");
 		btnCotizar.setBounds(127, 206, 100, 31);
@@ -124,5 +147,37 @@ public class Cotizar extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	public void cotizar() {
+		String diaInicio=(String) cbDiaI.getSelectedItem();
+		String mesInicio=(String) cbMesI.getSelectedItem();
+		String anioInicio=(String) cbAnioI.getSelectedItem();
+		String diaFin=(String) cbDiaF.getSelectedItem();
+		String mesFin=(String) cbMesF.getSelectedItem();
+		String anioFin=(String) cbAnioF.getSelectedItem();
+		if (diaInicio.isEmpty() || mesInicio.isEmpty() || anioInicio.isEmpty() ||
+	            diaFin.isEmpty() || mesFin.isEmpty() || anioFin.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Llenar todas las fechas.");
+	    }
+		SimpleDateFormat fechaFormato = new SimpleDateFormat("dd/MM/yyyy");
+		Date fechaInicio=null;
+		try {
+			fechaInicio = (Date) fechaFormato.parse(diaInicio+"/"+mesInicio+"/"+anioInicio);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Date fechaFin = null;
+		try {
+			fechaFin = (Date) fechaFormato.parse(diaFin+"/"+mesFin+"/"+anioFin);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //Date fecha_actual = formato.parse(fechaActual.toString());
+        long diff = fechaInicio.getTime() - fechaFin.getTime();
+        //long dias = Math.abs(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+        long dias = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 }
