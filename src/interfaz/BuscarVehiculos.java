@@ -343,6 +343,16 @@ public class BuscarVehiculos extends JDialog {
                 if (!e.getValueIsAdjusting()) {
                     int filaSeleccionada = tVehiculos.getSelectedRow();
                     if (filaSeleccionada != -1) {
+                    	String placa = (String) tVehiculos.getValueAt(filaSeleccionada, 0);
+                    	InformacionVehiculo v =new InformacionVehiculo(2,Control.getVehiculo(placa));
+                    	v.setVisible(true);
+    					try {
+							conexion.close();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+    					dispose();
                     }
                 }
             }

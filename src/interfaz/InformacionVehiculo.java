@@ -591,7 +591,7 @@ public class InformacionVehiculo extends JDialog {
 		String potencia=txtPotencia.getText();
 		if(tipo.equals("COMPACTO")) {
 			String dimMal=txtDimMaletero.getText();
-			Compacto vCompacto= new Compacto(dimMal,id,marca,modelo,anio,placa,color,kilometraje,
+			Vehiculo vCompacto= new Compacto(dimMal,id,marca,modelo,anio,placa,color,kilometraje,
 					precioRenta,eficiencia,potencia,tipo);
 			Control.ingresaVehiculo(vCompacto);
 			String consulta = "INSERT INTO vehiculocompacto (id, marca, modelo, anio, placa, color, kilometraje, precioRenta, eficiencia, potencia, dimMaletero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -622,7 +622,7 @@ public class InformacionVehiculo extends JDialog {
 			String tipoAsientos=txtTipoAsiento.getText();
 			String capRemolque=txtCapRemolque.getText();
 			String tipoAcceso=txtTipoAcceso.getText();
-			Van vVan= new Van(dimMalVan,tipoAsientos,capRemolque,tipoAcceso,id,marca,modelo,anio,placa,color,kilometraje,
+			Vehiculo vVan= new Van(dimMalVan,tipoAsientos,capRemolque,tipoAcceso,id,marca,modelo,anio,placa,color,kilometraje,
 					precioRenta,eficiencia,potencia,tipo);
 			Control.ingresaVehiculo(vVan);
 			String consulta = "INSERT INTO vehiculovan(id, marca, modelo, anio, placa, color, kilometraje, precioRenta, eficiencia, potencia, dimMaletero, tipoAsietos, capRemolque, tipoAcceso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -656,7 +656,7 @@ public class InformacionVehiculo extends JDialog {
 			String torque=txtTorque.getText();
 			String cubierta=txtCubierta.getText();
 			String areaCarga=txtAreaCarga.getText();
-			PickUp vPickUp=new PickUp(traccion,cabina,torque,cubierta,areaCarga,id,marca,modelo,anio,placa,color,kilometraje,
+			Vehiculo vPickUp=new PickUp(traccion,cabina,torque,cubierta,areaCarga,id,marca,modelo,anio,placa,color,kilometraje,
 					precioRenta,eficiencia,potencia,tipo);
 			Control.ingresaVehiculo(vPickUp);
 			String consulta = "INSERT INTO vehiculopickup (id, marca, modelo, anio, placa, color, kilometraje, precioRenta, eficiencia, potencia, traccion, cabina, torque, areaCarga) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -690,7 +690,9 @@ public class InformacionVehiculo extends JDialog {
 	}
 	
 	public void consultar(Vehiculo vehiculo) {
-		
+		Cotizar v = new Cotizar(vehiculo);
+		v.setVisible(true);
+		dispose();
 	}
 	
 	public void modificar(Vehiculo vehiculo) {
@@ -725,6 +727,7 @@ public class InformacionVehiculo extends JDialog {
 	        // Dependiendo del tipo de vehículo, actualizar también otros atributos específicos
 	        if (tipo.equals("COMPACTO")) {
 	            String dimMal = txtDimMaletero.getText();
+	            //Vehiculo instanciar a compacto para acceder a atributos especificos
 	            Compacto vCompacto = (Compacto) vehiculo;
 	            vCompacto.setDimMaletero(dimMal);
 	            

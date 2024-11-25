@@ -45,10 +45,19 @@ public class Menu extends JDialog {
 	private int hora,minutos,segundos;
 	private String ampM;
 
+<<<<<<< HEAD
 	public Menu(String noEmpleado,String nombreUsuario) {
 		//Inicializar clase control
 		Control.inicializa();
 		//Conexion a la base de datos
+=======
+public Menu(String noEmpleado,String nombreUsuario) {
+	//Inicializar clase control
+	Control.inicializa();
+	Control.cargarVehiculosDesdeBD();
+	
+	//Conexion a la base de datos
+>>>>>>> branch 'master' of https://github.com/GriseldaMora84/Proyecto-Java
 		try {
 			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
 			statementSql=conexion.createStatement();
@@ -237,7 +246,8 @@ public class Menu extends JDialog {
 	}
 
 	public void cotizar() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		BuscarVehiculos v=new BuscarVehiculos();
+		v.setVisible(true);
 	}
 
 	public void consultarHistorial() {
