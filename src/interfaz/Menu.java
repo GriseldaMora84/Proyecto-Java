@@ -243,21 +243,12 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	}
 
 
-	public void modificarInventario() {
-		//BuscarVehiculos v = new BuscarVehiculos();
-		
-
-	}
 	public void modificarInventario(long noEmpleado) {
 		BuscarVehiculos v = new BuscarVehiculos(3,noEmpleado);
 		v.setVisible(true);
 	}
 
 
-	public void cotizar() {
-		//BuscarVehiculos v=new BuscarVehiculos();
-
-	}
 	public void cotizar(long noEmpleado) {
 		BuscarVehiculos v=new BuscarVehiculos(2,noEmpleado);
 		v.setVisible(true);
