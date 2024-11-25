@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import carForRent.Alquiler;
+import carForRent.Cliente;
+import carForRent.Control;
 import carForRent.Vehiculo;
 
 import java.awt.Color;
@@ -137,7 +139,7 @@ public class BuscarCliente extends JDialog {
 				okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ok();
+						ok(opc,alquiler,tarifa, noEmpleado);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -186,24 +188,25 @@ public class BuscarCliente extends JDialog {
 	    });
 	}
 	
-	public void ok() {
+	public void ok(int opc,Alquiler alquiler,double tarifa,long noEmpleado) {
 		//Verificar que se haya selleciondado algo
 		if (bg.getSelection() == null) { 
 			JOptionPane.showMessageDialog(contentPanel, "Elige una opción");
 		}else {
+			String dato="";
 			if (rdbNombre.isSelected()) {
-				String nombre=txtNombre.getText();
-				
-				
+				dato =txtNombre.getText();
+
 	        } else if (rdbNoTel.isSelected()) {
-	        	String noTel=txtTel.getText();
+	        	dato=txtTel.getText();
 	        	
 	        } else if (rdbEmail.isSelected()) {
-	        	String email=txtEmail.getText();
+	        	dato=txtEmail.getText();
 	        	
 	        } else if (rdbNoLic.isSelected()) {
-	        	String lic=txtLic.getText();
+	        	dato=txtLic.getText();
 	        }
+			InformacionCliente v= new InformacionCliente(opc,Control.getCliente(dato),alquiler,tarifa);
 		}
 	}
 }

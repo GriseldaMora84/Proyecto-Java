@@ -247,8 +247,6 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	    		null,null,null,0,"0");
 		InformacionCliente v = new InformacionCliente(1,cliente,alquiler,0);
 		v.setVisible(true);
-
-		//(int opc, Cliente cliente,Alquiler alquiler, double tarifa)
 	}
 	
 	public void actualizarCliente() {
