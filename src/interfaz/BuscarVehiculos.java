@@ -353,6 +353,7 @@ public class BuscarVehiculos extends JDialog {
                 	            v.getPrecioRenta()
                 	        });
                         dispose();
+                        //ssssss
                         OperacionCuenta v= new OperacionCuenta(c);
                 		v.setVisible(true);
                     }
