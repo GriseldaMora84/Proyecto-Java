@@ -54,7 +54,7 @@ public class BuscarAlquiler extends JDialog {
         setTitle("Buscar Alquiler");
         setBounds(100, 100, 600, 600);
         getContentPane().setLayout(new BorderLayout());
-        contentPanel.setBackground(new Color(150, 241, 232));
+        contentPanel.setBackground(new Color(220, 220, 220));
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
@@ -66,6 +66,7 @@ public class BuscarAlquiler extends JDialog {
 
         // Crear y posicionar los componentes
         chkCliente = new JCheckBox("Nombre de Cliente");
+        chkCliente.setBackground(new Color(220, 220, 220));
         chkCliente.setBounds(20, 50, 150, 25);
         contentPanel.add(chkCliente);
 
@@ -75,6 +76,7 @@ public class BuscarAlquiler extends JDialog {
         txtCliente.setVisible(false);
 
         chkEmpleado = new JCheckBox("Nombre de Empleado");
+        chkEmpleado.setBackground(new Color(220, 220, 220));
         chkEmpleado.setBounds(20, 90, 150, 25);
         contentPanel.add(chkEmpleado);
 
@@ -84,6 +86,7 @@ public class BuscarAlquiler extends JDialog {
         txtEmpleado.setVisible(false);
 
         chkPlaca = new JCheckBox("Número de Placa");
+        chkPlaca.setBackground(new Color(220, 220, 220));
         chkPlaca.setBounds(20, 130, 150, 25);
         contentPanel.add(chkPlaca);
 
@@ -113,7 +116,7 @@ public class BuscarAlquiler extends JDialog {
         JPanel buttonPane = new JPanel();
         buttonPane.setBounds(100, 194, 389, 31);
         contentPanel.add(buttonPane);
-        buttonPane.setBackground(new Color(201, 248, 243));
+        buttonPane.setBackground(new Color(220, 220, 220));
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         JButton okButton = new JButton("Buscar");
