@@ -224,8 +224,7 @@ public class Pagar extends JDialog {
 	public void aceptar() {//registrarlos en la base de datos y en la lista de alquileres
 
 		if(tarjetaValida && cvvValido) {
-
-
+			
 		}
 
 
