@@ -156,8 +156,28 @@ public class Control {
 	                rs.getString("noCel"),
 	                rs.getString("email")
 	            );
-	            // Agregar el cliente a la lista de clientes
+	            // Agregar el empleado a la lista de clientes
 	            empleados.add(e); 
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Error al cargar empleado: " + e.getMessage());
+	    }
+	}
+	
+	public static void cargarAlquileresDesdeBD() {
+	    String consulta = "SELECT * FROM alquiler"; 
+	    try (ResultSet rs = statementSql.executeQuery(consulta)) {
+	        while (rs.next()) {
+	            // Crear un objeto Cliente con los datos obtenidos
+	            /*Alquiler al = new Alquiler(
+	                rs.getString("noAlquiler"),
+	                rs.getString("nombre"),
+	                rs.getString("noCel"),
+	                rs.getString("email")
+	            );*/
+	            // Agregar el cliente a la lista de clientes
+	           // empleados.add(e); 
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
