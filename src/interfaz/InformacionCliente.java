@@ -207,7 +207,7 @@ public class InformacionCliente extends JDialog {
 			cliente.setFechaExpLicencia(fechaExpLicencia);
 
 			// Actualizar el cliente en la base de datos
-			String consulta = "UPDATE cliente SET nombre = ?, noCelular = ?, email = ?, noLicencia = ?, fechaExpLicencia = ? WHERE id = ?";
+			String consulta = "UPDATE cliente SET nombre = ?, noCelular = ?, email = ?, noLicencia = ?, fechaExpLicencia = ? WHERE id = ?"; //instrucción en sql
 			try {
 			    ps = conexion.prepareStatement(consulta);
 			    ps.setString(1, nombre);

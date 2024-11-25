@@ -75,7 +75,7 @@ public class BuscarCliente extends JDialog {
 		rdbNoTel = new JRadioButton("No. teléfono");
 		rdbNoTel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		rdbNoTel.setBackground(new Color(220, 220, 220));
-		rdbNoTel.setBounds(26, 78, 103, 21);
+		rdbNoTel.setBounds(26, 78, 139, 21);
 		contentPanel.add(rdbNoTel);
 		
 		rdbEmail = new JRadioButton("Email");
@@ -205,7 +205,7 @@ public class BuscarCliente extends JDialog {
 	        	
 	        } else if (rdbNoLic.isSelected()) {
 	        	dato=txtLic.getText();
-	        }//dd
+	        }
 			InformacionCliente v= new InformacionCliente(opc,Control.getCliente(dato),alquiler);
 			v.setVisible(true);
 			dispose();

@@ -33,6 +33,9 @@ public class Pagar extends JDialog {
 	private JTextField txtNoTarjeta;
 	private JTextField txtCvv;
 	private JTextField txtMonto;
+	private boolean cvvValido=false;
+	private boolean tarjetaValida=false;
+	
 
 	public Pagar(Alquiler alquiler) {
 		setTitle("Procesar pago");
@@ -93,6 +96,32 @@ public class Pagar extends JDialog {
 			txtNoTarjeta.setColumns(10);
 			txtNoTarjeta.setBounds(136, 85, 168, 23);
 			contentPanel.add(txtNoTarjeta);
+			
+			txtNoTarjeta.addKeyListener(new KeyAdapter() {//Validaación para la tarjeta que sean 16 digitos y solo enteros
+				String temp;
+				
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char caracter=e.getKeyChar();
+					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
+				        	 && (caracter!='.')   ){		  	 		    	  
+							e.consume();  // ignorar el evento de teclado      
+						}
+					temp=txtNoTarjeta.getText();
+				}
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					//no mayor
+					String v=txtNoTarjeta.getText();
+					if(v.length()>16) {//La tarjeta debe ser de 16 caracteres
+						txtNoTarjeta.setText(temp);
+						JOptionPane.showMessageDialog(null, "Numero de tarjeta incorrecto");
+					}				
+					tarjetaValida=true;
+
+				}
+				
+			});
 		}
 		{
 			txtCvv = new JTextField();
@@ -100,7 +129,7 @@ public class Pagar extends JDialog {
 			txtCvv.setColumns(10);
 			txtCvv.setBounds(136, 171, 57, 19);
 			contentPanel.add(txtCvv);
-			
+			//Validacion para que solo reciba numeros en el CVV y sean 3 digitos
 			txtCvv.addKeyListener(new KeyAdapter() {
 				String temp;
 				@Override
@@ -122,6 +151,7 @@ public class Pagar extends JDialog {
 						
 											
 					}
+					cvvValido=true;
 				}
 				
 			});
@@ -184,5 +214,8 @@ public class Pagar extends JDialog {
 	}
 	
 	public void aceptar() {
+		if(tarjetaValida && cvvValido) {
+			
+		}
 	}
 }
