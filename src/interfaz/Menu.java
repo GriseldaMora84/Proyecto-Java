@@ -179,7 +179,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		txtNombre.setEditable(false);
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(394, 256, 358, 31);
+		txtNombre.setBounds(350, 265, 293, 31);
 		contentPanel.add(txtNombre);
 		ResultSet registroEmpleado;
         try {
