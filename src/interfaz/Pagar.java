@@ -105,7 +105,7 @@ public class Pagar extends JDialog {
 				public void keyTyped(KeyEvent e) {
 					char caracter=e.getKeyChar();
 					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
-				        	 && (caracter!='.')   ){		  	 		    	  
+				        	   ){		  	 		    	  
 							e.consume();  // ignorar el evento de teclado      
 						}
 					temp=txtNoTarjeta.getText();
@@ -137,7 +137,7 @@ public class Pagar extends JDialog {
 				public void keyTyped(KeyEvent e) {
 					char caracter=e.getKeyChar();
 					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
-				        	 && (caracter!='.')   ){		  	 		    	  
+				        	    ){		  	 		    	  
 							e.consume();  // ignorar el evento de teclado      
 						}
 					temp=txtCvv.getText();
