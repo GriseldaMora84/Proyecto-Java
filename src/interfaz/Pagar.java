@@ -119,17 +119,11 @@ public class Pagar extends JDialog {
 					String v=txtCvv.getText();
 					if(v.length()>3) {//El cvv solo debe ser de 3 caracteres
 						txtCvv.setText(temp);
-						JOptionPane.showMessageDialog(null, "CVV incorrecto");
-						
-											
+						JOptionPane.showMessageDialog(null, "CVV incorrecto");	
 					}
 				}
 				
 			});
-			
-			
-			
-			
 		}
 		
 		JComboBox cbDia = new JComboBox();

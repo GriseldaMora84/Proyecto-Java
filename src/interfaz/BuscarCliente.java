@@ -48,7 +48,7 @@ public class BuscarCliente extends JDialog {
 	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
 	private java.sql.Statement statementSql;//Realizar consultas
 	
-	public BuscarCliente(int opc,Alquiler alquiler,double tarifa,long noEmpleado) {
+	public BuscarCliente(int opc,Alquiler alquiler) {
 		//Conexion a la base de datos
 		try {
 			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
@@ -139,7 +139,7 @@ public class BuscarCliente extends JDialog {
 				okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ok(opc,alquiler,tarifa, noEmpleado);
+						okMetodo(opc,alquiler);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -188,7 +188,7 @@ public class BuscarCliente extends JDialog {
 	    });
 	}
 	
-	public void ok(int opc,Alquiler alquiler,double tarifa,long noEmpleado) {
+	public void okMetodo(int opc,Alquiler alquiler) {
 		//Verificar que se haya selleciondado algo
 		if (bg.getSelection() == null) { 
 			JOptionPane.showMessageDialog(contentPanel, "Elige una opción");
@@ -205,7 +205,7 @@ public class BuscarCliente extends JDialog {
 	        	
 	        } else if (rdbNoLic.isSelected()) {
 	        	dato=txtLic.getText();
-	        }//dd
+	        }
 			InformacionCliente v= new InformacionCliente(opc,Control.getCliente(dato),alquiler);
 			v.setVisible(true);
 			dispose();

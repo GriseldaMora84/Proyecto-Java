@@ -116,17 +116,17 @@ public class Control {
     }
 	
 	public static void cargarClientesDesdeBD() {
-	    String consulta = "SELECT * FROM cliente"; // Suponiendo que tienes una tabla 'cliente' en la base de datos
+	    String consulta = "SELECT * FROM cliente"; 
 	    try (ResultSet rs = statementSql.executeQuery(consulta)) {
 	        while (rs.next()) {
 	            // Crear un objeto Cliente con los datos obtenidos
 	            Cliente c = new Cliente(
 	                rs.getInt("id"),
+	                rs.getString("noLic"),
+	                rs.getString("expiracionLic"),
 	                rs.getString("nombre"),
 	                rs.getString("noCel"),
-	                rs.getString("email"),
-	                rs.getString("noLic"),
-	                rs.getString("expiracionLic")
+	                rs.getString("email")
 	            );
 	            // Agregar el cliente a la lista de clientes
 	            clientes.add(c); 
@@ -148,22 +148,28 @@ public class Control {
 	}
 	
 	public static Cliente getCliente(String dato) {
-	    for (Cliente c : clientes) {
-	    	//Dependiendo lo que el usuario eligio en la busqueda
+		for (Cliente c : clientes) {
+	        System.out.println("Buscando: " + dato);
+	        System.out.println("Comparando con: " + c.getNombre() + ", " + c.getNoCelular() + ", " + c.getEmail() + ", " + c.getNoLicencia());
+	        
 	        if (c.getNombre().equals(dato)) {
-	            return c; // Regresar el cliente si coincide
-	        }
-	        if(c.getNoCelular().equals(dato)) {
-	            return c; 
-	        }
-	        if(c.getEmail().equals(dato)) {
+	            System.out.println("Cliente encontrado por nombre: " + c.getNombre());
 	            return c;
 	        }
-	        if(c.getNoLicencia().equals(dato)) {
+	        if (c.getNoCelular().equals(dato)) {
+	            System.out.println("Cliente encontrado por celular: " + c.getNoCelular());
+	            return c;
+	        }
+	        if (c.getEmail().equals(dato)) {
+	            System.out.println("Cliente encontrado por email: " + c.getEmail());
+	            return c;
+	        }
+	        if (c.getNoLicencia().equals(dato)) {
+	            System.out.println("Cliente encontrado por licencia: " + c.getNoLicencia());
 	            return c;
 	        }
 	    }
-	    // Si no se encuentra regresar null
+	    System.out.println("No se encontró el cliente");
 	    return null;
 	}
 	

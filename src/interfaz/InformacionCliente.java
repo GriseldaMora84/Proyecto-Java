@@ -40,7 +40,7 @@ public class InformacionCliente extends JDialog {
 	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
 	private java.sql.Statement statementSql;//Realizar consultas
 	
-	public InformacionCliente(int opc, Cliente cliente,Alquiler alquiler) {
+	public InformacionCliente(int opc, Cliente c,Alquiler alquiler) {
 		//Conexion a la base de datos
 		try {
 			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
@@ -125,13 +125,13 @@ public class InformacionCliente extends JDialog {
 		txtExpLic.setBounds(174, 161, 137, 19);
 		contentPanel.add(txtExpLic);
 		
-		if(opc!=1) {//Si no se va a registrar cliente mostrar su informacion
-			txtNoCliente.setText( String.valueOf(cliente.getNoCliente()));
-			txtNombre.setText(cliente.getNombre());
-			txtTel.setText(cliente.getNoCelular());
-			txtEmail.setText(cliente.getEmail());
-			txtNoLic.setText(cliente.getNoLicencia());
-			txtExpLic.setText(cliente.getFechaExpLicencia());
+		if(opc!=1 && opc!=4) {//Si no se va a registrar cliente mostrar su informacion
+			txtNoCliente.setText( String.valueOf(c.getNoCliente()));
+			txtNombre.setText(c.getNombre());
+			txtTel.setText(c.getNoCelular());
+			txtEmail.setText(c.getEmail());
+			txtNoLic.setText(c.getNoLicencia());
+			txtExpLic.setText(c.getFechaExpLicencia());
 		}
 		else {
 			int numero=(int) ((Math.random() * 1000) + 1);
@@ -144,8 +144,8 @@ public class InformacionCliente extends JDialog {
 		{
 			JButton btnSiguiente = new JButton("Siguiente");
 			btnSiguiente.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					siguiente(opc, cliente,alquiler);
+				public void actionPerformed(ActionEvent e) {//
+					siguiente(opc, c,alquiler);
 				}
 			});
 			btnSiguiente.setActionCommand("OK");
@@ -165,76 +165,93 @@ public class InformacionCliente extends JDialog {
 	}
 	
 	public void siguiente(int opc, Cliente cliente,Alquiler alquiler) {
-		if(opc==1) {
-			int id = Integer.parseInt(txtNoCliente.getText());  // Obtener el ID del cliente
-			String nombre = txtNombre.getText();  // Obtener el nombre del cliente
-			String noCelular = txtTel.getText();  // Obtener el número de celular
-			String email = txtEmail.getText();  // Obtener el correo electrónico
-			String noLicencia = txtNoLic.getText();  // Obtener el número de licencia
-			String fechaExpLicencia = txtExpLic.getText();  // Obtener la fecha de expiración de la licencia
-	
-			// Crear un objeto Cliente con los datos obtenidos
-			Cliente c = new Cliente(id, noLicencia, fechaExpLicencia, nombre, noCelular, email);
-	
-			// Insertar el cliente en la base de datos
-			String consulta = "INSERT INTO cliente (id, nombre, noCel, email, noLic, expLic) VALUES (?, ?, ?, ?, ?, ?)";
-			try {
-			    ps = conexion.prepareStatement(consulta);
-			    ps.setInt(1, id);
-			    ps.setString(2, nombre);
-			    ps.setString(3, noCelular);
-			    ps.setString(4, email);
-			    ps.setString(5, noLicencia);
-			    ps.setString(6, fechaExpLicencia);
-			    // Ejecuta la actualización (INSERT)
-			    ps.executeUpdate();
-			    Control.ingresaCliente(c);
-			    JOptionPane.showMessageDialog(contentPanel, "Cliente registrado exitosamente");
-			} catch (SQLException e) {
-			    e.printStackTrace();
-			    JOptionPane.showMessageDialog(contentPanel, "Error al registrar cliente: " + e.getMessage());
-			}
+		if(opc==1 || opc==4) {
+			registrar(opc, cliente,alquiler);
 		}
 		else {
-			int id = Integer.parseInt(txtNoCliente.getText());  // Obtener el ID del cliente
-			String nombre = txtNombre.getText();  // Obtener el nombre del cliente
-			String noCelular = txtTel.getText();  // Obtener el número de celular
-			String email = txtEmail.getText();  // Obtener el correo electrónico
-			String noLicencia = txtNoLic.getText();  // Obtener el número de licencia
-			String fechaExpLicencia = txtExpLic.getText();  // Obtener la fecha de expiración de la licencia
+			modificar(opc, cliente,alquiler);
+		}
+	}
+	
+	public void registrar(int opc, Cliente cliente,Alquiler alquiler) {
+		int id = Integer.parseInt(txtNoCliente.getText());  // Obtener el ID del cliente
+		String nombre = txtNombre.getText();  // Obtener el nombre del cliente
+		String noCelular = txtTel.getText();  // Obtener el número de celular
+		String email = txtEmail.getText();  // Obtener el correo electrónico
+		String noLicencia = txtNoLic.getText();  // Obtener el número de licencia
+		String fechaExpLicencia = txtExpLic.getText();  // Obtener la fecha de expiración de la licencia
 
-			// Actualizar los valores del cliente en base a lo que el usuario haya modificado
-			cliente.setNombre(nombre);
-			cliente.setNoCelular(noCelular);
-			cliente.setEmail(email);
-			cliente.setNoLicencia(noLicencia);
-			cliente.setFechaExpLicencia(fechaExpLicencia);
+		// Crear un objeto Cliente con los datos obtenidos
+		Cliente c = new Cliente(id, noLicencia, fechaExpLicencia, nombre, noCelular, email);
 
-			// Actualizar el cliente en la base de datos
-			String consulta = "UPDATE cliente SET nombre = ?, noCelular = ?, email = ?, noLicencia = ?, expiracionLic = ? WHERE id = ?";
-			try {
-			    ps = conexion.prepareStatement(consulta);
-			    ps.setString(1, nombre);
-			    ps.setString(2, noCelular);
-			    ps.setString(3, email);
-			    ps.setString(4, noLicencia);
-			    ps.setString(5, fechaExpLicencia);
-			    ps.setInt(6, id);
-			    // Ejecuta la actualización (UPDATE)
-			    ps.executeUpdate();
-			    if(opc==2){//Solo actualizar info
-			    	JOptionPane.showMessageDialog(contentPanel, "Cliente modificado exitosamente");
-			    	dispose();
-			    }
-			    else {//Alquilar vehiculo
-			    	Pagar v=new Pagar(alquiler);
-			    	v.setVisible(true);
-			    	dispose();
-			    }
-			} catch (SQLException e) {
-			    e.printStackTrace();
-			    JOptionPane.showMessageDialog(contentPanel, "Error al modificar el cliente");
-			}
+		// Insertar el cliente en la base de datos
+		String consulta = "INSERT INTO cliente (id, nombre, noCel, email, noLic, expiracionLic) VALUES (?, ?, ?, ?, ?, ?)";
+		try {
+		    ps = conexion.prepareStatement(consulta);
+		    ps.setInt(1, id);
+		    ps.setString(2, nombre);
+		    ps.setString(3, noCelular);
+		    ps.setString(4, email);
+		    ps.setString(5, noLicencia);
+		    ps.setString(6, fechaExpLicencia);
+		    // Ejecuta la actualización (INSERT)
+		    ps.executeUpdate();
+		    conexion.close();
+		    Control.ingresaCliente(c);
+		    JOptionPane.showMessageDialog(contentPanel, "Cliente registrado exitosamente");
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		    JOptionPane.showMessageDialog(contentPanel, "Error al registrar cliente: " + e.getMessage());
+		}
+		if(opc==1) {
+		    dispose();
+		}
+		else {
+		    Pagar v=new Pagar(alquiler);
+	    	v.setVisible(true);
+		    dispose();
+		}
+	}
+	
+	public void modificar(int opc, Cliente cliente,Alquiler alquiler) {
+		int id = Integer.parseInt(txtNoCliente.getText());  // Obtener el ID del cliente
+		String nombre = txtNombre.getText();  // Obtener el nombre del cliente
+		String noCelular = txtTel.getText();  // Obtener el número de celular
+		String email = txtEmail.getText();  // Obtener el correo electrónico
+		String noLicencia = txtNoLic.getText();  // Obtener el número de licencia
+		String fechaExpLicencia = txtExpLic.getText();  // Obtener la fecha de expiración de la licencia
+
+		// Actualizar los valores del cliente en base a lo que el usuario haya modificado
+		cliente.setNombre(nombre);
+		cliente.setNoCelular(noCelular);
+		cliente.setEmail(email);
+		cliente.setNoLicencia(noLicencia);
+		cliente.setFechaExpLicencia(fechaExpLicencia);
+		// Actualizar el cliente en la base de datos
+		String consulta = "UPDATE cliente SET id = ?,nombre = ?, noCel = ?, email = ?, noLic = ?, expiracionLic = ? WHERE id ="+id;
+		try {
+		    ps = conexion.prepareStatement(consulta);
+		    ps.setInt(1, id);
+		    ps.setString(2, nombre);
+		    ps.setString(3, noCelular);
+		    ps.setString(4, email);
+		    ps.setString(5, noLicencia);
+		    ps.setString(6, fechaExpLicencia);
+		    // Ejecuta la actualización (UPDATE)
+		    ps.executeUpdate();
+	    	conexion.close();
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		    JOptionPane.showMessageDialog(contentPanel, "Error al modificar el cliente");
+		}
+		if(opc==2) {
+			JOptionPane.showMessageDialog(contentPanel, "Cliente modificado exitosamente");
+			dispose();
+		}
+		else {
+			Pagar v=new Pagar(alquiler);
+	    	v.setVisible(true);
+	    	dispose();
 		}
 	}
 }
