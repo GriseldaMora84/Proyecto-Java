@@ -65,6 +65,7 @@ public class Pagar extends JDialog {
 			txtTipo.setColumns(10);
 			txtTipo.setBounds(136, 44, 168, 21);
 			contentPanel.add(txtTipo);
+			txtTipo.setText("TARJETA");
 		}
 		{
 			JLabel lblTipo = new JLabel("Tipo:");
@@ -147,18 +148,12 @@ public class Pagar extends JDialog {
 					String v=txtCvv.getText();
 					if(v.length()>3) {//El cvv solo debe ser de 3 caracteres
 						txtCvv.setText(temp);
-						JOptionPane.showMessageDialog(null, "CVV incorrecto");
-						
-											
+						JOptionPane.showMessageDialog(null, "CVV incorrecto");	
 					}
 					cvvValido=true;
 				}
 				
 			});
-			
-			
-			
-			
 		}
 		
 		JComboBox cbDia = new JComboBox();
@@ -179,9 +174,11 @@ public class Pagar extends JDialog {
 		contentPanel.add(lblPago);
 		
 		txtMonto = new JTextField();
+		txtMonto.setEditable(false);
 		txtMonto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtMonto.setColumns(10);
 		txtMonto.setBounds(136, 202, 57, 19);
+		txtMonto.setText(String.valueOf(alquiler.getCostoTotal()));
 		contentPanel.add(txtMonto);
 		{
 			JPanel buttonPane = new JPanel();
@@ -214,8 +211,12 @@ public class Pagar extends JDialog {
 	}
 	
 	public void aceptar() {
+
 		if(tarjetaValida && cvvValido) {
 			
 		}
+
+		
+
 	}
 }

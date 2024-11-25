@@ -47,7 +47,6 @@ public class Cotizar extends JDialog {
 	private JComboBox cbAnioF;
 	private Alquiler alquiler;
 	private JCheckBox chkClienteRegistrado;
-	private JCheckBox chkClienteRegistrado_1;
 	
 	public Cotizar(Vehiculo vehiculo, long noEmpleado) {
 		setBounds(100, 100, 445, 456);
@@ -133,13 +132,13 @@ public class Cotizar extends JDialog {
 		contentPanel.add(txtTarifa);
 		txtTarifa.setColumns(10);
 		
-		JCheckBox chkClienteRegistrado = new JCheckBox("¿El cliente ya está registrado?");
+		chkClienteRegistrado = new JCheckBox("¿El cliente ya está registrado?");
 		chkClienteRegistrado.setBackground(new Color(220, 220, 220));
-		chkClienteRegistrado_1 = new JCheckBox("¿El cliente ya está registrado?");
-		chkClienteRegistrado_1.setBackground(new Color(220, 220, 220));
-		chkClienteRegistrado_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		chkClienteRegistrado_1.setBounds(19, 332, 246, 31);
-		contentPanel.add(chkClienteRegistrado_1);
+		chkClienteRegistrado= new JCheckBox("¿El cliente ya está registrado?");
+		chkClienteRegistrado.setBackground(new Color(220, 220, 220));
+		chkClienteRegistrado.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chkClienteRegistrado.setBounds(19, 332, 246, 31);
+		contentPanel.add(chkClienteRegistrado);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(220, 220, 220));
@@ -196,7 +195,8 @@ public class Cotizar extends JDialog {
 	
 	        // Validar que la fecha de inicio no sea después de la fecha de fin
 	        if (dias < 0) {
-	        	JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin.");;
+	        	JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin.");
+	        	txtTarifa.setText("0");
 	        }
 	        else
 	        	txtTarifa.setText(String.valueOf(Control.calcularCostoTotal((int)dias,vehiculo)));
@@ -210,13 +210,13 @@ public class Cotizar extends JDialog {
 	
 	public void alquilar() {
 		if(chkClienteRegistrado.isSelected()) {
-			BuscarCliente v=new BuscarCliente(3,alquiler,alquiler.getCostoTotal(),alquiler.getIdEmpleado());
+			BuscarCliente v=new BuscarCliente(3,alquiler);
 			v.setVisible(true);
 			dispose();
 		}
 		else {
-			Cliente cliente = new Cliente(1, "", "", "", "","");
-			InformacionCliente v=new InformacionCliente(1,cliente,alquiler);
+			Cliente cliente = new Cliente(0, "", "", "", "","");
+			InformacionCliente v=new InformacionCliente(4,cliente,alquiler);
 			v.setVisible(true);
 			dispose();
 		}

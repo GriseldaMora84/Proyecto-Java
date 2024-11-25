@@ -151,7 +151,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		menuCliente.add(mntmRegistrarCliente);
 
 		JMenuItem mntmActualizarInfo = new JMenuItem("Actualizar información");
-		mntmRegistrarCliente.addActionListener(new ActionListener() {
+		mntmActualizarInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				actualizarCliente();
 			}
@@ -280,7 +280,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	public void actualizarCliente() {
 		Alquiler alquiler=new Alquiler(String.valueOf( ((Math.random() * 1000) + 1)),"","",
 	    		null,null,0,"0",0);
-		BuscarCliente v=new BuscarCliente(2,alquiler,0,0);
+		BuscarCliente v=new BuscarCliente(2,alquiler);
 		v.setVisible(true);
 	}
 
