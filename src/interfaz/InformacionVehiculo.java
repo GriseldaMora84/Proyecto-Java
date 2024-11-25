@@ -83,7 +83,7 @@ public class InformacionVehiculo extends JDialog {
 		setTitle("Información del vehículo");
 		setBounds(100, 100, 450, 592);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(150, 241, 232));
+		contentPanel.setBackground(new Color(220, 220, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -120,7 +120,7 @@ public class InformacionVehiculo extends JDialog {
 		{
 			JLabel lblColor = new JLabel("Color:");
 			lblColor.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblColor.setBounds(42, 179, 64, 17);
+			lblColor.setBounds(42, 186, 64, 17);
 			contentPanel.add(lblColor);
 		}
 		{
@@ -132,7 +132,7 @@ public class InformacionVehiculo extends JDialog {
 		{
 			JLabel lblPrecioRenta = new JLabel("Precio de renta:");
 			lblPrecioRenta.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblPrecioRenta.setBounds(21, 240, 117, 17);
+			lblPrecioRenta.setBounds(42, 240, 117, 17);
 			contentPanel.add(lblPrecioRenta);
 		}
 		{
@@ -154,7 +154,7 @@ public class InformacionVehiculo extends JDialog {
 		contentPanel.add(cbTipo);
 		
 		JPanel panelCBmarcaDado = new JPanel();
-		panelCBmarcaDado.setBackground(new Color(150, 241, 232));
+		panelCBmarcaDado.setBackground(new Color(220, 220, 220));
 		panelCBmarcaDado.setBounds(124, 55, 131, 33);
 		contentPanel.add(panelCBmarcaDado);
 		panelCBmarcaDado.setLayout(null);
@@ -167,7 +167,7 @@ public class InformacionVehiculo extends JDialog {
 		{
 			panelCBmarcaNueva = new JPanel();
 			panelCBmarcaNueva.setLayout(null);
-			panelCBmarcaNueva.setBackground(new Color(150, 241, 232));
+			panelCBmarcaNueva.setBackground(new Color(220, 220, 220));
 			panelCBmarcaNueva.setBounds(278, 55, 131, 42);
 			contentPanel.add(panelCBmarcaNueva);
 			{
@@ -209,7 +209,7 @@ public class InformacionVehiculo extends JDialog {
 				txtPrecioRenta = new JTextField();
 				txtPrecioRenta.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				txtPrecioRenta.setColumns(10);
-				txtPrecioRenta.setBounds(124, 236, 131, 19);
+				txtPrecioRenta.setBounds(145, 239, 131, 19);
 				contentPanel.add(txtPrecioRenta);
 			}
 			{
@@ -250,8 +250,8 @@ public class InformacionVehiculo extends JDialog {
 			panelCBmarcaNueva.setVisible(false);
 			
 			panelCompacto = new JPanel();
-			panelCompacto.setBackground(new Color(150, 241, 232));
-			panelCompacto.setBounds(21, 327, 405, 54);
+			panelCompacto.setBackground(new Color(220, 220, 220));
+			panelCompacto.setBounds(21, 327, 384, 54);
 			contentPanel.add(panelCompacto);
 			panelCompacto.setLayout(null);
 			{
@@ -272,7 +272,7 @@ public class InformacionVehiculo extends JDialog {
 			panelVan = new JPanel();
 			panelVan.setBounds(21, 370, 384, 114);
 			contentPanel.add(panelVan);
-			panelVan.setBackground(new Color(150, 241, 232));
+			panelVan.setBackground(new Color(220, 220, 220));
 			panelVan.setLayout(null);
 			{
 				JLabel lblDimMaletero = new JLabel("Dimensión del maletero:");
@@ -400,7 +400,7 @@ public class InformacionVehiculo extends JDialog {
 		panelPickUp.setVisible(false);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(201, 248, 243));
+			buttonPane.setBackground(new Color(220, 220, 220));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

@@ -44,7 +44,7 @@ public class InformacionEmpleado extends JDialog {
         setTitle("Información del Empleado");
         setBounds(100, 100, 450, 250);
         getContentPane().setLayout(new BorderLayout());
-        contentPanel.setBackground(new Color(150, 241, 232));
+        contentPanel.setBackground(new Color(220, 220, 220));
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
@@ -102,7 +102,7 @@ public class InformacionEmpleado extends JDialog {
 
         // Panel de botones
         JPanel buttonPane = new JPanel();
-        buttonPane.setBackground(new Color(201, 248, 243));
+        buttonPane.setBackground(new Color(220, 220, 220));
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
 

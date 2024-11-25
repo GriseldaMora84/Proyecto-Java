@@ -44,7 +44,7 @@ public class Login extends JDialog {
 	private JPasswordField pwdPassword;
 	private JComponent panel_1;
 	private AbstractButton btnCancelar;
-	private AbstractButton btnAceptar;
+	private AbstractButton btnAceptar; 
 	private Component lblPassword;
 	private JLabel lblNewLabel;
 	private java.sql.Connection conexion;//Hace la conexión

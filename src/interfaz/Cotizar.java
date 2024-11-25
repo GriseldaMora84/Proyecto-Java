@@ -52,7 +52,7 @@ public class Cotizar extends JDialog {
 	public Cotizar(Vehiculo vehiculo, long noEmpleado) {
 		setBounds(100, 100, 450, 479);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(150, 241, 232));
+		contentPanel.setBackground(new Color(220, 220, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -133,13 +133,15 @@ public class Cotizar extends JDialog {
 		contentPanel.add(txtTarifa);
 		txtTarifa.setColumns(10);
 		
+		JCheckBox chkClienteRegistrado = new JCheckBox("¿El cliente ya está registrado?");
+		chkClienteRegistrado.setBackground(new Color(220, 220, 220));
 		chkClienteRegistrado = new JCheckBox("¿El cliente ya está registrado?");
 		chkClienteRegistrado.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chkClienteRegistrado.setBounds(19, 332, 246, 31);
 		contentPanel.add(chkClienteRegistrado);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(201, 248, 243));
+			buttonPane.setBackground(new Color(220, 220, 220));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

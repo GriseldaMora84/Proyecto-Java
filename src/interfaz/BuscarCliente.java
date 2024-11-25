@@ -61,32 +61,32 @@ public class BuscarCliente extends JDialog {
 		setTitle("Filtrar lista de clientes");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(150, 241, 232));
+		contentPanel.setBackground(new Color(220, 220, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		rdbNombre = new JRadioButton("Nombre");
 		rdbNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdbNombre.setBackground(new Color(150, 241, 232));
+		rdbNombre.setBackground(new Color(220, 220, 220));
 		rdbNombre.setBounds(26, 40, 103, 21);
 		contentPanel.add(rdbNombre);
 		
 		rdbNoTel = new JRadioButton("No. teléfono");
 		rdbNoTel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdbNoTel.setBackground(new Color(150, 241, 232));
+		rdbNoTel.setBackground(new Color(220, 220, 220));
 		rdbNoTel.setBounds(26, 78, 103, 21);
 		contentPanel.add(rdbNoTel);
 		
 		rdbEmail = new JRadioButton("Email");
 		rdbEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdbEmail.setBackground(new Color(150, 241, 232));
+		rdbEmail.setBackground(new Color(220, 220, 220));
 		rdbEmail.setBounds(26, 113, 103, 21);
 		contentPanel.add(rdbEmail);
 		
 		rdbNoLic = new JRadioButton("No. licencia");
 		rdbNoLic.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdbNoLic.setBackground(new Color(150, 241, 232));
+		rdbNoLic.setBackground(new Color(220, 220, 220));
 		rdbNoLic.setBounds(26, 147, 103, 21);
 		contentPanel.add(rdbNoLic);
 		
@@ -132,7 +132,7 @@ public class BuscarCliente extends JDialog {
 		
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(201, 248, 243));
+			buttonPane.setBackground(new Color(220, 220, 220));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

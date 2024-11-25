@@ -78,7 +78,7 @@ public class BuscarVehiculos extends JDialog {
         setTitle("Buscar Vehículos");
         setBounds(100, 100, 600, 743);
         getContentPane().setLayout(new BorderLayout());
-        contentPanel.setBackground(new Color(150, 241, 232));
+        contentPanel.setBackground(new Color(220, 220, 220));
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
         contentPanel.setLayout(null);
@@ -90,6 +90,7 @@ public class BuscarVehiculos extends JDialog {
 
         // Crear y posicionar los componentes
         chkTipo = new JCheckBox("Tipo");
+        chkTipo.setBackground(new Color(220, 220, 220));
         chkTipo.setBounds(20, 90, 100, 25);
         contentPanel.add(chkTipo);
 
@@ -99,6 +100,7 @@ public class BuscarVehiculos extends JDialog {
         txtTipo.setVisible(false);
 
         chkMarca = new JCheckBox("Marca");
+        chkMarca.setBackground(new Color(220, 220, 220));
         chkMarca.setBounds(20, 130, 100, 25);
         contentPanel.add(chkMarca);
 
@@ -108,6 +110,7 @@ public class BuscarVehiculos extends JDialog {
         txtMarca.setVisible(false);
 
         chkModelo = new JCheckBox("Modelo");
+        chkModelo.setBackground(new Color(220, 220, 220));
         chkModelo.setBounds(20, 170, 100, 25);
         contentPanel.add(chkModelo);
 
@@ -117,6 +120,7 @@ public class BuscarVehiculos extends JDialog {
         txtModelo.setVisible(false);
 
         chkAnio = new JCheckBox("Año");
+        chkAnio.setBackground(new Color(220, 220, 220));
         chkAnio.setBounds(20, 210, 100, 25);
         contentPanel.add(chkAnio);
 
@@ -126,6 +130,7 @@ public class BuscarVehiculos extends JDialog {
         txtAnio.setVisible(false);
 
         chkColor = new JCheckBox("Color");
+        chkColor.setBackground(new Color(220, 220, 220));
         chkColor.setBounds(20, 250, 100, 25);
         contentPanel.add(chkColor);
 
@@ -135,6 +140,7 @@ public class BuscarVehiculos extends JDialog {
         txtColor.setVisible(false);
 
         chkKilometraje = new JCheckBox("Kilometraje");
+        chkKilometraje.setBackground(new Color(220, 220, 220));
         chkKilometraje.setBounds(20, 290, 100, 25);
         contentPanel.add(chkKilometraje);
 
@@ -144,6 +150,7 @@ public class BuscarVehiculos extends JDialog {
         txtKilometraje.setVisible(false);
 
         chkPrecioRenta = new JCheckBox("Precio de Renta");
+        chkPrecioRenta.setBackground(new Color(220, 220, 220));
         chkPrecioRenta.setBounds(20, 321, 150, 25);
         contentPanel.add(chkPrecioRenta);
 
@@ -153,6 +160,7 @@ public class BuscarVehiculos extends JDialog {
         txtPrecioRenta.setVisible(false);
 
         chkEficiencia = new JCheckBox("Eficiencia");
+        chkEficiencia.setBackground(new Color(220, 220, 220));
         chkEficiencia.setBounds(20, 362, 100, 25);
         contentPanel.add(chkEficiencia);
 
@@ -162,6 +170,7 @@ public class BuscarVehiculos extends JDialog {
         txtEficiencia.setVisible(false);
 
         chkPotencia = new JCheckBox("Potencia");
+        chkPotencia.setBackground(new Color(220, 220, 220));
         chkPotencia.setBounds(20, 397, 100, 25);
         contentPanel.add(chkPotencia);
 
@@ -171,6 +180,7 @@ public class BuscarVehiculos extends JDialog {
         txtPotencia.setVisible(false);
         
         chkPlaca = new JCheckBox("Número de placa");
+        chkPlaca.setBackground(new Color(220, 220, 220));
         chkPlaca.setBounds(20, 50, 124, 25);
         contentPanel.add(chkPlaca);
         
@@ -241,7 +251,7 @@ public class BuscarVehiculos extends JDialog {
         JPanel buttonPane = new JPanel();
         buttonPane.setBounds(111, 437, 389, 31);
         contentPanel.add(buttonPane);
-        buttonPane.setBackground(new Color(201, 248, 243));
+        buttonPane.setBackground(new Color(220, 220, 220));
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         JButton btnBuscar = new JButton("Buscar");
