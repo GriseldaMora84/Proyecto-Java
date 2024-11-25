@@ -354,7 +354,7 @@ public class BuscarVehiculos extends JDialog {
 	    tVehiculos.setDefaultEditor(Object.class, null);//Evitar que el usuario edite las celdas
 		//ya que se agregaron los datos, repintar la tabla
 	    tVehiculos.repaint();
-	    ListSelectionModel seleccion = 	    tVehiculos.getSelectionModel();
+	    ListSelectionModel seleccion = tVehiculos.getSelectionModel();
 
 		seleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         seleccion.addListSelectionListener(new ListSelectionListener() {    

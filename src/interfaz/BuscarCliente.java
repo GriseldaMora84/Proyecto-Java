@@ -206,7 +206,9 @@ public class BuscarCliente extends JDialog {
 	        } else if (rdbNoLic.isSelected()) {
 	        	dato=txtLic.getText();
 	        }//dd
-			InformacionCliente v= new InformacionCliente(opc,Control.getCliente(dato),alquiler,tarifa);
+			InformacionCliente v= new InformacionCliente(opc,Control.getCliente(dato),alquiler);
+			v.setVisible(true);
+			dispose();
 		}
 	}
 }

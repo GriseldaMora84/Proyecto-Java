@@ -28,8 +28,9 @@ public class Pagar extends JDialog {
 	private JTextField txtTipo;
 	private JTextField txtNoTarjeta;
 	private JTextField txtCvv;
+	private JTextField txtMonto;
 
-	public Pagar(Alquiler alquiler,double tarifa) {
+	public Pagar(Alquiler alquiler) {
 		setTitle("Procesar pago");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -108,6 +109,17 @@ public class Pagar extends JDialog {
 		cbMes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbMes.setBounds(235, 131, 57, 21);
 		contentPanel.add(cbMes);
+		
+		JLabel lblPago = new JLabel("Monto:");
+		lblPago.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPago.setBounds(20, 201, 95, 17);
+		contentPanel.add(lblPago);
+		
+		txtMonto = new JTextField();
+		txtMonto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtMonto.setColumns(10);
+		txtMonto.setBounds(136, 202, 57, 19);
+		contentPanel.add(txtMonto);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(147, 112, 219)));
@@ -127,6 +139,11 @@ public class Pagar extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
