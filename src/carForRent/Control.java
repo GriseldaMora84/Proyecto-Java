@@ -126,7 +126,7 @@ public class Control {
 	                rs.getString("noCel"),
 	                rs.getString("email"),
 	                rs.getString("noLic"),
-	                rs.getString("epixarionLic")
+	                rs.getString("expiracionLic")
 	            );
 	            // Agregar el cliente a la lista de clientes
 	            clientes.add(c); 
