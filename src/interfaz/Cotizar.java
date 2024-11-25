@@ -47,9 +47,10 @@ public class Cotizar extends JDialog {
 	private JComboBox cbAnioF;
 	private Alquiler alquiler;
 	private JCheckBox chkClienteRegistrado;
+	private JCheckBox chkClienteRegistrado_1;
 	
 	public Cotizar(Vehiculo vehiculo, long noEmpleado) {
-		setBounds(100, 100, 450, 479);
+		setBounds(100, 100, 445, 456);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(220, 220, 220));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -117,27 +118,28 @@ public class Cotizar extends JDialog {
 		});
 		btnCotizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCotizar.setActionCommand("OK");
-		btnCotizar.setBounds(127, 206, 100, 31);
+		btnCotizar.setBounds(127, 207, 100, 31);
 		contentPanel.add(btnCotizar);
 		
 		JLabel lblTarifa = new JLabel("Tarifa:");
 		lblTarifa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTarifa.setBounds(10, 261, 197, 24);
+		lblTarifa.setBounds(10, 261, 76, 24);
 		contentPanel.add(lblTarifa);
 		
 		txtTarifa = new JTextField();
 		txtTarifa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTarifa.setEditable(false);
-		txtTarifa.setBounds(127, 266, 122, 31);
+		txtTarifa.setBounds(96, 258, 122, 31);
 		contentPanel.add(txtTarifa);
 		txtTarifa.setColumns(10);
 		
 		JCheckBox chkClienteRegistrado = new JCheckBox("¿El cliente ya está registrado?");
 		chkClienteRegistrado.setBackground(new Color(220, 220, 220));
-		chkClienteRegistrado = new JCheckBox("¿El cliente ya está registrado?");
-		chkClienteRegistrado.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		chkClienteRegistrado.setBounds(19, 332, 246, 31);
-		contentPanel.add(chkClienteRegistrado);
+		chkClienteRegistrado_1 = new JCheckBox("¿El cliente ya está registrado?");
+		chkClienteRegistrado_1.setBackground(new Color(220, 220, 220));
+		chkClienteRegistrado_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		chkClienteRegistrado_1.setBounds(19, 332, 246, 31);
+		contentPanel.add(chkClienteRegistrado_1);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(220, 220, 220));

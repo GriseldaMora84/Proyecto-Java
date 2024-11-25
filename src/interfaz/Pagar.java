@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -18,6 +20,8 @@ import javax.swing.border.TitledBorder;
 import carForRent.Alquiler;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class Pagar extends JDialog {
@@ -96,6 +100,35 @@ public class Pagar extends JDialog {
 			txtCvv.setColumns(10);
 			txtCvv.setBounds(136, 171, 57, 19);
 			contentPanel.add(txtCvv);
+			
+			txtCvv.addKeyListener(new KeyAdapter() {
+				String temp;
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char caracter=e.getKeyChar();
+					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
+				        	 && (caracter!='.')   ){		  	 		    	  
+							e.consume();  // ignorar el evento de teclado      
+						}
+					temp=txtCvv.getText();
+				}
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					//no mayor
+					String v=txtCvv.getText();
+					if(v.length()>3) {//El cvv solo debe ser de 3 caracteres
+						txtCvv.setText(temp);
+						JOptionPane.showMessageDialog(null, "CVV incorrecto");
+						
+											
+					}
+				}
+				
+			});
+			
+			
+			
+			
 		}
 		
 		JComboBox cbDia = new JComboBox();

@@ -69,7 +69,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		setBounds(100, 100, 776, 601);
 		contentPanel = new JPanel();
 		contentPanel.setBackground(new Color(220, 220, 220));
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(null);
 
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
@@ -175,6 +175,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		contentPanel.add(lblNombre);
 
 		txtNoEmpleado = new JTextField();
+		txtNoEmpleado.setBackground(new Color(211, 211, 211));
 		txtNoEmpleado.setEditable(false);
 		txtNoEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtNoEmpleado.setBounds(472, 137, 169, 31);
@@ -183,6 +184,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		txtNoEmpleado.setText(noEmpleado);
 
 		txtUsuario = new JTextField();
+		txtUsuario.setBackground(new Color(211, 211, 211));
 		txtUsuario.setEditable(false);
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtUsuario.setColumns(10);
@@ -191,12 +193,13 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		txtUsuario.setText(nombreUsuario);
 
 		txtNombre = new JTextField();
+		txtNombre.setBackground(new Color(211, 211, 211));
 		txtNombre.setEditable(false);
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(350, 265, 293, 31);
 		contentPanel.add(txtNombre);
-		ResultSet registroEmpleado;
+		ResultSet registroEmpleado;//tipo de dato de java, regresa el resultado de la busqueda en la base de datos
 		try {
 			//Se selecciona todo de la tabla cuentausuario
 			String consulta = "SELECT * FROM empleado WHERE id = ?";
@@ -215,12 +218,6 @@ public Menu(String noEmpleado,String nombreUsuario) {
 			JOptionPane.showMessageDialog(contentPanel, "Error al realizar la consulta: " + e.getMessage());
 		}
 
-		/*
-		JLabel lblReloj = new JLabel("reloj");
-		lblReloj.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblReloj.setBounds(623, 20, 45, 13);
-		contentPanel.add(lblReloj);
-*/
 		JLabel lblFotoUser = new JLabel("  ");
 		lblFotoUser.setIcon(new ImageIcon(Menu.class.getResource("/pictures/perfil128.png")));
 		lblFotoUser.setBounds(54, 153, 134, 128);
@@ -286,7 +283,6 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		BuscarCliente v=new BuscarCliente(2,alquiler,0,0);
 		v.setVisible(true);
 	}
-
 
 	private void reloj() {
 		Runnable tarea = ()-> {

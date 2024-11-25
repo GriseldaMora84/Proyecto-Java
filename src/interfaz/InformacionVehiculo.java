@@ -251,20 +251,20 @@ public class InformacionVehiculo extends JDialog {
 			
 			panelCompacto = new JPanel();
 			panelCompacto.setBackground(new Color(220, 220, 220));
-			panelCompacto.setBounds(21, 327, 384, 54);
+			panelCompacto.setBounds(21, 327, 384, 75);
 			contentPanel.add(panelCompacto);
 			panelCompacto.setLayout(null);
 			{
 				JLabel lblDimMaletero = new JLabel("Dimensión del maletero:");
 				lblDimMaletero.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				lblDimMaletero.setBounds(10, 10, 165, 17);
+				lblDimMaletero.setBounds(10, 0, 202, 17);
 				panelCompacto.add(lblDimMaletero);
 			}
 			{
 				txtDimMaletero = new JTextField();
 				txtDimMaletero.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				txtDimMaletero.setColumns(10);
-				txtDimMaletero.setBounds(179, 11, 131, 19);
+				txtDimMaletero.setBounds(63, 21, 257, 19);
 				panelCompacto.add(txtDimMaletero);
 			}
 			panelCompacto.setVisible(false);
@@ -332,7 +332,7 @@ public class InformacionVehiculo extends JDialog {
 			panelPickUp.setBounds(21, 330, 364, 147);
 			contentPanel.add(panelPickUp);
 			panelPickUp.setLayout(null);
-			panelPickUp.setBackground(new Color(150, 241, 232));
+			panelPickUp.setBackground(new Color(220, 220, 220));
 			{
 				JLabel lblTraccion = new JLabel("Tracción:");
 				lblTraccion.setFont(new Font("Tahoma", Font.PLAIN, 14));
