@@ -11,6 +11,8 @@ import interfaz.Menu;
 public class Control {
 	private static ArrayList<Vehiculo> vehiculos;
 	private static ArrayList<Cliente> clientes;
+	private static ArrayList<Alquiler> alquileres;
+	private static ArrayList<Empleado> empleados;
 	private static java.sql.Connection conexion;//Hace la conexión
 	private static java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
 	private static java.sql.Statement statementSql;//Realizar consultas
@@ -27,6 +29,8 @@ public class Control {
 		}
 		vehiculos=new ArrayList<Vehiculo>();
 		clientes=new ArrayList<Cliente>();
+		empleados=new ArrayList<Empleado>();
+		alquileres=new ArrayList<Alquiler>();
 	}
 	
 	public static void ingresaVehiculo(Vehiculo vehiculo) {//Método para crear clientes
@@ -35,6 +39,10 @@ public class Control {
 	
 	public static void ingresaCliente(Cliente cliente) {//Método para crear clientes
 		clientes.add(cliente);
+	}
+	
+	public static void ingresaAlquiler(Alquiler alquiler) {//Método para crear clientes
+		alquileres.add(alquiler);
 	}
 	
 	public static void cargarVehiculosDesdeBD() {
@@ -137,6 +145,46 @@ public class Control {
 	    }
 	}
 	
+	public static void cargarEmpleadosDesdeBD() {
+	    String consulta = "SELECT * FROM empleado"; 
+	    try (ResultSet rs = statementSql.executeQuery(consulta)) {
+	        while (rs.next()) {
+	            // Crear un objeto Cliente con los datos obtenidos
+	            Empleado e = new Empleado(
+	                rs.getInt("id"),
+	                rs.getString("nombre"),
+	                rs.getString("noCel"),
+	                rs.getString("email")
+	            );
+	            // Agregar el empleado a la lista de clientes
+	            empleados.add(e); 
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Error al cargar empleado: " + e.getMessage());
+	    }
+	}
+	
+	public static void cargarAlquileresDesdeBD() {
+	    String consulta = "SELECT * FROM alquiler"; 
+	    try (ResultSet rs = statementSql.executeQuery(consulta)) {
+	        while (rs.next()) {
+	            // Crear un objeto Cliente con los datos obtenidos
+	            /*Alquiler al = new Alquiler(
+	                rs.getString("noAlquiler"),
+	                rs.getString("nombre"),
+	                rs.getString("noCel"),
+	                rs.getString("email")
+	            );*/
+	            // Agregar el cliente a la lista de clientes
+	           // empleados.add(e); 
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Error al cargar empleado: " + e.getMessage());
+	    }
+	}
+	
 	public static Vehiculo getVehiculo(String placa) {
 	    for (Vehiculo v : vehiculos) {
 	        if (v.getPlaca().equals(placa)) {
@@ -147,25 +195,28 @@ public class Control {
 	    return null;
 	}
 	
+	public static Empleado getEmpleado(long noEmpleado) {
+	    for (Empleado e : empleados) {
+	        if (e.getNoEmpleado()==noEmpleado) {
+	            return e; // Regresar el vehículo si coincide
+	        }
+	    }
+	    // Si no se encuentra regresar null
+	    return null;
+	}
+	
 	public static Cliente getCliente(String dato) {
 		for (Cliente c : clientes) {
-	        System.out.println("Buscando: " + dato);
-	        System.out.println("Comparando con: " + c.getNombre() + ", " + c.getNoCelular() + ", " + c.getEmail() + ", " + c.getNoLicencia());
-	        
 	        if (c.getNombre().equals(dato)) {
-	            System.out.println("Cliente encontrado por nombre: " + c.getNombre());
 	            return c;
 	        }
 	        if (c.getNoCelular().equals(dato)) {
-	            System.out.println("Cliente encontrado por celular: " + c.getNoCelular());
 	            return c;
 	        }
 	        if (c.getEmail().equals(dato)) {
-	            System.out.println("Cliente encontrado por email: " + c.getEmail());
 	            return c;
 	        }
 	        if (c.getNoLicencia().equals(dato)) {
-	            System.out.println("Cliente encontrado por licencia: " + c.getNoLicencia());
 	            return c;
 	        }
 	    }

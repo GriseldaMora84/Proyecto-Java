@@ -216,6 +216,7 @@ public class Cotizar extends JDialog {
 		}
 		else {
 			Cliente cliente = new Cliente(0, "", "", "", "","");
+			
 			InformacionCliente v=new InformacionCliente(4,cliente,alquiler);
 			v.setVisible(true);
 			dispose();

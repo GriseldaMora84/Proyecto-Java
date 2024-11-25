@@ -18,10 +18,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 
 import carForRent.Alquiler;
+import carForRent.Control;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Pagar extends JDialog {
@@ -35,9 +38,21 @@ public class Pagar extends JDialog {
 	private JTextField txtMonto;
 	private boolean cvvValido=false;
 	private boolean tarjetaValida=false;
-
+	private java.sql.Connection conexion;//Hace la conexión
+	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
+	private java.sql.Statement statementSql;//Realizar consultas
+	
 
 	public Pagar(Alquiler alquiler) {
+		//Conexion a la base de datos
+		try {
+			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+			statementSql=conexion.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error de conexión");
+		}
 		setTitle("Procesar pago");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,6 +73,9 @@ public class Pagar extends JDialog {
 			txtReferencia.setBounds(136, 11, 168, 23);
 			contentPanel.add(txtReferencia);
 			txtReferencia.setColumns(10);
+			int numero=(int) ((Math.random() * 1000) + 1);
+			txtReferencia.setText( String.valueOf(numero));
+			alquiler.setReferencia(txtReferencia.getText());
 		}
 		{
 			txtTipo = new JTextField();
@@ -97,24 +115,17 @@ public class Pagar extends JDialog {
 			txtNoTarjeta.setColumns(10);
 			txtNoTarjeta.setBounds(136, 85, 168, 23);
 			contentPanel.add(txtNoTarjeta);
-
-			JLabel lblAviso = new JLabel("Número de tarjeta incorrecto");
-			lblAviso.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblAviso.setForeground(new Color(255, 0, 0));
-			lblAviso.setBounds(136, 106, 200, 17);
-			lblAviso.setVisible(false); // Ocultamos inicialmente
-			contentPanel.add(lblAviso);
-
+			
 			txtNoTarjeta.addKeyListener(new KeyAdapter() {//Validaación para la tarjeta que sean 16 digitos y solo enteros
 				String temp;
-
+				
 				@Override
 				public void keyTyped(KeyEvent e) {
 					char caracter=e.getKeyChar();
 					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
-							){		  	 		    	  
-						e.consume();  // ignorar el evento de teclado      
-					}
+				        	 && (caracter!='.')   ){		  	 		    	  
+							e.consume();  // ignorar el evento de teclado      
+						}
 					temp=txtNoTarjeta.getText();
 				}
 				@Override
@@ -122,17 +133,13 @@ public class Pagar extends JDialog {
 					//no mayor
 					String v=txtNoTarjeta.getText();
 					if(v.length()>16) {//La tarjeta debe ser de 16 caracteres
-						lblAviso.setVisible(true);
-
 						txtNoTarjeta.setText(temp);
 						JOptionPane.showMessageDialog(null, "Numero de tarjeta incorrecto");
-					}
-
+					}				
 					tarjetaValida=true;
-					lblAviso.setVisible(false);
 
 				}
-
+				
 			});
 		}
 		{
@@ -148,9 +155,9 @@ public class Pagar extends JDialog {
 				public void keyTyped(KeyEvent e) {
 					char caracter=e.getKeyChar();
 					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
-							){		  	 		    	  
-						e.consume();  // ignorar el evento de teclado      
-					}
+				        	 && (caracter!='.')   ){		  	 		    	  
+							e.consume();  // ignorar el evento de teclado      
+						}
 					temp=txtCvv.getText();
 				}
 				@Override
@@ -163,27 +170,27 @@ public class Pagar extends JDialog {
 					}
 					cvvValido=true;
 				}
-
+				
 			});
 		}
-
+		
 		JComboBox cbDia = new JComboBox();
 		cbDia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbDia.setModel(new DefaultComboBoxModel(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
 		cbDia.setBounds(158, 131, 63, 21);
 		contentPanel.add(cbDia);
-
+		
 		JComboBox cbMes = new JComboBox();
 		cbMes.setModel(new DefaultComboBoxModel(new String[] {"", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036"}));
 		cbMes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbMes.setBounds(235, 131, 57, 21);
 		contentPanel.add(cbMes);
-
+		
 		JLabel lblPago = new JLabel("Monto:");
 		lblPago.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPago.setBounds(20, 201, 95, 17);
 		contentPanel.add(lblPago);
-
+		
 		txtMonto = new JTextField();
 		txtMonto.setEditable(false);
 		txtMonto.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -201,7 +208,7 @@ public class Pagar extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						aceptar();
+						aceptar(alquiler);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -220,14 +227,32 @@ public class Pagar extends JDialog {
 			}
 		}
 	}
-
-	public void aceptar() {//registrarlos en la base de datos y en la lista de alquileres
-
+	
+	public void aceptar(Alquiler alquiler) {
 		if(tarjetaValida && cvvValido) {
-			
+			String consulta = "INSERT INTO alquiler (noAlquiler, inicio, fin, noCliente, idVehiculo, idEmpleado, refPago, costoTotal) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			try {
+			    // Actualizar la información del cliente
+			    ps = conexion.prepareStatement(consulta);
+			    ps.setString(1, alquiler.getNoAqluiler());
+			    ps.setString(2, alquiler.getInicioAqluiler());
+			    ps.setString(3, alquiler.getFinAqluiler());
+			    ps.setInt(4, alquiler.getCliente().getNoCliente());
+			    ps.setInt(5, alquiler.getVehiculo().getId());
+			    ps.setInt(6, (int) alquiler.getIdEmpleado());
+			    ps.setString(7, alquiler.getRefPago());
+			    ps.setDouble(8,alquiler.getCostoTotal());
+			    ps.executeUpdate();  // Ejecuta la actualización del cliente
+			    Control.ingresaAlquiler(alquiler);
+			    alquiler.getCliente().ingresaAlquiler(alquiler);
+			    alquiler.getVehiculo().ingresaAlquiler(alquiler);
+			    Control.getEmpleado(alquiler.getIdEmpleado()).ingresaAlquiler(alquiler);
+			    JOptionPane.showMessageDialog(contentPanel, "Alquiler registrado exitosamente");
+			    dispose();
+			} catch (SQLException e) {
+			    e.printStackTrace();
+			    JOptionPane.showMessageDialog(contentPanel, "Error al modificar el cliente o registrar el alquiler");
+			}
 		}
-
-
-
 	}
 }

@@ -53,6 +53,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	Control.inicializa();
 	Control.cargarVehiculosDesdeBD();
 	Control.cargarClientesDesdeBD();
+	Control.cargarEmpleadosDesdeBD();
 	
 	//Conexion a la base de datos
 	//branch 'master' of https://github.com/GriseldaMora84/Proyecto-Java
