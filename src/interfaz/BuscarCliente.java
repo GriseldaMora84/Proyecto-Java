@@ -160,7 +160,7 @@ public class BuscarCliente extends JDialog {
 		}
 	}
 	
-	public void verificarRDB() {
+	public void verificarRDB() {//Metodo que verifica si el boton fue seleccionado
 		  // Agregar ActionListeners a los botones de radio
 	    rdbNombre.addActionListener(e -> {
 	    	txtNombre.setVisible(true);
@@ -194,7 +194,7 @@ public class BuscarCliente extends JDialog {
 			JOptionPane.showMessageDialog(contentPanel, "Elige una opción");
 		}else {
 			String dato="";
-			if (rdbNombre.isSelected()) {
+			if (rdbNombre.isSelected()) {//si se selecciona el boton de radio de 
 				dato =txtNombre.getText();
 
 	        } else if (rdbNoTel.isSelected()) {
