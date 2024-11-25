@@ -35,7 +35,7 @@ public class Pagar extends JDialog {
 	private JTextField txtMonto;
 	private boolean cvvValido=false;
 	private boolean tarjetaValida=false;
-	
+
 
 	public Pagar(Alquiler alquiler) {
 		setTitle("Procesar pago");
@@ -97,17 +97,24 @@ public class Pagar extends JDialog {
 			txtNoTarjeta.setColumns(10);
 			txtNoTarjeta.setBounds(136, 85, 168, 23);
 			contentPanel.add(txtNoTarjeta);
-			
+
+			JLabel lblAviso = new JLabel("Número de tarjeta incorrecto");
+			lblAviso.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblAviso.setForeground(new Color(255, 0, 0));
+			lblAviso.setBounds(136, 106, 200, 17);
+			lblAviso.setVisible(false); // Ocultamos inicialmente
+			contentPanel.add(lblAviso);
+
 			txtNoTarjeta.addKeyListener(new KeyAdapter() {//Validaación para la tarjeta que sean 16 digitos y solo enteros
 				String temp;
-				
+
 				@Override
 				public void keyTyped(KeyEvent e) {
 					char caracter=e.getKeyChar();
 					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
-				        	   ){		  	 		    	  
-							e.consume();  // ignorar el evento de teclado      
-						}
+							){		  	 		    	  
+						e.consume();  // ignorar el evento de teclado      
+					}
 					temp=txtNoTarjeta.getText();
 				}
 				@Override
@@ -115,13 +122,17 @@ public class Pagar extends JDialog {
 					//no mayor
 					String v=txtNoTarjeta.getText();
 					if(v.length()>16) {//La tarjeta debe ser de 16 caracteres
+						lblAviso.setVisible(true);
+
 						txtNoTarjeta.setText(temp);
 						JOptionPane.showMessageDialog(null, "Numero de tarjeta incorrecto");
-					}				
+					}
+
 					tarjetaValida=true;
+					lblAviso.setVisible(false);
 
 				}
-				
+
 			});
 		}
 		{
@@ -137,9 +148,9 @@ public class Pagar extends JDialog {
 				public void keyTyped(KeyEvent e) {
 					char caracter=e.getKeyChar();
 					if(((caracter < '0') || (caracter > '9')) && (caracter != '\b') ///*corresponde a BACK_SPACE*  
-				        	    ){		  	 		    	  
-							e.consume();  // ignorar el evento de teclado      
-						}
+							){		  	 		    	  
+						e.consume();  // ignorar el evento de teclado      
+					}
 					temp=txtCvv.getText();
 				}
 				@Override
@@ -152,27 +163,27 @@ public class Pagar extends JDialog {
 					}
 					cvvValido=true;
 				}
-				
+
 			});
 		}
-		
+
 		JComboBox cbDia = new JComboBox();
 		cbDia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbDia.setModel(new DefaultComboBoxModel(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
 		cbDia.setBounds(158, 131, 63, 21);
 		contentPanel.add(cbDia);
-		
+
 		JComboBox cbMes = new JComboBox();
 		cbMes.setModel(new DefaultComboBoxModel(new String[] {"", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036"}));
 		cbMes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cbMes.setBounds(235, 131, 57, 21);
 		contentPanel.add(cbMes);
-		
+
 		JLabel lblPago = new JLabel("Monto:");
 		lblPago.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPago.setBounds(20, 201, 95, 17);
 		contentPanel.add(lblPago);
-		
+
 		txtMonto = new JTextField();
 		txtMonto.setEditable(false);
 		txtMonto.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -209,14 +220,15 @@ public class Pagar extends JDialog {
 			}
 		}
 	}
-	
-	public void aceptar() {
+
+	public void aceptar() {//registrarlos en la base de datos y en la lista de alquileres
 
 		if(tarjetaValida && cvvValido) {
-			
+
+
 		}
 
-		
+
 
 	}
 }
