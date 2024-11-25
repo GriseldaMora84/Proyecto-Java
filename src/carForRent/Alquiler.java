@@ -1,5 +1,7 @@
 package carForRent;
 
+import java.sql.Date;
+
 public class Alquiler {
 	private String noAlquiler;
 	private String inicioAlquiler;
@@ -9,12 +11,11 @@ public class Alquiler {
 	private Vehiculo vehiculo;
 	private Pago pago;
 	private long idEmpleado;
-	private int idCliente;
 	private String refPago;
 	
 	public Alquiler(String noAlquiler, String inicioAlquiler, String finAlquiler,  
 			Cliente cliente, Vehiculo vehiculo, Pago pago,
-			long idEmpleado, int idCliente, String refPago) {
+			long idEmpleado, String refPago) {
 		this.noAlquiler=noAlquiler;
 		this.inicioAlquiler=inicioAlquiler;
 		this.finAlquiler=finAlquiler;
@@ -22,7 +23,6 @@ public class Alquiler {
 		this.vehiculo=vehiculo;
 		this.pago=pago;
 		this.idEmpleado=idEmpleado;
-		this.idCliente=idCliente;
 		this.refPago=refPago;
 	}
 	
@@ -62,16 +62,7 @@ public class Alquiler {
 		return idEmpleado;
 	}
 	
-	public int getIdCliente() {
-		return idCliente;
-	}
-	
 	public String getRefPago() {
 		return refPago;
-	}
-	
-	public void calcularCostoTotal(int dias) {
-		double costoAdicional=100*dias;
-		costoTotal=costoAdicional+vehiculo.getPrecioRenta();
 	}
 }

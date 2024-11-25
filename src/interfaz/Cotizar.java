@@ -8,6 +8,10 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import carForRent.Alquiler;
+import carForRent.Cliente;
+import carForRent.Control;
+import carForRent.Pago;
 import carForRent.Vehiculo;
 
 import java.awt.Color;
@@ -25,6 +29,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
@@ -34,15 +39,17 @@ public class Cotizar extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
+	private JTextField txtTarifa;
 	private JComboBox cbDiaI;
 	private JComboBox cbMesI;
 	private JComboBox cbAnioI;
 	private JComboBox cbDiaF;
 	private JComboBox cbMesF;
 	private JComboBox cbAnioF;
+	private Alquiler alquiler;
+	private JCheckBox chkClienteRegistrado;
 	
-	public Cotizar(Vehiculo vehiculo) {
+	public Cotizar(Vehiculo vehiculo, long noEmpleado) {
 		setBounds(100, 100, 450, 479);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(150, 241, 232));
@@ -106,7 +113,7 @@ public class Cotizar extends JDialog {
 		JButton btnCotizar = new JButton("Cotizar");
 		btnCotizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cotizar();
+				cotizar(vehiculo,noEmpleado);
 			}
 		});
 		btnCotizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -119,14 +126,14 @@ public class Cotizar extends JDialog {
 		lblTarifa.setBounds(10, 261, 197, 24);
 		contentPanel.add(lblTarifa);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setEditable(false);
-		textField.setBounds(127, 266, 122, 31);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		txtTarifa = new JTextField();
+		txtTarifa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtTarifa.setEditable(false);
+		txtTarifa.setBounds(127, 266, 122, 31);
+		contentPanel.add(txtTarifa);
+		txtTarifa.setColumns(10);
 		
-		JCheckBox chkClienteRegistrado = new JCheckBox("¿El cliente ya está registrado?");
+		chkClienteRegistrado = new JCheckBox("¿El cliente ya está registrado?");
 		chkClienteRegistrado.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		chkClienteRegistrado.setBounds(19, 332, 246, 31);
 		contentPanel.add(chkClienteRegistrado);
@@ -137,19 +144,34 @@ public class Cotizar extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(!txtTarifa.getText().isEmpty()){
+							double tarifa=Double.parseDouble(txtTarifa.getText());
+							if(alquiler!=null && tarifa>0) {
+								alquilar(tarifa,noEmpleado);
+							}
+						}
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
 	}
 	
-	public void cotizar() {
+	public void cotizar(Vehiculo vehiculo,long noEmpleado) {
 		String diaInicio=(String) cbDiaI.getSelectedItem();
 		String mesInicio=(String) cbMesI.getSelectedItem();
 		String anioInicio=(String) cbAnioI.getSelectedItem();
@@ -160,24 +182,39 @@ public class Cotizar extends JDialog {
 	            diaFin.isEmpty() || mesFin.isEmpty() || anioFin.isEmpty()) {
 			JOptionPane.showMessageDialog(null,"Llenar todas las fechas.");
 	    }
-		SimpleDateFormat fechaFormato = new SimpleDateFormat("dd/MM/yyyy");
-		Date fechaInicio=null;
-		try {
-			fechaInicio = (Date) fechaFormato.parse(diaInicio+"/"+mesInicio+"/"+anioInicio);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else {
+			// Crear objetos LocalDate para las fechas
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        LocalDate fechaInicio = LocalDate.parse(anioInicio + "-" + mesInicio + "-" + diaInicio, formatter);
+	        LocalDate fechaFin = LocalDate.parse(anioFin + "-" + mesFin + "-" + diaFin, formatter);
+	
+	        // Calcular los días entre las fechas
+	        long dias = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+	
+	        // Validar que la fecha de inicio no sea después de la fecha de fin
+	        if (dias < 0) {
+	        	JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin.");;
+	        }
+	        else
+	        	txtTarifa.setText(String.valueOf(Control.calcularCostoTotal((int)dias,vehiculo)));
+		    String fechaInicioS=anioInicio + "-" + mesInicio + "-" + diaInicio;
+		    String fechaFinS=anioFin + "-" + mesFin + "-" + diaFin;
+		    //Creacion de alquiler provisional
+		    alquiler=new Alquiler(String.valueOf( ((Math.random() * 1000) + 1)),fechaInicioS,fechaFinS,
+		    		null,vehiculo,null,noEmpleado,"0");
 		}
-        Date fechaFin = null;
-		try {
-			fechaFin = (Date) fechaFormato.parse(diaFin+"/"+mesFin+"/"+anioFin);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	}
+	
+	public void alquilar(double tarifa,long noEmpleado) {
+		if(chkClienteRegistrado.isSelected()) {
+			BuscarCliente v=new BuscarCliente(3,alquiler,tarifa,noEmpleado);
+			v.setVisible(true);
+			dispose();
 		}
-        //Date fecha_actual = formato.parse(fechaActual.toString());
-        long diff = fechaInicio.getTime() - fechaFin.getTime();
-        //long dias = Math.abs(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-        long dias = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		else {
+			InformacionCliente v=new InformacionCliente(1,null,alquiler);
+			v.setVisible(true);
+			dispose();
+		}
 	}
 }

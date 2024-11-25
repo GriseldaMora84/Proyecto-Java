@@ -69,7 +69,7 @@ public class InformacionVehiculo extends JDialog {
 	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
 	private java.sql.Statement statementSql;//Realizar consultas
 	
-	public InformacionVehiculo(int opc,Vehiculo vehiculo ) {
+	public InformacionVehiculo(int opc,Vehiculo vehiculo,long noEmpleado) {
 		//Conexion a la base de datos
 		try {
 			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
@@ -407,7 +407,7 @@ public class InformacionVehiculo extends JDialog {
 				JButton btnSig = new JButton("Siguiente");
 				btnSig.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						siguiente(opc, vehiculo);
+						siguiente(opc, vehiculo, noEmpleado);
 					}
 				});
 				btnSig.setActionCommand("OK");
@@ -563,12 +563,12 @@ public class InformacionVehiculo extends JDialog {
 		}
 	}
 	
-	public void siguiente(int opc, Vehiculo vehiculo) {
+	public void siguiente(int opc, Vehiculo vehiculo,long noEmpleado) {
 		if(opc==1) {
 			registrar();
 		}
 		else if(opc==2) {
-			consultar(vehiculo);
+			consultar(vehiculo,noEmpleado);
 		}
 		else {
 			modificar(vehiculo);
@@ -689,8 +689,8 @@ public class InformacionVehiculo extends JDialog {
 		}
 	}
 	
-	public void consultar(Vehiculo vehiculo) {
-		Cotizar v = new Cotizar(vehiculo);
+	public void consultar(Vehiculo vehiculo,long noEmpleado) {
+		Cotizar v = new Cotizar(vehiculo,noEmpleado);
 		v.setVisible(true);
 		dispose();
 	}
@@ -747,7 +747,8 @@ public class InformacionVehiculo extends JDialog {
 	                ps.setString(10, dimMal);
 	                ps.setInt(11, id);
 	                ps.executeUpdate();
-	                JOptionPane.showMessageDialog(contentPanel, "Auto modificado exitosamente");
+	                JOptionPane.showMessageDialog(contentPanel, "Compacto modificado exitosamente");
+	                dispose();
 	            } catch (SQLException e) {
 	                e.printStackTrace();
 	                JOptionPane.showMessageDialog(contentPanel, "Error al modificar el auto");
@@ -783,6 +784,7 @@ public class InformacionVehiculo extends JDialog {
 	                ps.setInt(14, id);
 	                ps.executeUpdate();
 	                JOptionPane.showMessageDialog(contentPanel, "Van modificada exitosamente");
+	                dispose();
 	            } catch (SQLException e) {
 	                e.printStackTrace();
 	                JOptionPane.showMessageDialog(contentPanel, "Error al modificar la van");
@@ -821,6 +823,7 @@ public class InformacionVehiculo extends JDialog {
 	                ps.setInt(15, id);
 	                ps.executeUpdate();
 	                JOptionPane.showMessageDialog(contentPanel, "PickUp modificada exitosamente");
+	                dispose();
 	            } catch (SQLException e) {
 	                e.printStackTrace();
 	                JOptionPane.showMessageDialog(contentPanel, "Error al modificar la PickUp");

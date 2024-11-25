@@ -14,6 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
+
+import carForRent.Alquiler;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -26,7 +29,7 @@ public class Pagar extends JDialog {
 	private JTextField txtNoTarjeta;
 	private JTextField txtCvv;
 
-	public Pagar() {
+	public Pagar(Alquiler alquiler,double tarifa) {
 		setTitle("Procesar pago");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

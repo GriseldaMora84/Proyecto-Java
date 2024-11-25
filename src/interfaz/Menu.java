@@ -19,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import carForRent.Alquiler;
+import carForRent.Cliente;
 import carForRent.Control;
 
 import javax.swing.JLabel;
@@ -44,6 +46,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	//Inicializar clase control
 	Control.inicializa();
 	Control.cargarVehiculosDesdeBD();
+	Control.cargarClientesDesdeBD();
 	
 	//Conexion a la base de datos
 		try {
@@ -80,7 +83,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		JMenuItem mntmRegistrarV = new JMenuItem("Registrar vehículo");
 		mntmRegistrarV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				registrarVehiculo();
+				registrarVehiculo(Long.valueOf(noEmpleado));
 				
 			}
 		});
@@ -90,7 +93,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		JMenuItem mntmModificar = new JMenuItem("Modificar");
 		mntmModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				modificarInventario();
+				modificarInventario(Long.valueOf(noEmpleado));
 			}
 		});
 		mntmModificar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -105,7 +108,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		JMenuItem mntmCotizar = new JMenuItem("Cotizar");
 		mntmCotizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cotizar();
+				cotizar(Long.parseLong(noEmpleado));
 			}
 		});
 		mntmCotizar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -218,19 +221,19 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		
 	}
 
-	public void registrarVehiculo() {
+	public void registrarVehiculo(long noEmpleado) {
 		//1 indica que se hará un registro y null que no hay un vehículo creado aún
-		InformacionVehiculo v = new InformacionVehiculo(1,null);
+		InformacionVehiculo v = new InformacionVehiculo(1,null,noEmpleado);
 		v.setVisible(true);
 	}
 	
-	public void modificarInventario() {
-		BuscarVehiculos v = new BuscarVehiculos();
+	public void modificarInventario(long noEmpleado) {
+		BuscarVehiculos v = new BuscarVehiculos(3,noEmpleado);
 		v.setVisible(true);
 	}
 	
-	public void cotizar() {
-		BuscarVehiculos v=new BuscarVehiculos();
+	public void cotizar(long noEmpleado) {
+		BuscarVehiculos v=new BuscarVehiculos(2,noEmpleado);
 		v.setVisible(true);
 	}
 	
@@ -239,7 +242,13 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	}
 	
 	public void registrarCliente() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		Cliente cliente = new Cliente(1, "", "", "", "","");
+		Alquiler alquiler=new Alquiler(String.valueOf( ((Math.random() * 1000) + 1)),"","",
+	    		null,null,null,0,"0");
+		InformacionCliente v = new InformacionCliente(1,cliente,alquiler,0);
+		v.setVisible(true);
+
+		//(int opc, Cliente cliente,Alquiler alquiler, double tarifa)
 	}
 	
 	public void actualizarCliente() {

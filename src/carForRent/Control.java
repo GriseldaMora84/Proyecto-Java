@@ -10,6 +10,7 @@ import interfaz.Menu;
 
 public class Control {
 	private static ArrayList<Vehiculo> vehiculos;
+	private static ArrayList<Cliente> clientes;
 	private static java.sql.Connection conexion;//Hace la conexión
 	private static java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
 	private static java.sql.Statement statementSql;//Realizar consultas
@@ -25,10 +26,15 @@ public class Control {
 			JOptionPane.showMessageDialog(null, "Error de conexión");
 		}
 		vehiculos=new ArrayList<Vehiculo>();
+		clientes=new ArrayList<Cliente>();
 	}
 	
 	public static void ingresaVehiculo(Vehiculo vehiculo) {//Método para crear clientes
 		vehiculos.add(vehiculo);
+	}
+	
+	public static void ingresaCliente(Cliente cliente) {//Método para crear clientes
+		clientes.add(cliente);
 	}
 	
 	public static void cargarVehiculosDesdeBD() {
@@ -109,6 +115,28 @@ public class Control {
         }
     }
 	
+	public static void cargarClientesDesdeBD() {
+	    String consulta = "SELECT * FROM cliente"; // Suponiendo que tienes una tabla 'cliente' en la base de datos
+	    try (ResultSet rs = statementSql.executeQuery(consulta)) {
+	        while (rs.next()) {
+	            // Crear un objeto Cliente con los datos obtenidos
+	            Cliente c = new Cliente(
+	                rs.getInt("id"),
+	                rs.getString("nombre"),
+	                rs.getString("noCel"),
+	                rs.getString("email"),
+	                rs.getString("noLic"),
+	                rs.getString("epixarionLic")
+	            );
+	            // Agregar el cliente a la lista de clientes
+	            clientes.add(c); 
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Error al cargar clientes: " + e.getMessage());
+	    }
+	}
+	
 	public static Vehiculo getVehiculo(String placa) {
 	    for (Vehiculo v : vehiculos) {
 	        if (v.getPlaca().equals(placa)) {
@@ -119,7 +147,26 @@ public class Control {
 	    return null;
 	}
 	
+	public static Cliente getCliente(int id) {
+	    for (Cliente c : clientes) {
+	        if (c.getNoCliente()==id) {
+	            return c; // Regresar el vehículo si coincide
+	        }
+	    }
+	    // Si no se encuentra regresar null
+	    return null;
+	}
+	
 	public static ArrayList<Vehiculo> getVehiculos() {
 		return vehiculos;
+	}
+	
+	public static ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
+	
+	public static double calcularCostoTotal(int dias,Vehiculo vehiculo) {
+		double costoAdicional=100*dias;
+		return costoAdicional+vehiculo.getPrecioRenta();
 	}
 }
