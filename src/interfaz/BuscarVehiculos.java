@@ -343,22 +343,10 @@ public class BuscarVehiculos extends JDialog {
                 if (!e.getValueIsAdjusting()) {
                     int filaSeleccionada = tVehiculos.getSelectedRow();
                     if (filaSeleccionada != -1) {
-                    	for (Vehiculo v : Control.getVehiculos()) {
-                	        model.addRow(new Object[] {
-                	            v.getPlaca(),
-                	            v.getModelo(),
-                	            v.getMarca(),
-                	            v.getAnio(),
-                	            v.getColor(),
-                	            v.getPrecioRenta()
-                	        });
-                        dispose();
-                        //ssssss
-                        OperacionCuenta v= new OperacionCuenta(c);
-                		v.setVisible(true);
                     }
                 }
-            }    
+            }
         });
 	}
 }
+	
