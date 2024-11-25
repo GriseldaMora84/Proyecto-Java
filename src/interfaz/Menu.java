@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,6 +18,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import carForRent.Control;
+
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -30,8 +36,23 @@ public class Menu extends JDialog {
 	private JTextField txtNoEmpleado;
 	private JTextField txtUsuario;
 	private JTextField txtNombre;
+	private java.sql.Connection conexion;//Hace la conexión
+	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
+	private java.sql.Statement statementSql;//Realizar consultas
 
-public Menu(String usuario) {
+public Menu(String noEmpleado,String nombreUsuario) {
+	//Inicializar clase control
+	Control.inicializa();
+	//Conexion a la base de datos
+		try {
+			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+			statementSql=conexion.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error de conexión");
+		}
+		
 		setTitle("Menú");
 		setBounds(100, 100, 776, 601);
 		contentPanel = new JPanel();
@@ -63,15 +84,6 @@ public Menu(String usuario) {
 		});
 		mntmRegistrarV.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuInventario.add(mntmRegistrarV);
-		
-		JMenuItem mntmConsultar = new JMenuItem("Consultar");
-		mntmConsultar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				consultarInventario();
-			}
-		});
-		mntmConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		menuInventario.add(mntmConsultar);
 		
 		JMenuItem mntmModificar = new JMenuItem("Modificar");
 		mntmModificar.addActionListener(new ActionListener() {
@@ -153,6 +165,7 @@ public Menu(String usuario) {
 		txtNoEmpleado.setBounds(472, 137, 169, 31);
 		contentPanel.add(txtNoEmpleado);
 		txtNoEmpleado.setColumns(10);
+		txtNoEmpleado.setText(noEmpleado);
 		
 		txtUsuario = new JTextField();
 		txtUsuario.setEditable(false);
@@ -160,13 +173,32 @@ public Menu(String usuario) {
 		txtUsuario.setColumns(10);
 		txtUsuario.setBounds(472, 198, 169, 31);
 		contentPanel.add(txtUsuario);
+		txtUsuario.setText(nombreUsuario);
 		
 		txtNombre = new JTextField();
 		txtNombre.setEditable(false);
 		txtNombre.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(472, 256, 169, 31);
+		txtNombre.setBounds(394, 256, 358, 31);
 		contentPanel.add(txtNombre);
+		ResultSet registroEmpleado;
+        try {
+        	//Se selecciona todo de la tabla cuentausuario
+            String consulta = "SELECT * FROM empleado WHERE id = ?";
+            ps = statementSql.getConnection().prepareStatement(consulta);
+            ps.setString(1, noEmpleado); //Empieza en la columna 1 de la tabla buscando el número de empleado (parametro de búsqueda)
+            registroEmpleado = ps.executeQuery();//Devulve resultado donde noEmpleado coincida
+
+            if (registroEmpleado.next()) {
+            	txtNombre.setText(registroEmpleado.getString("nombre"));
+            } 
+            // Cerrar el ResultSet y PreparedStatement
+            registroEmpleado.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(contentPanel, "Error al realizar la consulta: " + e.getMessage());
+        }
 		
 		JLabel lblReloj = new JLabel("reloj");
 		lblReloj.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -181,15 +213,14 @@ public Menu(String usuario) {
 	}
 
 	public void registrarVehiculo() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
-	}
-	
-	public void consultarInventario() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		//1 indica que se hará un registro y null que no hay un vehículo creado aún
+		InformacionVehiculo v = new InformacionVehiculo(1,null);
+		v.setVisible(true);
 	}
 	
 	public void modificarInventario() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		BuscarVehiculos v = new BuscarVehiculos();
+		v.setVisible(true);
 	}
 	
 	public void cotizar() {

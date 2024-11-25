@@ -7,10 +7,10 @@ public class PickUp extends Vehiculo{
 	private String cubierta;//Si tiene cubierta el area de carga
 	private String areaCarga;//Dimensiones de area de carga
 	
-	public PickUp(String traccion, String cabina, String torque, String cubierta, String areaCarga, String marca, 
+	public PickUp(String traccion, String cabina, String torque, String cubierta, String areaCarga, int id,String marca, 
 			String modelo, int anio, String placa, String color, String kilometraje, double precioRenta, 
-			String eficiencia, String potencia) {
-		super(marca,modelo,anio,placa,color,kilometraje,precioRenta,eficiencia,potencia);
+			String eficiencia, String potencia,String tipo) {
+		super(id,marca,modelo,anio,placa,color,kilometraje,precioRenta,eficiencia,potencia,tipo);
 		this.traccion=traccion;
 		this.cabina=cabina;
 		this.torque=torque;
@@ -40,6 +40,22 @@ public class PickUp extends Vehiculo{
 	
 	public String getAreaCarga() {
 		return areaCarga;
+	}
+
+	public void setTraccion(String traccion) {
+		this.traccion=traccion;
+	}
+
+	public void setCabina(String cabina) {
+		this.cabina=cabina;
+	}
+
+	public void setAreaCarga(String areaCarga) {
+		this.areaCarga=areaCarga;
+	}
+
+	public void setTorque(String torque) {
+		this.torque=torque;
 	}
 
 }

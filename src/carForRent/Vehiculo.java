@@ -3,6 +3,7 @@ package carForRent;
 import java.util.ArrayList;
 
 public class Vehiculo {
+	protected int id;
 	protected String marca;
 	protected String modelo;
 	protected int anio;
@@ -13,9 +14,11 @@ public class Vehiculo {
 	protected String eficiencia;
 	protected String potencia;
 	protected ArrayList<Alquiler> listaAlquileres;
+	protected String tipo;
 	
-	public Vehiculo(String marca, String modelo, int anio, String placa, String color, String kilometraje,
-			double precioRenta, String eficiencia, String potencia) {
+	public Vehiculo(int id,String marca, String modelo, int anio, String placa, String color, String kilometraje,
+			double precioRenta, String eficiencia, String potencia,String tipo) {
+		this.id=id;
 		this.marca=marca;
 		this.modelo=modelo;
 		this.anio=anio;
@@ -25,6 +28,7 @@ public class Vehiculo {
 		this.precioRenta=precioRenta;
 		this.eficiencia=eficiencia;
 		this.potencia=potencia;
+		this.tipo=tipo;
 		listaAlquileres=new ArrayList<Alquiler>();
 	}
 	
@@ -46,6 +50,10 @@ public class Vehiculo {
 	
 	public void setEficiencia(String eficiencia) {
 		this.eficiencia=eficiencia;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public String getMarca() {
@@ -76,8 +84,16 @@ public class Vehiculo {
 		return precioRenta;
 	}
 	
+	public String getPotencia() {
+		return potencia;
+	}
+	
 	public String getEficiencia() {
 		return eficiencia;
+	}
+	
+	public String getTipo() {
+		return tipo;
 	}
 	
 	public ArrayList<Alquiler> getListaAlquileres() {
@@ -87,5 +103,21 @@ public class Vehiculo {
 	public String ingresaAlquiler(Alquiler a) {
 		listaAlquileres.add(a);
 		return "Alquiler ingresado";
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo=modelo;
+	}
+
+	public void setMarca(String marca) {
+		this.marca=marca;
+	}
+
+	public void setAnio(int anio) {
+		this.anio=anio;
+	}
+
+	public void setPotencia(String potencia) {
+		this.potencia=potencia;
 	}
 }
