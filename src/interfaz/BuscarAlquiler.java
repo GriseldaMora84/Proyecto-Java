@@ -66,32 +66,35 @@ public class BuscarAlquiler extends JDialog {
 
         // Crear y posicionar los componentes
         chkCliente = new JCheckBox("Nombre de Cliente");
+        chkCliente.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkCliente.setBackground(new Color(220, 220, 220));
         chkCliente.setBounds(20, 50, 150, 25);
         contentPanel.add(chkCliente);
 
         txtCliente = new JTextField();
-        txtCliente.setBounds(180, 50, 150, 25);
+        txtCliente.setBounds(217, 50, 150, 25);
         contentPanel.add(txtCliente);
         txtCliente.setVisible(false);
 
         chkEmpleado = new JCheckBox("Nombre de Empleado");
+        chkEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkEmpleado.setBackground(new Color(220, 220, 220));
-        chkEmpleado.setBounds(20, 90, 150, 25);
+        chkEmpleado.setBounds(20, 90, 173, 25);
         contentPanel.add(chkEmpleado);
 
         txtEmpleado = new JTextField();
-        txtEmpleado.setBounds(180, 90, 150, 25);
+        txtEmpleado.setBounds(217, 90, 150, 25);
         contentPanel.add(txtEmpleado);
         txtEmpleado.setVisible(false);
 
         chkPlaca = new JCheckBox("Número de Placa");
+        chkPlaca.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkPlaca.setBackground(new Color(220, 220, 220));
         chkPlaca.setBounds(20, 130, 150, 25);
         contentPanel.add(chkPlaca);
 
         txtNoPlaca = new JTextField();
-        txtNoPlaca.setBounds(180, 130, 150, 25);
+        txtNoPlaca.setBounds(217, 130, 150, 25);
         contentPanel.add(txtNoPlaca);
         txtNoPlaca.setVisible(false);
 
@@ -120,11 +123,13 @@ public class BuscarAlquiler extends JDialog {
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         JButton okButton = new JButton("Buscar");
+        okButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
         okButton.setActionCommand("Buscar");
         buttonPane.add(okButton);
         getRootPane().setDefaultButton(okButton);
 
         JButton cancelButton = new JButton("Cancelar");
+        cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
         cancelButton.setActionCommand("Cancelar");
         buttonPane.add(cancelButton);
 
