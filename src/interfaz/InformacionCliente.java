@@ -209,33 +209,7 @@ public class InformacionCliente extends JDialog {
 			    e.printStackTrace();
 			    JOptionPane.showMessageDialog(contentPanel, "Error al modificar el cliente");
 			}
-		// Insertar el cliente en la base de datos
-		String consulta = "INSERT INTO cliente (id, nombre, noCel, email, noLic, expiracionLic) VALUES (?, ?, ?, ?, ?, ?)";
-		try {
-		    ps = conexion.prepareStatement(consulta);
-		    ps.setInt(1, id);
-		    ps.setString(2, nombre);
-		    ps.setString(3, noCelular);
-		    ps.setString(4, email);
-		    ps.setString(5, noLicencia);
-		    ps.setString(6, fechaExpLicencia);
-		    // Ejecuta la actualización (INSERT)
-		    ps.executeUpdate();
-		    conexion.close();
-		    Control.ingresaCliente(c);
-		    JOptionPane.showMessageDialog(contentPanel, "Cliente registrado exitosamente");
-		} catch (SQLException e) {
-		    e.printStackTrace();
-		    JOptionPane.showMessageDialog(contentPanel, "Error al registrar cliente: " + e.getMessage());
-		}
-		if(opc==1) {
-		    dispose();
-		}
-		else {
-		    Pagar v=new Pagar(alquiler);
-	    	v.setVisible(true);
-		    dispose();
-		}
+		
 	}
 	
 	public void modificar(int opc, Cliente cliente,Alquiler alquiler) {
