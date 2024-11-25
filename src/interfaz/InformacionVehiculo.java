@@ -690,7 +690,9 @@ public class InformacionVehiculo extends JDialog {
 	}
 	
 	public void consultar(Vehiculo vehiculo) {
-		
+		Cotizar v = new Cotizar(vehiculo);
+		v.setVisible(true);
+		dispose();
 	}
 	
 	public void modificar(Vehiculo vehiculo) {

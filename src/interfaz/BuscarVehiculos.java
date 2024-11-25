@@ -352,6 +352,7 @@ public class BuscarVehiculos extends JDialog {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+    					dispose();
                     }
                 }
             }

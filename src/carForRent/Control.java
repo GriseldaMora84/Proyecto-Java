@@ -49,7 +49,6 @@ public class Control {
                     ps.getString("potencia"),
                     "COMPACTO");
                 vehiculos.add(v); // Agregar vehículo a la lista
-                System.out.print("hola");
             }
         } catch (SQLException e) {
             e.printStackTrace();
