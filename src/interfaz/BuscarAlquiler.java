@@ -70,7 +70,7 @@ public class BuscarAlquiler extends JDialog {
         contentPanel.add(txtCliente);
         txtCliente.setVisible(false);
 
-        chkEmpleado = new JCheckBox("Nombre de Empleado");
+        chkEmpleado = new JCheckBox("Número de empleado");
         chkEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 14));
         chkEmpleado.setBackground(new Color(220, 220, 220));
         chkEmpleado.setBounds(20, 90, 173, 25);

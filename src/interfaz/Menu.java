@@ -228,7 +228,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		
 		lblHora = new JLabel("Hora:");
 		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblHora.setBounds(647, 20, 105, 31);
+		lblHora.setBounds(615, 21, 121, 31);
 		contentPanel.add(lblHora);
 		
 		JButton btnNewButton = new JButton(" ");

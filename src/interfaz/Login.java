@@ -111,7 +111,7 @@ public class Login extends JDialog {
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtUsuario.setColumns(10);
 		txtUsuario.setBounds(151, 67, 136, 24);
-		txtUsuario.setText("RAFEL145");
+		//txtUsuario.setText("RAFEL145");
 		panel.add(txtUsuario);
 		
 		//Validacion para que no se ingrese un nombre de usuario mayor de lo permitido
@@ -161,7 +161,7 @@ public class Login extends JDialog {
 		pwdPassword.setEchoChar('*');
 		pwdPassword.setColumns(10);
 		pwdPassword.setBounds(151, 98, 136, 24);
-		pwdPassword.setText("Rosa1459*");
+		//pwdPassword.setText("Rosa1459*");
 		panel.add(pwdPassword);
 		
 		pwdPassword.addKeyListener(new KeyAdapter() {

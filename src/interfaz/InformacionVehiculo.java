@@ -432,7 +432,6 @@ public class InformacionVehiculo extends JDialog {
 			txtID.setText(String.valueOf(numero));
 			cbTipo.setModel(new DefaultComboBoxModel(new String[] {"", "VAN", "COMPACTO", "PICK UP"}));
 			cbMarca.setModel(new DefaultComboBoxModel(new String[] {"", "NISSAN", "TOYOTA", "FORD", "OTRO"}));
-			
 			//Verificar que panel activar dependiendo del vehiculo elegido
 			cbTipo.addActionListener(e -> {
 				if(cbTipo.getSelectedItem().equals("VAN")) {
@@ -580,10 +579,8 @@ public class InformacionVehiculo extends JDialog {
 		int id=Integer.parseInt(txtID.getText());
 		String tipo=(String) cbTipo.getSelectedItem();
 		String marca=(String) cbTipo.getSelectedItem();
-		if(marca.equals("OTRO")) {
+		if(marca.equals("OTRO"))
 			marca=txtMarca.getText();
-		}
-			
 		String modelo=txtModelo.getText();
 		int anio=Integer.parseInt(txtAnio.getText());
 		String placa=txtNoPlaca.getText();
