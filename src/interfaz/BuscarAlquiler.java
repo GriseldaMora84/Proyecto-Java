@@ -8,10 +8,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import carForRent.Alquiler;
+import carForRent.Control;
+import carForRent.Vehiculo;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -19,6 +26,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.swing.JCheckBox;
 
 public class BuscarAlquiler extends JDialog {
@@ -32,23 +42,7 @@ public class BuscarAlquiler extends JDialog {
     private JCheckBox chkPlaca;
     private JTextField txtNoPlaca;
     private JTable tAlquileres;
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            BuscarAlquiler dialog = new BuscarAlquiler();
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	private ArrayList<Alquiler> alquileres;
 
     public BuscarAlquiler() {
         setTitle("Buscar Alquiler");
@@ -138,18 +132,55 @@ public class BuscarAlquiler extends JDialog {
         // Acción de búsqueda (se pueden agregar filtros según los campos seleccionados)
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Aquí agregarías el código para hacer la búsqueda de alquileres según los criterios
-                // Usualmente consultarías una base de datos o una lista de objetos para obtener los resultados
-                // Ejemplo ficticio de cómo llenar la tabla:
-
-                // Limpiar la tabla antes de agregar los resultados
-                DefaultTableModel model = (DefaultTableModel) tAlquileres.getModel();
-                model.setRowCount(0);
-
-                // Llenar la tabla con los datos (esto se reemplazaría con la lógica de búsqueda real)
-                model.addRow(new Object[] { "Juan Pérez", "Carlos García", "ABC123", "2024-11-19", "$500" });
-                model.addRow(new Object[] { "Ana López", "Pedro Gómez", "XYZ456", "2024-11-18", "$450" });
+            	buscar();
             }
         });
+    }
+    
+    public void buscar() {
+    	alquileres=Control.getAlquileres();
+   	 // Crear una lista temporal para los resultados
+   	    ArrayList<Alquiler> alquileresEncontrados = new ArrayList<Alquiler>();
+   	
+   	    // Iterar sobre el ArrayList de vehículos
+   	    for (Alquiler a : alquileres) {
+   	        boolean coincide = true;
+	    	if (chkCliente.isSelected() && !a.getCliente().getNombre().contains(txtCliente.getText())) {
+	            coincide = false;  // Si no coincide con la placa, no agregarlo
+	        }
+	        //Compara dos cadenas de texto para ver si son iguales, ignorando las diferencias de mayúsculas y minúsculas. 
+	        if (chkEmpleado.isSelected() && !(a.getIdEmpleado()==Long.parseLong(txtEmpleado.getText()))) {
+	            coincide = false;  // Si no coincide con el tipo, no agregarlo
+	        }
+	        if (chkPlaca.isSelected() && !a.getVehiculo().getPlaca().equalsIgnoreCase(txtNoPlaca.getText())) {
+	            coincide = false;  // Si no coincide con la marca, no agregarlo
+	        }
+	        // Si todos los criterios coinciden, agregar el alquiler a la lista de resultados
+	        if (coincide) {
+	            alquileresEncontrados.add(a);
+	        }
+	        actualizarTabla(alquileresEncontrados);
+   	    }
+    }
+    
+    public void actualizarTabla(ArrayList<Alquiler> alquileresEncontrados) {
+    	// Limpiar la tabla antes de agregar nuevos resultados
+	    DefaultTableModel model = (DefaultTableModel) tAlquileres.getModel();
+	    model.setRowCount(0);  // Limpiar la tabla
+	
+	    // Agregar los vehículos encontrados a la tabla
+	    for (Alquiler a : alquileresEncontrados) {
+	        model.addRow(new Object[] {
+	            a.getCliente().getNoCliente(),
+	            a.getIdEmpleado(),
+	            a.getVehiculo().getPlaca(),
+	            a.getInicioAqluiler(),
+	            a.getFinAqluiler(),
+	            a.getCostoTotal()
+	        });
+	    }
+	    tAlquileres.setDefaultEditor(Object.class, null);//Evitar que el usuario edite las celdas
+		//ya que se agregaron los datos, repintar la tabla
+	    tAlquileres.repaint();
     }
 }
