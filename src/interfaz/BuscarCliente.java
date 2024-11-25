@@ -10,6 +10,10 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import carForRent.Alquiler;
+import carForRent.Vehiculo;
+
 import java.awt.Color;
 import javax.swing.JRadioButton;
 import java.awt.Font;
@@ -19,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class BuscarCliente extends JDialog {
@@ -36,28 +42,20 @@ public class BuscarCliente extends JDialog {
 	private JButton okButton;
 	private AbstractButton cancelButton;
 	private ButtonGroup bg;
+	private java.sql.Connection conexion;//Hace la conexión
+	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
+	private java.sql.Statement statementSql;//Realizar consultas
 	
-	public static void main(String[] args) {
-
+	public BuscarCliente(int opc,Alquiler alquiler,double tarifa,long noEmpleado) {
+		//Conexion a la base de datos
 		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-			
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException| UnsupportedLookAndFeelException e) {
+			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+			statementSql=conexion.createStatement();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error de conexión");
 		}
-
-		
-		try {
-			BuscarCliente dialog = new BuscarCliente();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public BuscarCliente() {
 		setTitle("Filtrar lista de clientes");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -148,6 +146,11 @@ public class BuscarCliente extends JDialog {
 			}
 			{
 				cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

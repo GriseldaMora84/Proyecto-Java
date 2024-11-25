@@ -64,7 +64,7 @@ public class BuscarVehiculos extends JDialog {
 	private java.sql.Statement statementSql;//Realizar consultas
 	private ArrayList<Vehiculo> vehiculos;
 
-    public BuscarVehiculos() {
+    public BuscarVehiculos(int opc,long noEmpleado) {
     	//Conexion a la base de datos
 		try {
 			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
@@ -257,7 +257,7 @@ public class BuscarVehiculos extends JDialog {
         JButton btnBuscar = new JButton("Buscar");
         btnBuscar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		buscar();
+        		buscar(opc,noEmpleado);
         	}
         });
         btnBuscar.setActionCommand("OK");
@@ -271,7 +271,7 @@ public class BuscarVehiculos extends JDialog {
         cancelButton.addActionListener(e -> dispose()); // Cerrar el diálogo al cancelar
     }
     
-    public void buscar() {
+    public void buscar(int opc,long noEmpleado) {
     	vehiculos=Control.getVehiculos();
 	 // Crear una lista temporal para los resultados
 	    ArrayList<Vehiculo> vehiculosEncontrados = new ArrayList<Vehiculo>();
@@ -322,10 +322,10 @@ public class BuscarVehiculos extends JDialog {
 	    }
 	
 	    // Mostrar los resultados en la tabla
-	    actualizarTabla(vehiculosEncontrados);
+	    actualizarTabla(opc,vehiculosEncontrados,noEmpleado);
 	}
 	
-	public void actualizarTabla(ArrayList<Vehiculo> vehiculosEncontrados) {
+	public void actualizarTabla(int opc,ArrayList<Vehiculo> vehiculosEncontrados,long noEmpleado) {
 	    // Limpiar la tabla antes de agregar nuevos resultados
 	    DefaultTableModel model = (DefaultTableModel) tVehiculos.getModel();
 	    model.setRowCount(0);  // Limpiar la tabla
@@ -354,7 +354,7 @@ public class BuscarVehiculos extends JDialog {
                     int filaSeleccionada = tVehiculos.getSelectedRow();
                     if (filaSeleccionada != -1) {
                     	String placa = (String) tVehiculos.getValueAt(filaSeleccionada, 0);
-                    	InformacionVehiculo v =new InformacionVehiculo(2,Control.getVehiculo(placa));
+                    	InformacionVehiculo v =new InformacionVehiculo(opc,Control.getVehiculo(placa),noEmpleado);
                     	v.setVisible(true);
     					try {
 							conexion.close();

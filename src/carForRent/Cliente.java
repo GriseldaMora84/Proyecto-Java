@@ -8,7 +8,7 @@ public class Cliente extends Persona{
 	private String fechaExpLicencia;//Fecha de expiracion
 	private ArrayList<Alquiler> listaAlquileres;
 	
-	public Cliente(int noCliente,String noLicencia,String fechaExpLicencia,int noEmpleado, String nombre, String noCelular, String email) {
+	public Cliente(int noCliente,String noLicencia,String fechaExpLicencia,String nombre, String noCelular, String email) {
 		super(nombre, noCelular, email);
 		this.noCliente=noCliente;
 		this.noLicencia=noLicencia;
