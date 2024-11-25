@@ -239,6 +239,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		//1 indica que se hará un registro y null que no hay un vehículo creado aún
 		InformacionVehiculo v = new InformacionVehiculo(1,null,noEmpleado);
 		v.setVisible(true);
+		
 	}
 
 
