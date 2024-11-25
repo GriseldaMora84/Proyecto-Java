@@ -18,10 +18,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 
 import carForRent.Alquiler;
+import carForRent.Control;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Pagar extends JDialog {
@@ -35,9 +38,21 @@ public class Pagar extends JDialog {
 	private JTextField txtMonto;
 	private boolean cvvValido=false;
 	private boolean tarjetaValida=false;
+	private java.sql.Connection conexion;//Hace la conexión
+	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
+	private java.sql.Statement statementSql;//Realizar consultas
 	
 
 	public Pagar(Alquiler alquiler) {
+		//Conexion a la base de datos
+		try {
+			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
+			statementSql=conexion.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error de conexión");
+		}
 		setTitle("Procesar pago");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,6 +73,9 @@ public class Pagar extends JDialog {
 			txtReferencia.setBounds(136, 11, 168, 23);
 			contentPanel.add(txtReferencia);
 			txtReferencia.setColumns(10);
+			int numero=(int) ((Math.random() * 1000) + 1);
+			txtReferencia.setText( String.valueOf(numero));
+			alquiler.setReferencia(txtReferencia.getText());
 		}
 		{
 			txtTipo = new JTextField();
@@ -190,7 +208,7 @@ public class Pagar extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						aceptar();
+						aceptar(alquiler);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -210,13 +228,31 @@ public class Pagar extends JDialog {
 		}
 	}
 	
-	public void aceptar() {
-
+	public void aceptar(Alquiler alquiler) {
 		if(tarjetaValida && cvvValido) {
-			
+			String consulta = "INSERT INTO alquiler (noAlquiler, inicio, fin, noCliente, idVehiculo, idEmpleado, refPago, costoTotal) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			try {
+			    // Actualizar la información del cliente
+			    ps = conexion.prepareStatement(consulta);
+			    ps.setString(1, alquiler.getNoAqluiler());
+			    ps.setString(2, alquiler.getInicioAqluiler());
+			    ps.setString(3, alquiler.getFinAqluiler());
+			    ps.setInt(4, alquiler.getCliente().getNoCliente());
+			    ps.setInt(5, alquiler.getVehiculo().getId());
+			    ps.setInt(6, (int) alquiler.getIdEmpleado());
+			    ps.setString(7, alquiler.getRefPago());
+			    ps.setDouble(8,alquiler.getCostoTotal());
+			    ps.executeUpdate();  // Ejecuta la actualización del cliente
+			    Control.ingresaAlquiler(alquiler);
+			    alquiler.getCliente().ingresaAlquiler(alquiler);
+			    alquiler.getVehiculo().ingresaAlquiler(alquiler);
+			    Control.getEmpleado(alquiler.getIdEmpleado()).ingresaAlquiler(alquiler);
+			    JOptionPane.showMessageDialog(contentPanel, "Alquiler registrado exitosamente");
+			    dispose();
+			} catch (SQLException e) {
+			    e.printStackTrace();
+			    JOptionPane.showMessageDialog(contentPanel, "Error al modificar el cliente o registrar el alquiler");
+			}
 		}
-
-		
-
 	}
 }

@@ -25,6 +25,18 @@ public class Alquiler {
 		this.costoTotal=costoTotal;
 	}
 	
+	public void setReferencia(String f) {
+		this.refPago=f;
+	}
+	
+	public void setCliente(Cliente c) {
+		this.cliente=c;
+	}
+	
+	public void setVehiculo(Vehiculo v) {
+		this.vehiculo=v;
+	}
+	
 	public void setFinAlquiler(String finAlquiler) {
 		this.finAlquiler=finAlquiler;
 	}

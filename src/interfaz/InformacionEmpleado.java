@@ -23,22 +23,6 @@ public class InformacionEmpleado extends JDialog {
     private JTextField txtNombre;
     private JTextField txtTel;
     private JTextField txtEmail;
-    
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            InformacionEmpleado dialog = new InformacionEmpleado(0, null);
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public InformacionEmpleado(int opc, Empleado empleado) {
         setTitle("Información del Empleado");

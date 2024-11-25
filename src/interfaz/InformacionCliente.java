@@ -183,6 +183,7 @@ public class InformacionCliente extends JDialog {
 
 		// Crear un objeto Cliente con los datos obtenidos
 		Cliente c = new Cliente(id, noLicencia, fechaExpLicencia, nombre, noCelular, email);
+		alquiler.setCliente(c);
 
 			// Actualizar el cliente en la base de datos
 			String consulta = "UPDATE cliente SET nombre = ?, noCelular = ?, email = ?, noLicencia = ?, fechaExpLicencia = ? WHERE id = ?"; //instrucción en sql
@@ -226,6 +227,8 @@ public class InformacionCliente extends JDialog {
 		cliente.setEmail(email);
 		cliente.setNoLicencia(noLicencia);
 		cliente.setFechaExpLicencia(fechaExpLicencia);
+		
+		alquiler.setCliente(cliente);
 		// Actualizar el cliente en la base de datos
 		String consulta = "UPDATE cliente SET id = ?,nombre = ?, noCel = ?, email = ?, noLic = ?, expiracionLic = ? WHERE id ="+id;
 		try {
