@@ -192,13 +192,17 @@ public class BuscarCliente extends JDialog {
 			JOptionPane.showMessageDialog(contentPanel, "Elige una opción");
 		}else {
 			if (rdbNombre.isSelected()) {
+				String nombre=txtNombre.getText();
+				
 				
 	        } else if (rdbNoTel.isSelected()) {
+	        	String noTel=txtTel.getText();
 	        	
 	        } else if (rdbEmail.isSelected()) {
+	        	String email=txtEmail.getText();
 	        	
 	        } else if (rdbNoLic.isSelected()) {
-	        	
+	        	String lic=txtLic.getText();
 	        }
 		}
 	}

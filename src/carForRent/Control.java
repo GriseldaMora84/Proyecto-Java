@@ -126,7 +126,7 @@ public class Control {
 	                rs.getString("noCel"),
 	                rs.getString("email"),
 	                rs.getString("noLic"),
-	                rs.getString("epixarionLic")
+	                rs.getString("expiracionLic")
 	            );
 	            // Agregar el cliente a la lista de clientes
 	            clientes.add(c); 
@@ -147,10 +147,20 @@ public class Control {
 	    return null;
 	}
 	
-	public static Cliente getCliente(int id) {
+	public static Cliente getCliente(String dato) {
 	    for (Cliente c : clientes) {
-	        if (c.getNoCliente()==id) {
-	            return c; // Regresar el vehículo si coincide
+	    	//Dependiendo lo que el usuario eligio en la busqueda
+	        if (c.getNombre().equals(dato)) {
+	            return c; // Regresar el cliente si coincide
+	        }
+	        if(c.getNoCelular().equals(dato)) {
+	            return c; 
+	        }
+	        if(c.getEmail().equals(dato)) {
+	            return c;
+	        }
+	        if(c.getNoLicencia().equals(dato)) {
+	            return c;
 	        }
 	    }
 	    // Si no se encuentra regresar null

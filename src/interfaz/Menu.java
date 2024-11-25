@@ -252,6 +252,9 @@ public Menu(String noEmpleado,String nombreUsuario) {
 	}
 	
 	public void actualizarCliente() {
-		JOptionPane.showMessageDialog(contentPanel, "1");
+		Alquiler alquiler=new Alquiler(String.valueOf( ((Math.random() * 1000) + 1)),"","",
+	    		null,null,null,0,"0");
+		BuscarCliente v=new BuscarCliente(2,alquiler,0,0);
+		v.setVisible(true);
 	}
 }

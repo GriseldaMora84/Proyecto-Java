@@ -222,9 +222,9 @@ public class InformacionCliente extends JDialog {
 			    	JOptionPane.showMessageDialog(contentPanel, "Cliente modificado exitosamente");
 			    	dispose();
 			    }
-			    else {
-			    	//Pagar v=new Pagar();
-			    	//v.setVisible(true);
+			    else {//Alquilar vehiculo
+			    	Pagar v=new Pagar(alquiler,tarifa);
+			    	v.setVisible(true);
 			    }
 			} catch (SQLException e) {
 			    e.printStackTrace();
