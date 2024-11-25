@@ -231,6 +231,20 @@ public Menu(String noEmpleado,String nombreUsuario) {
 		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblHora.setBounds(647, 20, 105, 31);
 		contentPanel.add(lblHora);
+		
+		JButton btnNewButton = new JButton(" ");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Login out=new Login();
+				out.setVisible(true);
+			}
+		});
+		btnNewButton.setBackground(new Color(220, 220, 220));
+		btnNewButton.setForeground(new Color(245, 245, 245));
+		btnNewButton.setIcon(new ImageIcon(Menu.class.getResource("/pictures/logOut.png")));
+		btnNewButton.setBounds(664, 494, 59, 36);
+		contentPanel.add(btnNewButton);
 		reloj();
 
 	}
