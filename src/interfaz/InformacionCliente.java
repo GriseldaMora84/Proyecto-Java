@@ -40,7 +40,7 @@ public class InformacionCliente extends JDialog {
 	private java.sql.PreparedStatement ps;//Para ejecutar consultas SQL precompiladas y parametrizadas.
 	private java.sql.Statement statementSql;//Realizar consultas
 	
-	public InformacionCliente(int opc, Cliente cliente,Alquiler alquiler) {
+	public InformacionCliente(int opc, Cliente cliente,Alquiler alquiler, double tarifa) {
 		//Conexion a la base de datos
 		try {
 			conexion=DriverManager.getConnection("jdbc:mysql://localhost/proyectojava","root" ,"");
@@ -141,7 +141,7 @@ public class InformacionCliente extends JDialog {
 			JButton btnSiguiente = new JButton("Siguiente");
 			btnSiguiente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					siguiente(opc, cliente,alquiler);
+					siguiente(opc, cliente,alquiler,tarifa);
 				}
 			});
 			btnSiguiente.setActionCommand("OK");
@@ -160,7 +160,7 @@ public class InformacionCliente extends JDialog {
 		}
 	}
 	
-	public void siguiente(int opc, Cliente cliente,Alquiler alquiler) {
+	public void siguiente(int opc, Cliente cliente,Alquiler alquiler,double tarifa) {
 		if(opc==1) {
 			int id = Integer.parseInt(txtNoCliente.getText());  // Obtener el ID del cliente
 			String nombre = txtNombre.getText();  // Obtener el nombre del cliente
@@ -223,8 +223,8 @@ public class InformacionCliente extends JDialog {
 			    	dispose();
 			    }
 			    else {
-			    	Pagar v=new Pagar();
-			    	v.setVisible(true);
+			    	//Pagar v=new Pagar();
+			    	//v.setVisible(true);
 			    }
 			} catch (SQLException e) {
 			    e.printStackTrace();
