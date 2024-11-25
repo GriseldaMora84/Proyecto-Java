@@ -244,6 +244,7 @@ public Menu(String noEmpleado,String nombreUsuario) {
 
 	public void modificarInventario() {
 		//BuscarVehiculos v = new BuscarVehiculos();
+		
 
 	}
 	public void modificarInventario(long noEmpleado) {
